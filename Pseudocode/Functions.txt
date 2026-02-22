@@ -1,13 +1,34 @@
 FUNCTIONS
 
-FUNCTION initParkhaus (parkhaus Parkhaus, Ganzzahl parkplaetze, Ganzzahl maximale_Parkdauer):
+FUNCTION initParkhaus (parkhaus Parkhaus, Ganzzahl parkplaetze, Ganzzahl maximale_Parkdauer, auto erstes_auto_in_der_Warteschlange):
     Parkhaus.parkplaetze = parkplaetze
     Parkhaus.maximale_Parkdauer = maximale_Parkdauer
+    Parkhaus.erstes_auto_in_der_Warteschlange = erstes_auto_in_der_Warteschlange
 END FUNCTION
 
-FUNCTION initAuto (auto Auto, Ganzzahl id, Ganzzahl aktuelle_parkdauer):
+FUNCTION initAuto (parkhaus Parkhaus, auto Auto, Ganzzahl id, Ganzzahl aktuelle_parkdauer, auto naechstes_Auto):
     Auto.id = id
-    auto.parkdauer = aktuelle_parkdauer
+    Auto.parkdauer = aktuelle_parkdauer
+    Auto.restliche_parkdauer = Parkhaus.maximale_Parkdauer - aktuelle_parkdauer
+    Auto.naechstes_Auto = naechstes_Auto
 END FUNCTION
+
+FUNCTION Add_car_queue(parkhaus Parkhaus, auto Auto):
+    IF Parkhaus.erstes_auto_in_der_Warteschlange == NULL:
+        Parkhaus.erstes_auto_in_der_Warteschlange = Auto
+        END FUNCTION //return
+    END IF
+    Ganzzahl *aktuelles_Auto = Parkhaus.erstes_auto_in_der_Warteschlange
+    WHILE (aktuelles_Auto.naechstes_Auto != NULL):
+        aktuelles_Auto = aktuelles_Auto.naechstes_Auto
+    END WHILE
+    aktuelles_Auto.naechstes_Auto = Auto
+END FUNCTION
+
+FUNCTION remove_car_queue(parkhaus Parkhaus):
+    IF Parkhaus.erstes_auto_in_der_Warteschlange == NULL:
+        Ausgabe: "Keine Autos in der Warteschlange
+        END FUNCTION
+
 
 
