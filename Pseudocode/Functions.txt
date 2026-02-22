@@ -1,43 +1,45 @@
 FUNCTIONS
 
-FUNCTION initParkhaus (parkhaus Parkhaus, Ganzzahl parkplaetze, Ganzzahl maximale_Parkdauer, auto erstes_auto_in_der_Warteschlange):
-    Parkhaus.parkplaetze = parkplaetze
-    Parkhaus.maximale_Parkdauer = maximale_Parkdauer
-    Parkhaus.erstes_auto_in_der_Warteschlange = erstes_auto_in_der_Warteschlange
+FUNCTION init_Parkhaus (parkhaus pparkhaus, Ganzzahl parkplaetze, Ganzzahl maximale_parkdauer, auto erstes_auto_in_der_warteschlange):
+    pparkhaus.parkplaetze = parkplaetze
+    pparkhaus.maximale_Parkdauer = maximale_Parkdauer
+    pparkhaus.erstes_auto_in_der_warteschlange = erstes_auto_in_der_warteschlange
 END FUNCTION
 
-FUNCTION initAuto (parkhaus Parkhaus, auto Auto, Ganzzahl id, Ganzzahl aktuelle_parkdauer, auto naechstes_Auto):
-    Auto.id = id
-    Auto.parkdauer = aktuelle_parkdauer
-    Auto.restliche_parkdauer = Parkhaus.maximale_Parkdauer - aktuelle_parkdauer
-    Auto.naechstes_Auto = naechstes_Auto
+FUNCTION init_Auto (parkhaus pparkhaus, auto aauto, Ganzzahl id, Ganzzahl aktuelle_parkdauer, auto naechstes_Auto):
+    aauto.id = id
+    aauto.parkdauer = aktuelle_parkdauer
+    aauto.restliche_parkdauer = pparkhaus.maximale_Parkdauer - aktuelle_parkdauer
+    aauto.naechstes_Auto = naechstes_Auto
 END FUNCTION
 
-FUNCTION Add_car_queue(parkhaus Parkhaus, auto Auto):
-    IF Parkhaus.erstes_auto_in_der_Warteschlange == NULL:
-        Parkhaus.erstes_auto_in_der_Warteschlange = Auto
+FUNCTION add_car_queue(parkhaus pparkhaus, auto aauto):
+    IF pparkhaus.erstes_auto_in_der_warteschlange == NULL:
+        Parkhaus.erstes_auto_in_der_warteschlange = Auto
         END FUNCTION //return
     END IF
-    Ganzzahl *aktuelles_Auto = Parkhaus.erstes_auto_in_der_Warteschlange
-    WHILE (aktuelles_Auto.naechstes_Auto != NULL):
-        aktuelles_Auto = aktuelles_Auto.naechstes_Auto
+    Ganzzahl *p_aktuelles_auto = malloc(sizeof(auto))
+    p_aktuelles_auto = pparkhaus.erstes_auto_in_der_warteschlange
+    WHILE (p_aktuelles_auto.naechstes_auto != NULL):
+        p_aktuelles_auto = p_aktuelles_auto.naechstes_Auto
     END WHILE
-    aktuelles_Auto.naechstes_Auto = Auto
+    p_aktuelles_auto.naechstes_auto = auto
+    free(p_aktuelles_auto)
 END FUNCTION
 
-FUNCTION remove_car_queue(parkhaus Parkhaus):
-    IF Parkhaus.erstes_auto_in_der_Warteschlange == NULL:
+FUNCTION remove_car_queue(parkhaus pparkhaus):
+    IF pparkhaus.erstes_auto_in_der_warteschlange == NULL:
         Ausgabe: "Keine Autos in der Warteschlange"
         END FUNCTION
     END IF
-    IF Parkhaus.erstes_auto_in_der_Warteschlange.naechstes_Auto == NULL:
+    IF pparkhaus.erstes_auto_in_der_warteschlange.naechstes_auto == NULL:
         //Möglicherweise braucht das Auto eine Wahrheitsvariable ob es in der Wartschlange befindet. Hier diese Wahrheitsvariable auf 0/false setzen.
         Ausgabe: "Keine Autos mehr in der Warteschlange"
         END FUNCTION
     END IF
     //Möglicherweise braucht das Auto eine Wahrheitsvariable ob es in der Wartschlange befindet. Hier diese Wahrheitsvariable auf 0/false setzen.
-    Parkhaus.erstes_auto_in_der_Warteschlange = Parkhaus.erstes_auto_in_der_Warteschlange.naechstes_Auto
+    pparkhaus.erstes_auto_in_der_warteschlange = parkhaus.erstes_auto_in_der_warteschlange.naechstes_auto
 END FUNCTION
 
-FUNCTION park_car(parkhaus Parkhaus, auto Auto):
+FUNCTION park_car(parkhaus pparkhaus, auto aauto):
     // Besprechung im Team nötig
