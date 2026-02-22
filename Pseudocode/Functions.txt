@@ -39,3 +39,5 @@ FUNCTION remove_car_queue(parkhaus Parkhaus):
     Parkhaus.erstes_auto_in_der_Warteschlange = Parkhaus.erstes_auto_in_der_Warteschlange.naechstes_Auto
 END FUNCTION
 
+FUNCTION park_car(parkhaus Parkhaus, auto Auto):
+    // Besprechung im Team nötig
