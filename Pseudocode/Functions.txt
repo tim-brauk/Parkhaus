@@ -53,21 +53,32 @@ FUNCTION add_car(parkhaus pparkhaus, auto aauto):
     Ganzzahl zufaelliger_parkplatz = 0
     zufaelliger_parkplatz = min + (rand() % (max - min + 1)) 
 
-    FOR Ganzzahl i = 0, i<(sizeof(pparkhaus.parkplaetze) / 4), i++:
+    FOR Ganzzahl i = 0, i < (sizeof(pparkhaus.parkplaetze) / 4), i++: // Besprechung nötig wegen der Liste parkplaetze
         IF !zufaelliger_parkplatz
             pparkhaus.parkplaetze[i].belegt = 1
             pparkhaus.parkplaetze[i].auto = aauto
             END FUNCTION
+        END IF    
         
         IF !pparkhaus.parkplaetze[i].belegt
             freie_parkplaetze = freie_parkplaetze - 1
+        END IF    
     // Von allen freien Parkplätzen wird eins zufällig ausgesucht zum parken. Erst wenn die Variable "freie_parkplaetze" 0 erreicht wird das Auto geparkt.
     // Es wird sozusagen simuliert an wie vielen freien Parkplätzen das Auto vorbeifährt bevor es parkt
     END FUNCTION
     
 
 FUNCTION remove_car(parkhaus pparkhaus, auto aauto):
-    
+    FOR Ganzzahl i = 0, i < (sizeof(pparkhaus.parkplaetze) / 4), i++: // Besprechung nötig wegen der Liste parkplaetze
+        IF aauto == pparkhaus.parkplaetze[i]:
+            pparkhaus.parkplaetze[i].belegt = 0
+            pparkhaus.parkplaetze[i].auto = NULL
+            END FUNCTION
+        END IF
+    END FOR
+    Ausgabe: "Dieses Auto wurde im Parkhaus nicht gefunden"
+    END FUNCTION
+
 
 
 
