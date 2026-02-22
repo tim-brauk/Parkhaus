@@ -1,0 +1,13 @@
+FUNCTIONS
+
+FUNCTION initParkhaus (parkhaus Parkhaus, Ganzzahl parkplaetze, Ganzzahl maximale_Parkdauer):
+    Parkhaus.parkplaetze = parkplaetze
+    Parkhaus.maximale_Parkdauer = maximale_Parkdauer
+END FUNCTION
+
+FUNCTION initAuto (auto Auto, Ganzzahl id, Ganzzahl aktuelle_parkdauer):
+    Auto.id = id
+    auto.parkdauer = aktuelle_parkdauer
+END FUNCTION
+
+
