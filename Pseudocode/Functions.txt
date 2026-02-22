@@ -15,7 +15,7 @@ END FUNCTION
 
 FUNCTION add_car_queue(parkhaus pparkhaus, auto aauto):
     IF pparkhaus.erstes_auto_in_der_warteschlange == NULL:
-        Parkhaus.erstes_auto_in_der_warteschlange = Auto
+        pparkhaus.erstes_auto_in_der_warteschlange = aauto
         END FUNCTION //return
     END IF
     Ganzzahl *p_aktuelles_auto = malloc(sizeof(auto))
@@ -41,5 +41,33 @@ FUNCTION remove_car_queue(parkhaus pparkhaus):
     pparkhaus.erstes_auto_in_der_warteschlange = parkhaus.erstes_auto_in_der_warteschlange.naechstes_auto
 END FUNCTION
 
-FUNCTION park_car(parkhaus pparkhaus, auto aauto):
-    // Besprechung im Team nötig
+FUNCTION add_car(parkhaus pparkhaus, auto aauto):
+    Ganzzahl freie_parkplaetze = 0
+    FOR Ganzzahl i = 0, i<(sizeof(pparkhaus.parkplaetze) / sizeof(parkplaetz)), i++:
+        IF !pparkhaus.parkplaetze 
+            freie_parkplaetze = freie_parkplaetze + 1
+    END FOR
+    
+    min = 0
+    max = frei_parkplaetze
+    Ganzzahl zufaelliger_parkplatz = 0
+    zufaelliger_parkplatz = min + (rand() % (max - min + 1)) 
+
+    FOR Ganzzahl i = 0, i<(sizeof(pparkhaus.parkplaetze) / 4), i++:
+        IF !zufaelliger_parkplatz
+            pparkhaus.parkplaetze[i].belegt = 1
+            pparkhaus.parkplaetze[i].auto = aauto
+            END FUNCTION
+        
+        IF !pparkhaus.parkplaetze[i].belegt
+            freie_parkplaetze = freie_parkplaetze - 1
+    // Von allen freien Parkplätzen wird eins zufällig ausgesucht zum parken. Erst wenn die Variable "freie_parkplaetze" 0 erreicht wird das Auto geparkt.
+    // Es wird sozusagen simuliert an wie vielen freien Parkplätzen das Auto vorbeifährt bevor es parkt
+    END FUNCTION
+    
+
+FUNCTION remove_car(parkhaus pparkhaus, auto aauto):
+    
+
+
+
