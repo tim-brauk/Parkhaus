@@ -27,8 +27,15 @@ END FUNCTION
 
 FUNCTION remove_car_queue(parkhaus Parkhaus):
     IF Parkhaus.erstes_auto_in_der_Warteschlange == NULL:
-        Ausgabe: "Keine Autos in der Warteschlange
+        Ausgabe: "Keine Autos in der Warteschlange"
         END FUNCTION
-
-
+    END IF
+    IF Parkhaus.erstes_auto_in_der_Warteschlange.naechstes_Auto == NULL:
+        //Möglicherweise braucht das Auto eine Wahrheitsvariable ob es in der Wartschlange befindet. Hier diese Wahrheitsvariable auf 0/false setzen.
+        Ausgabe: "Keine Autos mehr in der Warteschlange"
+        END FUNCTION
+    END IF
+    //Möglicherweise braucht das Auto eine Wahrheitsvariable ob es in der Wartschlange befindet. Hier diese Wahrheitsvariable auf 0/false setzen.
+    Parkhaus.erstes_auto_in_der_Warteschlange = Parkhaus.erstes_auto_in_der_Warteschlange.naechstes_Auto
+END FUNCTION
 
