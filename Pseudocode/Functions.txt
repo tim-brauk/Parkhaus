@@ -80,12 +80,7 @@ FUNCTION remove_car(Parkhaus *p_parkhaus, Auto *p_auto):
     free(p_auto)
 END FUNCTION
 
-FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
-    Ganzzahl min = 0
-    Ganzzahl max = 100
-    Ganzzahl neue_autos = 0
-    neue_autos = min + rand() % (max - min + 1) //zwischen 0 und 100 Autos die reinfahren wollen+
-
+FUNCTION remove_cars_max_parktime(Parkhaus *p_parkhaus):
     FOR Ganzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
         IF p_parkhaus->parkplaetze[i].auto != NULL:
             IF p_parkhaus->parkplaetze[i].auto.parkdauer >= p_parkhaus->maximale_parkdauer:
@@ -94,6 +89,15 @@ FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
             END IF
         END IF
     END FOR
+END FUNCTION
+
+FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
+    Ganzzahl min = 0
+    Ganzzahl max = 100
+    Ganzzahl neue_autos = 0
+    neue_autos = min + rand() % (max - min + 1) //zwischen 0 und 100 Autos die reinfahren wollen+
+
+    remove_cars_max_parktime(Parkhaus *p_parkhaus)
 
     FOR Ganzzahl i = 0, i < neue_autos, i++:
         IF p_parkhaus->p_erstes_auto_in_der_warteschlange == NULL:
