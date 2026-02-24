@@ -15,24 +15,24 @@ END FUNCTION
 
 FUNCTION add_car_queue(Parkhaus *p_parkhaus, Auto *p_auto):
     IF p_parkhaus->p_erstes_auto_in_der_warteschlange == NULL:
-        p_parkhaus->erstes_auto_in_der_warteschlange = p_auto
+        p_parkhaus->p_erstes_auto_in_der_warteschlange = p_auto
+        p_auto->p_naechstes_auto = NULL
         END FUNCTION //return
     END IF
-    Ganzzahl *p_aktuelles_auto = malloc(sizeof(Auto))
-    p_aktuelles_auto = p_parkhaus->erstes_auto_in_der_warteschlange
-    WHILE (p_aktuelles_auto.naechstes_auto != NULL):
-        p_aktuelles_auto = p_aktuelles_auto->naechstes_auto
+    Auto *p_aktuelles_auto = p_parkhaus->p_erstes_auto_in_der_warteschlange
+    WHILE (p_aktuelles_auto->p_naechstes_auto != NULL):
+        p_aktuelles_auto = p_aktuelles_auto->p_naechstes_auto
     END WHILE
-    p_aktuelles_auto->naechstes_auto = p_auto
-    free(p_aktuelles_auto)
+    p_aktuelles_auto->p_naechstes_auto = p_auto
+    p_auto->p_naechstes_auto = NULL
 END FUNCTION
 
 FUNCTION remove_car_queue(Parkhaus *p_parkhaus):
-    IF p_parkhaus->erstes_auto_in_der_warteschlange == NULL:
+    IF p_parkhaus->p_erstes_auto_in_der_warteschlange == NULL:
         Ausgabe: "Keine Autos in der Warteschlange"
         END FUNCTION
     END IF
-    IF p_parkhaus->erstes_auto_in_der_warteschlange->naechstes_auto == NULL:
+    IF p_parkhaus->p_erstes_auto_in_der_warteschlange->naechstes_auto == NULL:
         //Möglicherweise braucht das Auto eine Wahrheitsvariable ob es in der Wartschlange befindet. Hier diese Wahrheitsvariable auf 0/false setzen.
         Ausgabe: "Keine Autos mehr in der Warteschlange"
         END FUNCTION
