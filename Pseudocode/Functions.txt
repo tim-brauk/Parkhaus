@@ -33,12 +33,12 @@ FUNCTION remove_car_queue(Parkhaus *p_parkhaus):
         END FUNCTION
     END IF
     IF p_parkhaus->p_erstes_auto_in_der_warteschlange->naechstes_auto == NULL:
-        //Möglicherweise braucht das Auto eine Wahrheitsvariable ob es in der Wartschlange befindet. Hier diese Wahrheitsvariable auf 0/false setzen.
-        Ausgabe: "Keine Autos mehr in der Warteschlange"
+        p_parkhaus->p_erstes_auto_in_der_warteschlange = NULL
         END FUNCTION
     END IF
-    //Möglicherweise braucht das Auto eine Wahrheitsvariable ob es in der Wartschlange befindet. Hier diese Wahrheitsvariable auf 0/false setzen.
-    p_parkhaus->erstes_auto_in_der_warteschlange = parkhaus->erstes_auto_in_der_warteschlange->naechstes_auto
+    Auto *p_auto_zwischenspeicher = parkhaus->p_erstes_auto_in_der_warteschlange->naechstes_auto
+    p_parkhaus->p_erstes_auto_in_der_warteschlange = NULL
+    p_parkhaus->p_erstes_auto_in_der_warteschlange = p_auto_zwischenspeicher
 END FUNCTION
 
 FUNCTION add_car(Parkhaus *p_parkhaus, Auto *p_auto):
@@ -46,6 +46,7 @@ FUNCTION add_car(Parkhaus *p_parkhaus, Auto *p_auto):
     FOR Ganzzahl i = 0, i<(sizeof(p_parkhaus.parkplaetze) / sizeof(parkplaetz)), i++:
         IF !p_parkhaus.parkplaetze 
             freie_parkplaetze = freie_parkplaetze + 1
+        END IF
     END FOR
     
     min = 0
@@ -155,7 +156,6 @@ FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
 
     WHILE p_parkhaus->p_erster_in_der_warteschlange != NULL AND frei_parkplaetze: //Solange freie Parkplätze und Autos in der Warteschlange werden autos ins parkhaus hinzugefügt
         add_car(Parkhaus *p_parkhaus, Auto *p_parkhaus->p_erster_in_der_warteschlange)
-        frei_parkplaetze = 0 //Setzen der Variable wieder auf 0. Falls es noch frei gibt wird es Neu zugewiesen
         freie_parkplaetze = check_garage_for_space(Parkhaus *p_parkhaus)
     END WHILE
 END FUNCTION
