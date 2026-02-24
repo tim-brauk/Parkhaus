@@ -91,14 +91,7 @@ FUNCTION remove_cars_max_parktime(Parkhaus *p_parkhaus):
     END FOR
 END FUNCTION
 
-FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
-    Ganzzahl min = 0
-    Ganzzahl max = 100
-    Ganzzahl neue_autos = 0
-    neue_autos = min + rand() % (max - min + 1) //zwischen 0 und 100 Autos die reinfahren wollen+
-
-    remove_cars_max_parktime(Parkhaus *p_parkhaus)
-
+FUNCTION add_num_of_cars(Ganzzahl neue_autos, Parkhaus *p_parkhaus):
     FOR Ganzzahl i = 0, i < neue_autos, i++:
         IF p_parkhaus->p_erstes_auto_in_der_warteschlange == NULL:
             Auto aauto = NULL
@@ -110,9 +103,30 @@ FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
             add_car_queue(parkhaus *p_parkhaus, Auto aauto)
         END IF
     END FOR
+END FUNCTION
+
+FUNCTION remove_num_of_cars(Ganzzahl rausfahrende_autos, Parkhaus *p_parkhaus):
+        FOR Ganzzahl i = 0, i < rausfahrende_autos, i++:
+        IF p_parkhaus->parkplaetze[i].belegt:
+            p_parkhaus->parkplaetze[i].belegt = 0
+            p_parkhaus->parkplaetze[i].auto = NULL
+        END IF
+    END FOR
+END FUNCTION
+    
+
+FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
+    Ganzzahl min = 0
+    Ganzzahl max = 100
+    Ganzzahl neue_autos = 0
+    neue_autos = min + rand() % (max - min + 1) //zwischen 0 und 100 Autos die reinfahren wollen+
+
+    remove_cars_max_parktime(Parkhaus *p_parkhaus)
+    add_num_of_cars(Ganzzahl neue_autos, Parkhaus *p_parkhaus)
 
     Ganzzahl aktuell_autos_im_parkhaus = 0
 
+    //Zählen wie viele Autos im Parkhaus
     FOR Ganzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
         IF pparkhaus->parkplaetze[i].auto != NULL:
             aktuell_autos_im_parkhaus = aktuell_autos_im_parkhaus + 1
@@ -123,13 +137,8 @@ FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
     min = 0
     max = aktuell_autos_im_parkhaus
     rausfahrende_autos = min + rand() % (max - min + 1)
-
-    FOR Ganzzahl i = 0, i < rausfahrende_autos, i++:
-        IF p_parkhaus->parkplaetze[i].belegt:
-            p_parkhaus->parkplaetze[i].beleg = 0
-            p_parkhaus->parkplaetze[i].auto = NULL
-        END IF
-    END FOR
+    
+    remove_num_of_cars(Ganzzahl rausfahrende_autos, Parkhaus *p_parkhaus)
 
     Ganzzahl freie_parkplaetze = 0; // 0 = keine freien Parkplaetze. 1 = freie Parkplaetze
 
@@ -141,6 +150,7 @@ FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
 
     WHILE p_parkhaus->p_erster_in_der_warteschlange != NULL AND frei_parkplaetze: //Solange freie Parkplätze und Autos in der Warteschlange werden autos ins parkhaus hinzugefügt
         add_car(Parkhaus *p_parkhaus, Auto *p_parkhaus->p_erster_in_der_warteschlange)
+        frei_parkplaetze = 0 //Setzen der Variable wieder auf 0. Falls es noch frei gibt wird es Neu zugewiesen
         FOR Ganzzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
             IF(pparkhaus->parkplaetze[i] == NULL):
                 frei_parkplaetze = 1
