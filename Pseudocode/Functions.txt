@@ -36,8 +36,8 @@ FUNCTION remove_car_queue(Parkhaus *p_parkhaus):
         p_parkhaus->p_erstes_auto_in_der_warteschlange = NULL
         END FUNCTION
     END IF
-    Auto *p_auto_zwischenspeicher = parkhaus->p_erstes_auto_in_der_warteschlange->naechstes_auto
-    p_parkhaus->p_erstes_auto_in_der_warteschlange = NULL
+    Auto *p_auto_zwischenspeicher = parkhaus->p_erstes_auto_in_der_warteschlange->p_naechstes_auto
+    p_parkhaus->p_erstes_auto_in_der_warteschlange->p_naechstes_auto = NULL
     p_parkhaus->p_erstes_auto_in_der_warteschlange = p_auto_zwischenspeicher
 END FUNCTION
 
@@ -57,7 +57,7 @@ FUNCTION add_car(Parkhaus *p_parkhaus, Auto *p_auto):
     FOR Ganzzahl i = 0, i < (sizeof(p_parkhaus.parkplaetze) / 4), i++: // Besprechung nötig wegen der Liste parkplaetze
         IF !zufaelliger_parkplatz
             p_parkhaus->parkplaetze[i].belegt = 1
-            p_parkhaus->parkplaetze[i].auto = aauto
+            p_parkhaus->parkplaetze[i].auto = p_auto
             END FUNCTION
         END IF    
         
@@ -74,6 +74,7 @@ FUNCTION remove_car(Parkhaus *p_parkhaus, Auto *p_auto):
         IF p_auto == p_parkhaus->parkplaetze[i]:
             p_parkhaus->parkplaetze[i].belegt = 0
             p_parkhaus->parkplaetze[i].auto = NULL
+            free(p_auto)
             END FUNCTION
         END IF
     END FOR
@@ -156,6 +157,7 @@ FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
 
     WHILE p_parkhaus->p_erster_in_der_warteschlange != NULL AND frei_parkplaetze: //Solange freie Parkplätze und Autos in der Warteschlange werden autos ins parkhaus hinzugefügt
         add_car(Parkhaus *p_parkhaus, Auto *p_parkhaus->p_erster_in_der_warteschlange)
+        remove_car_queue(Parkhaus *p_parkhaus)
         freie_parkplaetze = check_garage_for_space(Parkhaus *p_parkhaus)
     END WHILE
 END FUNCTION
