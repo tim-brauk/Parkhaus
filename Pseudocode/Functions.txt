@@ -79,37 +79,37 @@ FUNCTION remove_car(Parkhaus *p_parkhaus, Auto *p_auto):
     Ausgabe: "Dieses Auto wurde im Parkhaus nicht gefunden"
 END FUNCTION
 
-FUNCTION simulate_timestep(parkhaus pparkhaus):
+FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
     Ganzzahl min = 0
     Ganzzahl max = 100
     Ganzzahl neue_autos = 0
     neue_autos = min + rand() % (max - min + 1) //zwischen 0 und 100 Autos die reinfahren wollen+
 
-    FOR Ganzahl i = 0, i < (sizeof(pparkhaus.parkplaetze) / sizeof(parkplatz)), i++:
-        IF pparkhaus.parkplaetze[i].A != NULL:
-            IF pparkhaus.parkplaetze[i].A.parkdauer >= pparkhaus.maximale_parkdauer:
-                pparkhaus.parkplaetze[i].belegt = 0
-                pparkhaus.parkplaetze[i].A = NULL //Falls Parkdauer überschritten fährt das Auto raus
+    FOR Ganzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
+        IF p_parkhaus->parkplaetze[i].auto != NULL:
+            IF p_parkhaus->parkplaetze[i].auto.parkdauer >= p_parkhaus->maximale_parkdauer:
+                p_parkhaus->parkplaetze[i].belegt = 0
+                p_parkhaus->parkplaetze[i].auto = NULL //Falls Parkdauer überschritten fährt das Auto raus
             END IF
         END IF
     END FOR
 
     FOR Ganzzahl i = 0, i < neue_autos, i++:
-        IF pparkhaus.erstes_auto_in_der_warteschlange == NULL:
-            A aauto = NULL
-            init_auto(parkhaus pparkhaus, A aauto, Ganzzahl id, A NULL) //Besprechung bezüglich Logik
-            pparkhaus.erstes_auto_in_der_warteschlange = aauto
+        IF p_parkhaus->p_erstes_auto_in_der_warteschlange == NULL:
+            Auto aauto = NULL
+            init_auto(parkhaus *p_parkhaus, Auto aauto, Ganzzahl id, Auto NULL) //Besprechung bezüglich Logik
+            p_parkhaus->p_erstes_auto_in_der_warteschlange = aauto
         ELSE
-            A aauto = NULL
-            init_auto(parkhaus pparkhaus, A aauto, Ganzzahl id, A NULL)
-            add_car_queue(parkhaus pparkhaus, A aauto)
+            Auto aauto = NULL
+            init_auto(Parkhaus *p_parkhaus, Auto aauto, Ganzzahl id, Auto NULL)
+            add_car_queue(parkhaus *p_parkhaus, Auto aauto)
         END IF
     END FOR
 
     Ganzzahl aktuell_autos_im_parkhaus = 0
 
-    FOR Ganzahl i = 0, i < (sizeof(pparkhaus.parkplaetze) / sizeof(parkplatz)), i++:
-        IF pparkhaus.parkplaetze[i].A != NULL:
+    FOR Ganzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
+        IF pparkhaus->parkplaetze[i].auto != NULL:
             aktuell_autos_im_parkhaus = aktuell_autos_im_parkhaus + 1
         END IF
     END FOR
@@ -120,24 +120,24 @@ FUNCTION simulate_timestep(parkhaus pparkhaus):
     rausfahrende_autos = min + rand() % (max - min + 1)
 
     FOR Ganzzahl i = 0, i < rausfahrende_autos, i++:
-        IF pparkhaus.parkplaetze[i].belegt:
-            pparkhaus.parkplaetze[i].beleg = 0
-            pparkhaus.parkplaetze[i].A = NULL
+        IF p_parkhaus->parkplaetze[i].belegt:
+            p_parkhaus->parkplaetze[i].beleg = 0
+            p_parkhaus->parkplaetze[i].auto = NULL
         END IF
     END FOR
 
     Ganzzahl freie_parkplaetze = 0; // 0 = keine freien Parkplaetze. 1 = freie Parkplaetze
 
-    FOR Ganzzahl i = 0, i < (sizeof(pparkhaus.parkplaetze) / sizeof(parkplatz)), i++:
-        IF(pparkhaus.parkplaetze[i] == NULL):
+    FOR Ganzzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
+        IF(p_parkhaus->parkplaetze[i] == NULL):
             frei_parkplaetze = 1
         END IF
     END FOR //Überprüfen ob freie Parkplaetze vorhanden
 
-    WHILE pparkhaus.erster_in_der_warteschlange != NULL AND frei_parkplaetze: //Solange freie Parkplätze und Autos in der Warteschlange werden autos ins parkhaus hinzugefügt
-        add_car(parkhaus pparkhaus, A pparkhaus.erster_in_der_warteschlange)
-        FOR Ganzzahl i = 0, i < (sizeof(pparkhaus.parkplaetze) / sizeof(parkplatz)), i++:
-            IF(pparkhaus.parkplaetze[i] == NULL):
+    WHILE p_parkhaus->p_erster_in_der_warteschlange != NULL AND frei_parkplaetze: //Solange freie Parkplätze und Autos in der Warteschlange werden autos ins parkhaus hinzugefügt
+        add_car(Parkhaus *p_parkhaus, Auto *p_parkhaus->p_erster_in_der_warteschlange)
+        FOR Ganzzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
+            IF(pparkhaus->parkplaetze[i] == NULL):
                 frei_parkplaetze = 1
             END IF
         END FOR //Überprüfen ob freie Parkplaetze vorhanden
