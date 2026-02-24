@@ -113,6 +113,15 @@ FUNCTION remove_num_of_cars(Ganzzahl rausfahrende_autos, Parkhaus *p_parkhaus):
         END IF
     END FOR
 END FUNCTION
+
+FUNCTION check_garage_for_space(Parkhaus *p_parkhaus): // 1 bei freien Parkplätzen. 0 wenn keine freien parkplätze
+    FOR Ganzzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
+        IF(p_parkhaus->parkplaetze[i] == NULL):
+            return 1
+        END IF
+    END FOR
+    return 0
+END FUNCTION
     
 
 FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
@@ -128,7 +137,7 @@ FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
 
     //Zählen wie viele Autos im Parkhaus
     FOR Ganzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
-        IF pparkhaus->parkplaetze[i].auto != NULL:
+        IF p_parkhaus->parkplaetze[i].auto != NULL:
             aktuell_autos_im_parkhaus = aktuell_autos_im_parkhaus + 1
         END IF
     END FOR
@@ -142,22 +151,12 @@ FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
 
     Ganzzahl freie_parkplaetze = 0; // 0 = keine freien Parkplaetze. 1 = freie Parkplaetze
 
-    FOR Ganzzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
-        IF(p_parkhaus->parkplaetze[i] == NULL):
-            frei_parkplaetze = 1
-        END IF
-    END FOR //Überprüfen ob freie Parkplaetze vorhanden
+    freie_parkplaetze = check_garage_for_space(Parkhaus *p_parkhaus)
 
     WHILE p_parkhaus->p_erster_in_der_warteschlange != NULL AND frei_parkplaetze: //Solange freie Parkplätze und Autos in der Warteschlange werden autos ins parkhaus hinzugefügt
         add_car(Parkhaus *p_parkhaus, Auto *p_parkhaus->p_erster_in_der_warteschlange)
         frei_parkplaetze = 0 //Setzen der Variable wieder auf 0. Falls es noch frei gibt wird es Neu zugewiesen
-        FOR Ganzzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
-            IF(pparkhaus->parkplaetze[i] == NULL):
-                frei_parkplaetze = 1
-            END IF
-        END FOR //Überprüfen ob freie Parkplaetze vorhanden
+        freie_parkplaetze = check_garage_for_space(Parkhaus *p_parkhaus)
     END WHILE
 END FUNCTION
     
-
-
