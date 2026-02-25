@@ -36,7 +36,7 @@ FUNCTION remove_car_queue(Parkhaus *p_parkhaus):
         p_parkhaus->p_erstes_auto_in_der_warteschlange = NULL
         END FUNCTION
     END IF
-    Auto *p_auto_zwischenspeicher = parkhaus->p_erstes_auto_in_der_warteschlange->p_naechstes_auto
+    Auto *p_auto_zwischenspeicher = p_parkhaus->p_erstes_auto_in_der_warteschlange->p_naechstes_auto
     p_parkhaus->p_erstes_auto_in_der_warteschlange->p_naechstes_auto = NULL
     p_parkhaus->p_erstes_auto_in_der_warteschlange = p_auto_zwischenspeicher
 END FUNCTION
