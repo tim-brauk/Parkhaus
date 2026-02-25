@@ -27,14 +27,16 @@ FUNCTION add_car_queue(Parkhaus *p_parkhaus, Auto *p_auto):
     p_auto->p_naechstes_auto = NULL
 END FUNCTION
 
-FUNCTION remove_car_queue(Parkhaus *p_parkhaus):
+FUNCTION (Auto) remove_car_queue(Parkhaus *p_parkhaus):
     IF p_parkhaus->p_erstes_auto_in_der_warteschlange == NULL:
         Ausgabe: "Keine Autos in der Warteschlange"
         END FUNCTION
     END IF
     IF p_parkhaus->p_erstes_auto_in_der_warteschlange->naechstes_auto == NULL:
+        Auto *p_auto_zwischenspeicher = malloc(sizeof(Auto))
+        p_auto_zwischenspeicher = p_parkhaus->p_erstes_auto_in_der_warteschlange
         p_parkhaus->p_erstes_auto_in_der_warteschlange = NULL
-        END FUNCTION
+        END FUNCTION return p_auto_zwischenspeicher
     END IF
     Auto *p_auto_zwischenspeicher = p_parkhaus->p_erstes_auto_in_der_warteschlange->p_naechstes_auto
     p_parkhaus->p_erstes_auto_in_der_warteschlange->p_naechstes_auto = NULL
@@ -128,12 +130,15 @@ END FUNCTION
 
 FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
     Ganzzahl min = 0
-    Ganzzahl max = 100
-    Ganzzahl neue_autos = 0
-    neue_autos = min + rand() % (max - min + 1) //zwischen 0 und 100 Autos die reinfahren wollen+
-
+    Ganzzahl max = 1
+    Fließkommazahl zufall = 0
+    zufall = min + ((Fließkommazahl)rand() / RAND_MAX) * (max - min) // liefert eine zufällige Kommazahl zwischen 0-1 (wird benötigt bezüglich des Vergleichs mit der Wahrscheinlichkeit)
+    //RAND_MAX ist eine C definierte Konstante die den maximalwert von rand liefert.
     remove_cars_max_parktime(Parkhaus *p_parkhaus)
-    add_num_of_cars(Ganzzahl neue_autos, Parkhaus *p_parkhaus)
+    IF zufall >= WAHRSCHEINLICHKEIT_NEUES_AUTO: // ">=" statt ">" da falls Wahrscheinlichkeit = 1 und zufall = 1 soll trotzdem Auto rein. Bei 100% wahrscheinlichkeit MUSS eine Auto rein
+        Auto *p_neues_auto = init_car(Parkhaus *p_parkhaus)
+        add_car_queue(Parkhaus *p_parkhaus, Auto *p_neues_auto)
+    END IF
 
     Ganzzahl aktuell_autos_im_parkhaus = 0
 
@@ -143,22 +148,23 @@ FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
             aktuell_autos_im_parkhaus = aktuell_autos_im_parkhaus + 1
         END IF
     END FOR
-    
-    Ganzzahl rausfahrende_autos = 0
+
+    zufall min + ((Fließkommazahl)rand() / RAND_MAX) * (max - min)
     min = 0
-    max = aktuell_autos_im_parkhaus
-    rausfahrende_autos = min + rand() % (max - min + 1)
+    max = aktuell_autos_im_parkhaus - 1
+    Ganzzahl rausfahrendes_auto = min + rand() % (max - min + 1)
     
-    remove_num_of_cars(Ganzzahl rausfahrende_autos, Parkhaus *p_parkhaus)
+    IF zufall >= WAHRSCHEINLICHKEIT_AUTO_RAUSFAHREN:
+        remove_car(Parkhaus *p_parkhaus, Auto *p_parkhaus->parkplaetze[rausfahrendes_auto]->auto)
+    END IF
 
-    Ganzzahl freie_parkplaetze = 0; // 0 = keine freien Parkplaetze. 1 = freie Parkplaetze
+    Ganzzahl freie_parkplaetze_wahrheitsvariable = 0; // 0 = keine freien Parkplaetze. 1 = freie Parkplaetze
 
-    freie_parkplaetze = check_garage_for_space(Parkhaus *p_parkhaus)
-
-    WHILE p_parkhaus->p_erster_in_der_warteschlange != NULL AND frei_parkplaetze: //Solange freie Parkplätze und Autos in der Warteschlange werden autos ins parkhaus hinzugefügt
-        add_car(Parkhaus *p_parkhaus, Auto *p_parkhaus->p_erster_in_der_warteschlange)
-        remove_car_queue(Parkhaus *p_parkhaus)
-        freie_parkplaetze = check_garage_for_space(Parkhaus *p_parkhaus)
-    END WHILE
+    freie_parkplaetze_wahrheitsvariable = check_garage_for_space(Parkhaus *p_parkhaus)
+    
+    IF freie_parkplaetze_wahrheits AND p_parkhaus->erster_in_der_warteschlange != NULL:
+        Auto *p_auto_hinzufügen_aus_queue = remove_car_queue(Parkhaus *p_parkhaus)
+        add_car(Parkhaus *p_parkhaus, Auto *p_auto_hinzufügen_aus_queue)
+    END IF
 END FUNCTION
     
