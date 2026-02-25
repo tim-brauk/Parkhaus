@@ -131,6 +131,13 @@ END FUNCTION
     
 
 FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
+    //jedem Fahrzeug die aktuelle parkzeit um 1 erhöhen
+    FOR Ganzzahl i = 0, i < sizeof(p_parkhaus->parkplaetze) / sizeof(Parkplatz), i++:
+        IF p_parkhaus->parkplaetze[i].belegt
+            p_parkhaus->parkplaetze[i]->auto.parkdauer = p_parkhaus->parkplaetze[i]->auto.parkdauer + 1
+        END IF
+    END FOR    
+    
     Ganzzahl min = 0
     Ganzzahl max = 1
     Fließkommazahl zufall = 0
