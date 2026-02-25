@@ -1,20 +1,26 @@
 STRUCTS
 
-auto:
-unsigned int id //ID für jedes Auto int da eine zahl ausreicht
+Auto:
+int id //ID für jedes Auto int da eine zahl ausreicht
 int parkdauer //parkdauer in sekunden 
 int einfahrtszeit //einfahrtszeit
+int verbleibende_parkdauer
+Auto *p_naechstes_auto
 
+Parkhaus:
+int maximale_parkdauer
+Parkplatz *p_parkplaetze
+Auto *p_erstes_auto_in_der_warteschlange
+int anzahl_parkplaetze
+unsigned int belegte_parkplaetze //belegte_parkplaetze !< parkplaetze
 
-parkhaus:
-unsigned int parkplaetze = 0// einstellen ueber Terminal
-unsigned int belegte_parkplaetze = 0 //belegte_parkplaetze !< parkplaetze
+Simulationsparameter:
+int anzahl_parkplaetze
+int maximale_parkdauer//parkdauer in min
+float  simulations_dauer //simulations_dauer in stunden 
+int seed
 
-simulationsparameter:
-unsigned int parkplaetze = 0
-float  maxparkdauer = 0 //parkdauer in min
-float  simulations_dauer = 0 //simulations_dauer in stunden 
-int seed = rand // seed für die simulations_dauer
+Parkplatz:
+int belegt
+Auto *p_auto
 
-
-Datentypen von anderen wichtigen Variabeln
