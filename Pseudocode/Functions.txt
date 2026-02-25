@@ -1,17 +1,18 @@
 FUNCTIONS
 
-FUNCTION init_parkhaus (Parkhaus *p_parkhaus, Ganzzahl parkplaetze, Ganzzahl maximale_parkdauer, Auto *p_erstes_auto_in_der_warteschlange):
-    p_parkhaus->parkplaetze = parkplaetze
-    p_parkhaus->maximale_parkdauer = maximale_parkdauer
-    p_parkhaus->p_erstes_auto_in_der_warteschlange = p_erstes_auto_in_der_warteschlange
-END FUNCTION
+FUNCTION (Parkhaus) init_parkhaus (Parkplatz *p_parkplaetze, Ganzzahl maximale_parkdauer):
+    Parkhaus *p_parkhaus = malloc(sizeof(Parkhaus))
+    p_parkhaus->p_parkplaetze = p_parkplaetze
+    p_parkhaus.maximale_parkdauer = maximale_parkdauer
+    p_parkhaus->p_erstes_auto_in_der_warteschlange = NULL
+END FUNCTION return p_parkhaus
 
-FUNCTION init_auto (Parkhaus *p_parkhaus, Auto *p_auto, Ganzzahl id, Auto p_naechstes_auto):
+FUNCTION (Auto) init_auto (Parkhaus *p_parkhaus, Ganzzahl id):
+    Auto *p_auto = malloc(sizeof(Auto))
     p_auto.id = id
     p_auto.parkdauer = 0
-    p_auto.restliche_parkdauer = p_parkhaus.maximale_parkdauer - aktuelle_parkdauer // Hier nochmal besprechen
-    p_auto->p_naechstes_auto = p_naechstes_auto
-END FUNCTION
+    p_auto->p_naechstes_auto = NULL //wird bei add_car_queue gesetzt
+END FUNCTION return p_auto
 
 FUNCTION add_car_queue(Parkhaus *p_parkhaus, Auto *p_auto):
     IF p_parkhaus->p_erstes_auto_in_der_warteschlange == NULL:
@@ -30,18 +31,18 @@ END FUNCTION
 FUNCTION (Auto) remove_car_queue(Parkhaus *p_parkhaus):
     IF p_parkhaus->p_erstes_auto_in_der_warteschlange == NULL:
         Ausgabe: "Keine Autos in der Warteschlange"
-        END FUNCTION
+        END FUNCTION return NULL
     END IF
     IF p_parkhaus->p_erstes_auto_in_der_warteschlange->naechstes_auto == NULL:
-        Auto *p_auto_zwischenspeicher = malloc(sizeof(Auto))
-        p_auto_zwischenspeicher = p_parkhaus->p_erstes_auto_in_der_warteschlange
+        Auto *p_auto_zwischenspeicher = p_parkhaus->p_erstes_auto_in_der_warteschlange
         p_parkhaus->p_erstes_auto_in_der_warteschlange = NULL
         END FUNCTION return p_auto_zwischenspeicher
     END IF
-    Auto *p_auto_zwischenspeicher = p_parkhaus->p_erstes_auto_in_der_warteschlange->p_naechstes_auto
+    Auto *p_auto_zwischenspeicher = malloc(sizeof(Auto))
+    p_auto_zwischenspeicher = p_parkhaus->p_erstes_auto_in_der_warteschlange->p_naechstes_auto
     p_parkhaus->p_erstes_auto_in_der_warteschlange->p_naechstes_auto = NULL
     p_parkhaus->p_erstes_auto_in_der_warteschlange = p_auto_zwischenspeicher
-END FUNCTION
+END FUNCTION return p_auto_zwischenspeicher
 
 FUNCTION add_car(Parkhaus *p_parkhaus, Auto *p_auto):
     Ganzzahl freie_parkplaetze = 0
@@ -89,13 +90,14 @@ FUNCTION remove_cars_max_parktime(Parkhaus *p_parkhaus):
         IF p_parkhaus->parkplaetze[i].auto != NULL:
             IF p_parkhaus->parkplaetze[i].auto.parkdauer >= p_parkhaus->maximale_parkdauer:
                 p_parkhaus->parkplaetze[i].belegt = 0
-                p_parkhaus->parkplaetze[i].auto = NULL //Falls Parkdauer überschritten fährt das Auto raus
+                free(p_parkhaus->parkplaetze[i]->auto)
+                p_parkhaus->parkplaetze[i]->auto = NULL //Falls Parkdauer überschritten fährt das Auto raus
             END IF
         END IF
     END FOR
 END FUNCTION
 
-FUNCTION add_num_of_cars(Ganzzahl neue_autos, Parkhaus *p_parkhaus):
+/*FUNCTION add_num_of_cars(Ganzzahl neue_autos, Parkhaus *p_parkhaus):
     FOR Ganzzahl i = 0, i < neue_autos, i++:
         IF p_parkhaus->p_erstes_auto_in_der_warteschlange == NULL:
             Auto aauto = NULL
@@ -107,16 +109,16 @@ FUNCTION add_num_of_cars(Ganzzahl neue_autos, Parkhaus *p_parkhaus):
             add_car_queue(parkhaus *p_parkhaus, Auto aauto)
         END IF
     END FOR
-END FUNCTION
+END FUNCTION*/
 
-FUNCTION remove_num_of_cars(Ganzzahl rausfahrende_autos, Parkhaus *p_parkhaus):
+/*FUNCTION remove_num_of_cars(Ganzzahl rausfahrende_autos, Parkhaus *p_parkhaus):
         FOR Ganzzahl i = 0, i < rausfahrende_autos, i++:
         IF p_parkhaus->parkplaetze[i].belegt:
             p_parkhaus->parkplaetze[i].belegt = 0
             p_parkhaus->parkplaetze[i].auto = NULL
         END IF
     END FOR
-END FUNCTION
+END FUNCTION*/
 
 FUNCTION check_garage_for_space(Parkhaus *p_parkhaus): // 1 bei freien Parkplätzen. 0 wenn keine freien parkplätze
     FOR Ganzzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
