@@ -3,7 +3,7 @@ FUNCTIONS
 FUNCTION (Parkhaus) init_parkhaus (Parkplatz *p_parkplaetze, Ganzzahl maximale_parkdauer):
     Parkhaus *p_parkhaus = malloc(sizeof(Parkhaus))
     p_parkhaus->p_parkplaetze = p_parkplaetze
-    p_parkhaus.maximale_parkdauer = maximale_parkdauer
+    p_parkhaus->maximale_parkdauer = maximale_parkdauer
     p_parkhaus->p_erstes_auto_in_der_warteschlange = NULL
 END FUNCTION return p_parkhaus
 
@@ -157,7 +157,7 @@ FUNCTION simulate_timestep(Parkhaus *p_parkhaus):
         END IF
     END FOR
 
-    zufall min + ((Fließkommazahl)rand() / RAND_MAX) * (max - min)
+    zufall = min + ((Fließkommazahl)rand() / RAND_MAX) * (max - min)
     min = 0
     max = aktuell_autos_im_parkhaus - 1
     Ganzzahl rausfahrendes_auto = min + rand() % (max - min + 1)
