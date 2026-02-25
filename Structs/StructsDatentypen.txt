@@ -4,13 +4,8 @@ Auto:
 int id //ID für jedes Auto int da eine zahl ausreicht
 int parkdauer //parkdauer in sekunden 
 int einfahrtszeit //einfahrtszeit
-<<<<<<< HEAD
 int verbleibende_parkdauer
 Auto *p_naechstes_auto
-=======
-verbleibende_parkdauer = maxparkdauer - parkdauer
-
->>>>>>> 2ef151dd4d33a2236f90cdf744c320439cf9279b
 
 Parkhaus:
 int maximale_parkdauer
@@ -25,29 +20,8 @@ int maximale_parkdauer//parkdauer in min
 float  simulations_dauer //simulations_dauer in stunden 
 int seed
 
-<<<<<<< HEAD
 Parkplatz:
 int belegt
 Auto *p_auto
 
-=======
-simulationsparameter:
-unsigned int parkplaetze = 0
-float  maxparkdauer = 0 //parkdauer in min
-float  simulations_dauer = 0 //simulations_dauer in stunden 
-int seed = rand // seed für die simulations_dauer1
 
-parkplat:
-int belegt
-
-Datentypen von anderen wichtigen Variabeln
-int autos_im_parkhaus
-/* Stellplätze sind ein array von der Größe parkplaetze und haben an der Stelle
-entweder eine 0 für frei oder für belegt eine 1 *\
-int stellplaetze[parkplaetze]
-
-
-
-
-
->>>>>>> 2ef151dd4d33a2236f90cdf744c320439cf9279b
