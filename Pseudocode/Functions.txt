@@ -71,10 +71,10 @@ END FUNCTION
 
 FUNCTION remove_car(Parkhaus *p_parkhaus, Auto *p_auto):
     FOR Ganzzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / 4), i++: // Besprechung nötig wegen der Liste parkplaetze
-        IF p_auto == p_parkhaus->parkplaetze[i]:
+        IF p_auto == p_parkhaus->parkplaetze[i].auto:
             p_parkhaus->parkplaetze[i].belegt = 0
-            p_parkhaus->parkplaetze[i].auto = NULL
             free(p_auto)
+            p_parkhaus->parkplaetze[i].auto = NULL
             END FUNCTION
         END IF
     END FOR
