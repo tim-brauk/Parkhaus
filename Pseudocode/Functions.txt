@@ -81,8 +81,7 @@ FUNCTION remove_car(Parkhaus *p_parkhaus, Auto *p_auto):
             END FUNCTION
         END IF
     END FOR
-    Ausgabe: "Dieses Auto wurde im Parkhaus nicht gefunden"
-    free(p_auto)
+    Ausgabe: "Dieses Auto wurde im Parkhaus nicht gefunden" //Fehlermeldung
 END FUNCTION
 
 FUNCTION remove_cars_max_parktime(Parkhaus *p_parkhaus):
