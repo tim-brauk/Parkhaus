@@ -12,7 +12,8 @@ parkhaus-simulation/
 ├── docs/
 │   ├── pseudocode/
 │   │   ├── Functions.txt
-│   │
+│   │   ├── StructsDatentypen.txt
+│   │ 
 │   ├── diagrams/
 │   │   ...
 │   │
