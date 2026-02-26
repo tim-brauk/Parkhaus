@@ -1,27 +1,27 @@
 STRUCTS
 
-Auto:
-int id //ID für jedes Auto int da eine zahl ausreicht
-int parkdauer //parkdauer in sekunden 
-int einfahrtszeit //einfahrtszeit
-int verbleibende_parkdauer
+Kfz:
+Ganzzahl id //ID für jedes Auto 
+Ganzzahl parkdauer 
+Ganzzahl einfahrtszeit //einfahrtszeit
+Ganzzahl verbleibende_parkdauer
 Auto *p_naechstes_auto
 
 Parkhaus:
-int maximale_parkdauer
+Ganzzahl maximale_parkdauer
 Parkplatz *p_parkplaetze
 Auto *p_erstes_auto_in_der_warteschlange
-int anzahl_parkplaetze
-unsigned int belegte_parkplaetze //belegte_parkplaetze !< parkplaetze
+Ganzzahl anzahl_parkplaetze
+unsigned Ganzzahl belegte_parkplaetze //belegte_parkplaetze !< parkplaetze
 
 Simulationsparameter:
-int anzahl_parkplaetze
-int maximale_parkdauer//parkdauer in min
+Ganzzahl anzahl_parkplaetze
+Ganzzahl maximale_parkdauer//parkdauer in min
 float  simulations_dauer //simulations_dauer in stunden 
-int seed
+Ganzzahl seed
 
 Parkplatz:
-int belegt
+Ganzzahl belegt
 Auto *p_auto
 
 
