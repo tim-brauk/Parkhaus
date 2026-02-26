@@ -15,8 +15,8 @@ Ganzzahl belegte_parkplaetze //belegte_parkplaetze !< parkplaetze
 
 Simulationsparameter:
 Ganzzahl anzahl_parkplaetze
-Ganzzahl maximale_parkdauer//parkdauer in min
-float  simulations_dauer //simulations_dauer in stunden 
+Ganzzahl maximale_parkdauer//parkdauer 
+float  simulations_dauer //simulations_dauer 
 Ganzzahl seed
 float wahrscheinlichkeit_neues_kfz
 float wahrscheinlichkeit_kfz_rausfahren
