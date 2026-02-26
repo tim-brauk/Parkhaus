@@ -11,14 +11,10 @@ parkhaus-simulation/
 │
 ├── docs/
 │   ├── pseudocode/
-│   │   ├── simulation.md
-│   │   ├── parkinglot.md
-│   │   └── queue.md
+│   │   ├── Functions.txt
 │   │
 │   ├── diagrams/
-│   │   ├── simulation_flowchart.png
-│   │   ├── parkinglot_flowchart.png
-│   │   └── queue_flowchart.png
+│   │   ...
 │   │
 │   └── statistics_concept.md
 │
