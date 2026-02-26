@@ -1,23 +1,23 @@
 #ifndef PARKHAUS_H
 #define PARKHAUS_H
-#include "auto.h"
+#include "kfz.h"
 typedef struct Parkplatz
 {
     int belegt;
-    Auto *p_auto;
+    Kfz *p_kfz;
 } Parkplatz;
 typedef struct Parkhaus
 {
     int maximale_parkdauer;
     Parkplatz *p_parkplaetze;
-    Auto *p_erstes_auto_in_der_warteschlange;
+    Kfz *p_erstes_kfz_in_der_warteschlange;
     int anzahl_parkplaetze;
     unsigned int belegte_parkplaetze; //belegte_parkplaetze !< parkplaetze
 } Parkhaus;
 /**
 * @brief Initialisiert das Parkhaus und reserviert den Speicher dafür.
 *
-* Reserviert Speichert für das Parkhaus und setzt p_erstes_auto_in_der_warteschlange auf NULL.
+* Reserviert Speichert für das Parkhaus und setzt p_erstes_kfz_in_der_warteschlange auf NULL.
 * @param[in]  p_parkplaetze Zeiger auf das Array der Parkplaetze
 * @param[in]  anzahl_parkplaetze Anzahl der Parkplaetze
 * @param[in]  maximale_parkdauer in Stunden 
