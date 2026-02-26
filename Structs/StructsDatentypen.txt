@@ -1,27 +1,26 @@
 STRUCTS
 
 Kfz:
-Ganzzahl id //ID für jedes Auto 
+Ganzzahl id //ID für jedes Kfz 
 Ganzzahl parkdauer 
-Ganzzahl einfahrtszeit //einfahrtszeit
 Ganzzahl verbleibende_parkdauer
-Auto *p_naechstes_auto
+Kfz *p_naechstes_kfz
 
 Parkhaus:
 Ganzzahl maximale_parkdauer
 Parkplatz *p_parkplaetze
-Auto *p_erstes_auto_in_der_warteschlange
+Kfz *p_erstes_auto_in_der_warteschlange
 Ganzzahl anzahl_parkplaetze
-unsigned Ganzzahl belegte_parkplaetze //belegte_parkplaetze !< parkplaetze
+Ganzzahl belegte_parkplaetze //belegte_parkplaetze !< parkplaetze
 
 Simulationsparameter:
 Ganzzahl anzahl_parkplaetze
 Ganzzahl maximale_parkdauer//parkdauer in min
 float  simulations_dauer //simulations_dauer in stunden 
 Ganzzahl seed
+float wahrscheinlichkeit_neues_kfz
+float wahrscheinlichkeit_kfz_rausfahren
 
 Parkplatz:
 Ganzzahl belegt
-Auto *p_auto
-
-
+Kfz *p_kfz 
