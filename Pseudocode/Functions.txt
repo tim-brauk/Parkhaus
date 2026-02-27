@@ -102,7 +102,7 @@ FUNKTION aktuelisiere_parameter (Parkhaus *p_parkhaus, Ganzzahl anzahl_parkplaet
     srand(seed)
 ENDE FUNKTION
 
-FUNKTION (Ganzzahl) aktuelle_id(Ganzzahl id): //id als eine Variable in main. Nach jedem init_kfz soll ein aktuelle_id folgen
+FUNKTION (Ganzzahl) aktuelle_id(&id): //id als eine Variable in main. Nach jedem init_kfz soll ein aktuelle_id folgen
     GIB id + 1
 ENDE FUNKTION
 
@@ -110,7 +110,7 @@ FUNKTION kfz_hinzufügen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz):
     WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL:
         p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz
         p_kfz->p_naechstes_kfz = NULL
-        ENDE FUNKTION
+        ENDE FUNKTION //falls keine KFZ in der Warteschlange wird das auto als erster gesetz
     ENDE WENN
     Kfz *p_aktuelles_kfz = p_parkhaus->p_erstes_kfz_in_der_warteschlange
     SOLANGE (p_aktuelles_kfz->p_naechstes_kfz != NULL):
@@ -123,19 +123,19 @@ ENDE FUNKTION
 FUNKTION (*Kfz) entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
     WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL:
         Ausgabe: "Keine kfzs in der Warteschlange"
-        GIB 0
+        GIB NULL
         ENDE FUNKTION
     ENDE WENN
     WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz == NULL:
         Kfz *p_kfz_zwischenspeicher = p_parkhaus->p_erstes_kfz_in_der_warteschlange
         p_parkhaus->p_erstes_kfz_in_der_warteschlange = NULL
         GIB p_kfz_zwischenspeicher
-        ENDE FUNKTION 
+        ENDE FUNKTION // Falls nur 1 KFZ in der warteschlange wird er ausgebeben und erster auf NULL gesetzt 
     ENDE WENN
     Kfz *p_kfz_zwischenspeicher = p_parkhaus->p_erstes_kfz_in_der_warteschlange
     p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz_zwischenspeicher->p_naechstes_kfz
     p_kfz_zwischenspeicher->p_naechstes_kfz = NULL
-    GIB p_kfz_zwischenspeicher
+    GIB p_kfz_zwischenspeicher //Falls mehr als 1 KFZ in der warteschlange
 ENDE FUNKTION
 
 FUNKTION füge_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
@@ -144,7 +144,7 @@ FUNKTION füge_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
     min = 0
     max = freie_parkplaetze
     Ganzzahl zufaelliger_parkplatz = 0
-    zufaelliger_parkplatz = min + (rand() % (max - min + 1))      
+    zufaelliger_parkplatz = min + (rand() % (max - min + 1)) //Formel für zufällige zahl zwischen min - max     
     FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
         WENN !zufaelliger_parkplatz
             p_parkhaus->p_parkplaetze[i].belegt = 1
@@ -168,7 +168,6 @@ FUNKTION entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
             free(p_kfz)
             p_parkhaus->p_parkplaetze[i].p_kfz = NULL
             p_parkhaus->belegte_parkplaetze = p_parkhaus->belegte_parkplaetze - 1
-            GIB NULL
             ENDE FUNKTION
         ENDE WENN
     ENDE FÜR
@@ -182,7 +181,7 @@ FUNKTION entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus):
                 p_parkhaus->p_parkplaetze[i].belegt = 0
                 free(p_parkhaus->p_parkplaetze[i].p_kfz)
                 p_parkhaus->p_parkplaetze[i].p_kfz = NULL //Falls Parkdauer überschritten fährt das Kfz raus
-                Ausgabe: "Ein KFZ musste aufgrund zu hohe Parkzeit entfernt werden"
+                Ausgabe: "Ein KFZ musste aufgrund zu hoher Parkzeit entfernt werden oder aufgrund von Bauarbeiten" //Kann auftreten wenn maximale_parkdauer zur Laufzeit verringert wird.
             ENDE WENN
         ENDE WENN
     ENDE FÜR
