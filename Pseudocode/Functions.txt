@@ -9,7 +9,7 @@ FUNKTION (Rückgabetyp) Funktionsname (variable variablenname, ...): = Rückgabe
 Im Falle nicht vorhandener Information "Rückgabetyp" -> Umsetzung in C als void
 */
 
-FUNKTION (Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, float simulations_dauer, Ganzzahl seed, float wahrscheinlichkeit_neues_kfz, float wahrscheinlichkeit_kfz_rausfahren):
+FUNKTION (*Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, float simulations_dauer, Ganzzahl seed, float wahrscheinlichkeit_neues_kfz, float wahrscheinlichkeit_kfz_rausfahren):
     Simulationsparameter *p_simulationsparameter = malloc(sizeof(Simulationsparameter))
     p_simulationsparameter->anzahl_parkplaetze = anzahl_parkplaetze
     p_simulationsparameter->maximale_parkdauer = maximale_parkdauer
@@ -20,14 +20,14 @@ FUNKTION (Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_parkp
     GIB p_simulationsparameter
 ENDE FUNKTION
 
-FUNKTION (Parkplatz) init_parkplatz():
+FUNKTION (*Parkplatz) init_parkplatz():
     Parkplatz *p_parkplatz = malloc(sizeof(Parkplatz))
     p_parkplatz->belegt = 0
     p_parkplatz->p_kfz = NULL
     GIB p_parkplatz
 ENDE FUNKTION
 
-FUNKTION (Parkhaus) init_parkhaus (Ganzzahl maximale_parkdauer, Ganzzahl anzahl_parkplaetze): //Die Variablen NICHT selber festlegen in main sondern von Simulationsparameter ablesen
+FUNKTION (*Parkhaus) init_parkhaus (Ganzzahl maximale_parkdauer, Ganzzahl anzahl_parkplaetze): //Die Variablen NICHT selber festlegen in main sondern von Simulationsparameter ablesen
     Parkhaus *p_parkhaus = malloc(sizeof(Parkhaus))
     p_parkhaus->maximale_parkdauer = maximale_parkdauer
     Parkplatz *p_parkplatz = malloc(sizeof(Parkplatz) * anzahl_parkplaetze)
@@ -38,7 +38,7 @@ FUNKTION (Parkhaus) init_parkhaus (Ganzzahl maximale_parkdauer, Ganzzahl anzahl_
     GIB p_parkhaus
 ENDE FUNKTION 
 
-FUNKTION (Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id):
+FUNKTION (*Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id):
     Kfz *p_kfz = malloc(sizeof(Kfz))
     p_kfz->id = id
     p_kfz->parkdauer = 0
