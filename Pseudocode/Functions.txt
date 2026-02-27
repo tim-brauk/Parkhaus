@@ -24,13 +24,16 @@ FUNKTION (Parkplatz) init_parkplatz():
     Parkplatz *p_parkplatz = malloc(sizeof(Parkplatz))
     p_parkplatz->belegt = 0
     p_parkplatz->p_kfz = NULL
+    GIB p_parkplatz
 ENDE FUNKTION
 
-FUNKTION (Parkhaus) init_parkhaus (Parkplatz *p_parkplaetze, Ganzzahl maximale_parkdauer):
+FUNKTION (Parkhaus) init_parkhaus (Ganzzahl maximale_parkdauer, Ganzzahl anzahl_parkplaetze): //Die Variablen NICHT selber festlegen in main sondern von Simulationsparameter ablesen
     Parkhaus *p_parkhaus = malloc(sizeof(Parkhaus))
-    p_parkhaus->p_parkplaetze = p_parkplaetze
     p_parkhaus->maximale_parkdauer = maximale_parkdauer
+    Parkplatz *p_parkplatz = malloc(sizeof(Parkplatz) * anzahl_parkplaetze)
+    p_parkhaus->p_parkplaetze = p_parkplatz 
     p_parkhaus->p_erstes_kfz_in_der_warteschlange = NULL
+    p_parkhaus->anzahl_parkplaetze = anzahl_parkplaetze
     GIB p_parkhaus
 ENDE FUNKTION 
 
