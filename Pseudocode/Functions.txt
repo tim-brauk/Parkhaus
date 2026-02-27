@@ -7,10 +7,15 @@ WENN = if Verzweigung
 SONST = else
 FUNKTION (Rückgabetyp) Funktionsname (variable variablenname, ...): = Rückgabetyp Funktionsname(variable variablenname, ...){} 
 Im Falle nicht vorhandener Information "Rückgabetyp" -> Umsetzung in C als void
+/*Funktion*/ bedeutet, dass die Funktion nicht mehr relevant und korrekt ist. Die Funktion wird drin gelassen bis falls sie im späteren Verlauf 
+doch noch benötigt wird. Somit muss man die Funktion nichtmehr neu schreiben sondern nur aktualisieren.
 */
 
 FUNKTION (*Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, float simulations_dauer, Ganzzahl seed, float wahrscheinlichkeit_neues_kfz, float wahrscheinlichkeit_kfz_rausfahren):
     Simulationsparameter *p_simulationsparameter = malloc(sizeof(Simulationsparameter))
+    WENN p_simulationsparameter == NULL:
+        Ausgabe: "Mallocfehler in init_simulationsparameter"
+    ENDE WENN
     p_simulationsparameter->anzahl_parkplaetze = anzahl_parkplaetze
     p_simulationsparameter->maximale_parkdauer = maximale_parkdauer
     p_simulationsparameter->simulations_dauer = simulations_dauer
@@ -20,18 +25,30 @@ FUNKTION (*Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_park
     GIB p_simulationsparameter
 ENDE FUNKTION
 
-FUNKTION (*Parkplatz) init_parkplatz():
+/*FUNKTION (*Parkplatz) init_parkplatz():
     Parkplatz *p_parkplatz = malloc(sizeof(Parkplatz))
+    WENN p_parkplatz == NULL:
+        Ausgabe: "Mallocfehler in init_parkplatz"
+    ENDE WENN
     p_parkplatz->belegt = 0
     p_parkplatz->p_kfz = NULL
     GIB p_parkplatz
-ENDE FUNKTION
+ENDE FUNKTION*/
 
 FUNKTION (*Parkhaus) init_parkhaus (Ganzzahl maximale_parkdauer, Ganzzahl anzahl_parkplaetze): //Die Variablen NICHT selber festlegen in main sondern von Simulationsparameter ablesen
     Parkhaus *p_parkhaus = malloc(sizeof(Parkhaus))
+    WENN p_parkhaus == NULL
+        Ausgabe: "Mallocfehler in init_parkhaus mit parkhaus"
+    ENDE WENN
     p_parkhaus->maximale_parkdauer = maximale_parkdauer
     Parkplatz *p_parkplatz = malloc(sizeof(Parkplatz) * anzahl_parkplaetze)
-    p_parkhaus->p_parkplaetze = p_parkplatz 
+    WENN p_parkplatz == NULL
+        Ausgabe: "Mallocfehler in init_parkhaus mit parkplatz"
+    ENDE WENN
+    FÜR Ganzzahl i = 0, < anzahl_parkplaetze, i++:
+        p_parkhaus->p_parkplaetze[i].belegt = 0
+        p_parkhaus->p_parkplaetze[i].p_kfz = NULL
+    ENDE FÜR
     p_parkhaus->p_erstes_kfz_in_der_warteschlange = NULL
     p_parkhaus->anzahl_parkplaetze = anzahl_parkplaetze
     p_parkhaus->belegte_parkplaetze = 0
@@ -40,6 +57,8 @@ ENDE FUNKTION
 
 FUNKTION (*Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt): //einfahrtszeitpunkt ist eine variable in main
     Kfz *p_kfz = malloc(sizeof(Kfz))
+    WENN p_kfz == NULL:
+        Ausgabe: "Malloc Fehler in init_kfz"
     p_kfz->id = id
     p_kfz->einfahrtszeitpunkt = zeitpunkt
     Ganzzahl min = 1
