@@ -9,7 +9,7 @@ FUNKTION (Rückgabetyp) Funktionsname (variable variablenname, ...): = Rückgabe
 Im Falle nicht vorhandener Information "Rückgabetyp" -> Umsetzung in C als void
 */
 
-FUNKTION (Simulationsparameter) init_Simulationsparameter (Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, float simulations_dauer, Ganzzahl seed, float wahrscheinlichkeit_neues_kfz, float wahrscheinlichkeit_kfz_rausfahren):
+FUNKTION (Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, float simulations_dauer, Ganzzahl seed, float wahrscheinlichkeit_neues_kfz, float wahrscheinlichkeit_kfz_rausfahren):
     Simulationsparameter *p_simulationsparameter = malloc(sizeof(Simulationsparameter))
     p_simulationsparameter->anzahl_parkplaetze = anzahl_parkplaetze
     p_simulationsparameter->maximale_parkdauer = maximale_parkdauer
@@ -18,6 +18,12 @@ FUNKTION (Simulationsparameter) init_Simulationsparameter (Ganzzahl anzahl_parkp
     p_simulationsparameter->wahrscheinlichkeit_neues_kfz = wahrscheinlichkeit_neues_kfz
     p_simulationsparameter->wahrscheinlichkeit_kfz_rausfahren = wahrscheinlichkeit_kfz_rausfahren
     GIB p_simulationsparameter
+ENDE FUNKTION
+
+FUNKTION (Parkplatz) init_parkplatz():
+    Parkplatz *p_parkplatz = malloc(sizeof(Parkplatz))
+    p_parkplatz->belegt = 0
+    p_parkplatz->p_kfz = NULL
 ENDE FUNKTION
 
 FUNKTION (Parkhaus) init_parkhaus (Parkplatz *p_parkplaetze, Ganzzahl maximale_parkdauer):
