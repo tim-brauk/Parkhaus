@@ -15,7 +15,7 @@ typedef struct Simulationsparameter
 /**
  * @brief Macht einen Simulationsschritt.
  *
- * Erhört die Parkzeit jedes geparkten Kfz um 1.
+ * Erhöht die Parkzeit jedes geparkten Kfz um 1.
  * entfernt alle Kfz die die maximale Parkdauer überschritten haben.
  * initiiert neue Kfz (init_car) und fügt sie der Warteschlange hinzu(add_car_queue).
  * Zählt die Anzahl der Autos im Parkhaus.
