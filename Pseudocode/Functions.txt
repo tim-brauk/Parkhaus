@@ -89,13 +89,13 @@ FUNKTION füge_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
     zufaelliger_parkplatz = min + (rand() % (max - min + 1))      
     FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
         WENN !zufaelliger_parkplatz
-            p_parkhaus->parkplaetze[i].belegt = 1
-            p_parkhaus->parkplaetze[i].p_kfz = p_kfz
+            p_parkhaus->p_parkplaetze[i].belegt = 1
+            p_parkhaus->p_parkplaetze[i].p_kfz = p_kfz
             p_parkhaus->belegte_parkplaetze = p_parkhaus->belegte_parkplaetze + 1
             GIB 0
             ENDE FUNKTION
         ENDE WENN    
-        WENN !p_parkhaus->parkplaetze[i].belegt
+        WENN !p_parkhaus->p_parkplaetze[i].belegt
             freie_parkplaetze = freie_parkplaetze - 1
         ENDE WENN    
         // Von allen freien Parkplätzen wird eins zufällig ausgesucht zum parken. Erst wenn die Variable "freie_parkplaetze" 0 erreicht wird das Kfz geparkt.
@@ -105,10 +105,10 @@ ENDE FUNKTION
 
 FUNKTION enferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
     FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
-        WENN p_kfz == p_parkhaus->parkplaetze[i].Kfz:
-            p_parkhaus->parkplaetze[i].belegt = 0
+        WENN p_kfz == p_parkhaus->p_parkplaetze[i].p_kfz:
+            p_parkhaus->p_parkplaetze[i].belegt = 0
             free(p_kfz)
-            p_parkhaus->parkplaetze[i].kfz = NULL
+            p_parkhaus->p_parkplaetze[i].p_kfz = NULL
             p_parkhaus->belegte_parkplaetze = p_parkhaus->belegte_parkplaetze - 1
             GIB NULL
             ENDE FUNKTION
@@ -119,11 +119,11 @@ ENDE FUNKTION
 
 FUNKTION enferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus):
     FÜR Ganzahl i = 0, i < i < p_parkhaus->anzahl_parkplaetze, i++:
-        WENN p_parkhaus->parkplaetze[i].Kfz != NULL:
-            WENN p_parkhaus->parkplaetze[i].Kfz.parkdauer >= p_parkhaus->maximale_parkdauer:
-                p_parkhaus->parkplaetze[i].belegt = 0
-                free(p_parkhaus->parkplaetze[i]->Kfz)
-                p_parkhaus->parkplaetze[i]->Kfz = NULL //Falls Parkdauer überschritten fährt das Kfz raus
+        WENN p_parkhaus->p_parkplaetze[i].p_kfz != NULL:
+            WENN p_parkhaus->p_parkplaetze[i].p_kfz.parkdauer >= p_parkhaus->maximale_parkdauer:
+                p_parkhaus->p_parkplaetze[i].belegt = 0
+                free(p_parkhaus->p_parkplaetze[i]-p_kfz)
+                p_parkhaus->p_parkplaetze[i]->Kfz = NULL //Falls Parkdauer überschritten fährt das Kfz raus
             ENDE WENN
         ENDE WENN
     ENDE FÜR
@@ -146,9 +146,9 @@ ENDE FUNKTION
 
 /*FUNKTION remove_num_of_cars(Ganzzahl rausfahrENDEe_kfzs, Parkhaus *p_parkhaus):
     FÜR Ganzzahl i = 0, i < rausfahrENDEe_kfzs, i++:
-        WENN p_parkhaus->parkplaetze[i].belegt:
-            p_parkhaus->parkplaetze[i].belegt = 0
-            p_parkhaus->parkplaetze[i].p_kfz = NULL
+        WENN p_parkhaus->p_parkplaetze[i].belegt:
+            p_parkhaus->p_parkplaetze[i].belegt = 0
+            p_parkhaus->p_parkplaetze[i].p_kfz = NULL
         ENDE WENN
     ENDE FÜR
 ENDE FUNKTION
@@ -167,8 +167,8 @@ ENDE FUNKTION
 FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter):
     //jedem Fahrzeug die aktuelle parkzeit um 1 erhöhen
     FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
-        WENN p_parkhaus->parkplaetze[i].belegt
-            p_parkhaus->parkplaetze[i].p_kfz->parkdauer = p_parkhaus->parkplaetze[i].kfz->parkdauer + 1
+        WENN p_parkhaus->p_parkplaetze[i].belegt
+            p_parkhaus->p_parkplaetze[i].p_kfz->parkdauer = p_parkhaus->p_parkplaetze[i].p_kfz->parkdauer + 1
         ENDE WENN
     ENDE FÜR    
 
@@ -178,7 +178,7 @@ FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_s
     zufall = min + ((Fließkommazahl)rand() / RAND_MAX) * (max - min) // liefert eine zufällige Kommazahl zwischen 0-1 (wird benötigt bezüglich des Vergleichs mit der Wahrscheinlichkeit)
     //RAND_MAX ist eine C definierte Konstante die den maximalwert von rand liefert.
     enferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus)
-    WENN zufall >= p_simulationsparameter->wahrscheinlichkeit_neues_kfz: // ">=" statt ">" da falls Wahrscheinlichkeit = 1 und zufall = 1 soll trotzdem Kfz rein. Bei 100% wahrscheinlichkeit MUSS eine Kfz rein
+    WENN zufall <= p_simulationsparameter->wahrscheinlichkeit_neues_kfz: // ">=" statt ">" da falls Wahrscheinlichkeit = 1 und zufall = 1 soll trotzdem Kfz rein. Bei 100% wahrscheinlichkeit MUSS eine Kfz rein
         Kfz *p_neues_kfz = init_car(Parkhaus *p_parkhaus)
         kfz_hinzufügen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_neues_kfz)
     ENDE WENN 
@@ -188,8 +188,8 @@ FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_s
     max = p_parkhaus->belegte_parkplatze - 1
     Ganzzahl rausfahrendes_kfz = min + rand() % (max - min + 1)
     
-    WENN zufall >= p_simulationsparameter->wahrscheinlichkeit_kfz_rausfahren:
-        enferne_kfz(Parkhaus *p_parkhaus, Kfz *p_parkhaus->parkplaetze[rausfahrendes_kfz]->kfz)
+    WENN zufall <= p_simulationsparameter->wahrscheinlichkeit_kfz_rausfahren:
+        enferne_kfz(Parkhaus *p_parkhaus, Kfz *p_parkhaus->p_parkplaetze[rausfahrendes_kfz]->kfz)
     ENDE WENN
     Ganzzahl freie_parkplaetze_wahrheitsvariable = 0; // 0 = keine freien Parkplaetze. 1 = freie Parkplaetze
     freie_parkplaetze_wahrheitsvariable = platz_garage(Parkhaus *p_parkhaus)
