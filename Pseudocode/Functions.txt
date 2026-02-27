@@ -50,11 +50,37 @@ FUNKTION (*Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt)
 ENDE FUNKTION 
 
 FUNKTION aktuelisiere_parameter (Parkhaus *p_parkhaus, Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Ganzzahl Simulationsdauer, Ganzzahl wahrscheinlichkeite_neus_kfz, Ganzzahl seed):
-    p_parkhaus->anzahl_parkplaetze = anzahl_parkplaetze
+    Ganzzahl alte_anzahl_parkplaetze = p_parkhaus->anzahl_parkplaetze
+
+    WENN anzahl_parkplaetze > alte_anzahl_parkplaetze:
+        p_parkplatz->realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * neue_anzahl_parkplaetze)
+        FÜR Ganzzahl i = alte_anzahl_parkplaetze, i < neue_anzahl_parkplaetze, i++:
+            p_parkhaus->p_parkplaetze[i].belegt = 0
+            p_parkhaus->p_parkplaetze[i].p_kfz = NULL
+        ENDE FÜR
+    ENDE WENN //Falls Parkplaetze hinzugefügt werden -> mit realloc erweitern
+
+    WENN neue_anzahl_parkplaetze < alte_anzahl_parkplaetze:
+        FÜR Ganzzahl i = neue_anzahl_parkplaetze, i < alte_anzahl_parkplaetze, i++:
+            WENN p_parkhaus->p_parkplaetze[i].belegt:
+                Kfz *p_kfz_zwischenspeicher = p_parkhaus->p_parkplaetze[i].p_kfz
+                p_parkhaus->p_parkplaetze[i].belegt = 0
+                p_parkhaus->p_parkplaetze[i].p_kfz = NULL
+                p_parkhaus->belegte_parkplaetze = p_parkhaus->belegte_parkplaetze - 1
+                kfz_hinzufügen_warteschlange(Parkhaus p_parkhaus, Kfz p_kfz_zwischenspeicher)
+            ENDE WENN
+        ENDE FÜR
+        p_parkhaus->p_parkplaetze = realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * neue_anzahl_parkplaetze)
+    ENDE WENN //Falls Parkplaetze entfernt werden ->realloc und die Fahrzeuge rauschmeißen und in der Warteschlange warten lassen
+
+    p_parkhaus->anzahl_parkplaetze = neue_anzahl_parkplaetze
+    p_simulationsparameter->anzahl_parkplaetze = neue_anzahl_parkplaetze
     p_parkhaus->maximale_parkdauer = maximale_parkdauer
-    p_parkhaus->simulationsdauer = simulationsdauer
-    p_parkhaus->wahrscheinlichkeite_neus_kfz = wahrscheinlichkeite_neus_kfz
-    p_parkhaus->seed = seed
+    p_simulationsparameter->maximale_parkdauer = maximale_parkdauer 
+    p_simulationsparameter->simulationsdauer = neue_simulationsdauer //in main eine sicherheitsabfrage. neue Simulationsdauer !< zeitpunkt
+    p_simulationsparameter->wahrscheinlichkeit_neues_kfz = wahrscheinlichkeit_neues_kfz
+    p_simulationsparameter->seed = seed
+    srand(seed)
 ENDE FUNKTION
 
 FUNKTION (Ganzzahl) aktuelle_id(Ganzzahl id): //id als eine Variable in main. Nach jedem init_kfz soll ein aktuelle_id folgen
@@ -178,7 +204,7 @@ FUNKTION platz_garage(Parkhaus *p_parkhaus): // 1 bei freien Parkplätzen. 0 wen
     ENDE SONST
 ENDE FUNKTION
 
-FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter):
+FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, &id, &zeitpunkt):
     //jedem Fahrzeug die aktuelle parkzeit um 1 erhöhen
     FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
         WENN p_parkhaus->p_parkplaetze[i].belegt
