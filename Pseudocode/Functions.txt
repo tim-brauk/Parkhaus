@@ -47,6 +47,10 @@ FUNKTION (*Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id):
     GIB p_kfz
 ENDE FUNKTION 
 
+FUNKTION (Ganzzahl) aktuelle_id(Ganzzahl id): //id als eine Variable in main. Bei jedem init_kfz wird id um eins hochgezählt
+    GIB id + 1
+ENDE FUNKTION
+
 FUNKTION kfz_hinzufügen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz):
     WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL:
         p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz
