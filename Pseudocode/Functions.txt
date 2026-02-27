@@ -39,8 +39,9 @@ ENDE FUNKTION
 
 FUNKTION (Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id):
     Kfz *p_kfz = malloc(sizeof(Kfz))
-    p_kfz.id = id
-    p_kfz.parkdauer = 0
+    p_kfz->id = id
+    p_kfz->parkdauer = 0
+    p_kfz->verbleibende_parkdauer = p_parkhaus->maximale_parkdauer //verbleibend = maximal da Kfz noch keine Zeit im Parkhaus verbracht hat
     p_kfz->p_naechstes_kfz = NULL //wird bei kfz_hinzufügen_warteschlange gesetzt
     GIB p_kfz
 ENDE FUNKTION 
