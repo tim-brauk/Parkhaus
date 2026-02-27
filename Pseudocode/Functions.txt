@@ -87,7 +87,7 @@ FUNKTION füge_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
     max = frei_parkplaetze
     Ganzzahl zufaelliger_parkplatz = 0
     zufaelliger_parkplatz = min + (rand() % (max - min + 1))      
-    FÜR Ganzzahl i = 0, i < sizeof((p_parkhaus->anzahl_parkplaetze) / sizeof(Ganzzahl)), i++:
+    FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
         WENN !zufaelliger_parkplatz
             p_parkhaus->parkplaetze[i].belegt = 1
             p_parkhaus->parkplaetze[i].p_kfz = p_kfz
@@ -104,7 +104,7 @@ FUNKTION füge_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
 ENDE FUNKTION
 
 FUNKTION enferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
-    FÜR Ganzzahl i = 0, i < sizeof((p_parkhaus->anzahl_parkplaetze) / sizeof(Ganzzahl)), i++:
+    FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
         WENN p_kfz == p_parkhaus->parkplaetze[i].Kfz:
             p_parkhaus->parkplaetze[i].belegt = 0
             free(p_kfz)
@@ -118,7 +118,7 @@ FUNKTION enferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
 ENDE FUNKTION
 
 FUNKTION enferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus):
-    FÜR Ganzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / sizeof(parkplatz)), i++:
+    FÜR Ganzahl i = 0, i < i < p_parkhaus->anzahl_parkplaetze, i++:
         WENN p_parkhaus->parkplaetze[i].Kfz != NULL:
             WENN p_parkhaus->parkplaetze[i].Kfz.parkdauer >= p_parkhaus->maximale_parkdauer:
                 p_parkhaus->parkplaetze[i].belegt = 0
@@ -166,7 +166,7 @@ ENDE FUNKTION
 
 FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter):
     //jedem Fahrzeug die aktuelle parkzeit um 1 erhöhen
-    FÜR Ganzzahl i = 0, i < sizeof((p_parkhaus->anzahl_parkplaetze) / sizeof(Ganzzahl)), i++:
+    FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
         WENN p_parkhaus->parkplaetze[i].belegt
             p_parkhaus->parkplaetze[i].p_kfz->parkdauer = p_parkhaus->parkplaetze[i].kfz->parkdauer + 1
         ENDE WENN
