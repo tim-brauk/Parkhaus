@@ -62,7 +62,7 @@ FUNKTION kfz_hinzufügen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz):
     p_kfz->p_naechstes_kfz = NULL
     ENDE FUNKTION
 
-FUNKTION (Kfz) entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
+FUNKTION (*Kfz) entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
     WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL:
         Ausgabe: "Keine kfzs in der Warteschlange"
         GIB 0
@@ -74,20 +74,20 @@ FUNKTION (Kfz) entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
         GIB p_kfz_zwischenspeicher
         ENDE FUNKTION 
     ENDE WENN
-    Kfz *p_kfz_zwischenspeicher = malloc(sizeof(Kfz))
-    p_kfz_zwischenspeicher = p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz
-    p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz = NULL
-    p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz_zwischenspeicher
-ENDE FUNKTION GIB p_kfz_zwischenspeicher
+    Kfz *p_kfz_zwischenspeicher = p_parkhaus->p_erstes_kfz_in_der_warteschlange
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz_zwischenspeicher->p_naechstes_kfz
+    p_kfz_zwischenspeicher->p_naechstes_kfz = NULL
+    GIB p_kfz_zwischenspeicher
+ENDE FUNKTION
 
 FUNKTION füge_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
-    Ganzzahl freie_parkplaetze = p_parkhaus->belegte_parkplaetze - p_parkhaus->anzahl_parkplaetze
+    Ganzzahl freie_parkplaetze = p_parkhaus->anzahl_parkplaetze - p_parkhaus->belegte_parkplaetze
 
     min = 0
     max = frei_parkplaetze
     Ganzzahl zufaelliger_parkplatz = 0
     zufaelliger_parkplatz = min + (rand() % (max - min + 1))      
-    FÜR Ganzzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / 4), i++: // Besprechung nötig wegen der Liste parkplaetze
+    FÜR Ganzzahl i = 0, i < sizeof((p_parkhaus->anzahl_parkplaetze) / sizeof(Ganzzahl)), i++:
         WENN !zufaelliger_parkplatz
             p_parkhaus->parkplaetze[i].belegt = 1
             p_parkhaus->parkplaetze[i].p_kfz = p_kfz
@@ -104,7 +104,7 @@ FUNKTION füge_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
 ENDE FUNKTION
 
 FUNKTION enferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
-    FÜR Ganzzahl i = 0, i < (sizeof(p_parkhaus->parkplaetze) / 4), i++: // Besprechung nötig wegen der Liste parkplaetze
+    FÜR Ganzzahl i = 0, i < sizeof((p_parkhaus->anzahl_parkplaetze) / sizeof(Ganzzahl)), i++:
         WENN p_kfz == p_parkhaus->parkplaetze[i].Kfz:
             p_parkhaus->parkplaetze[i].belegt = 0
             free(p_kfz)
@@ -148,7 +148,7 @@ ENDE FUNKTION
     FÜR Ganzzahl i = 0, i < rausfahrENDEe_kfzs, i++:
         WENN p_parkhaus->parkplaetze[i].belegt:
             p_parkhaus->parkplaetze[i].belegt = 0
-            p_parkhaus->parkplaetze[i].Kfz = NULL
+            p_parkhaus->parkplaetze[i].p_kfz = NULL
         ENDE WENN
     ENDE FÜR
 ENDE FUNKTION
@@ -166,9 +166,9 @@ ENDE FUNKTION
 
 FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter):
     //jedem Fahrzeug die aktuelle parkzeit um 1 erhöhen
-    FÜR Ganzzahl i = 0, i < sizeof((p_parkhaus->parkplaetze) / sizeof(Parkplatz)), i++:
+    FÜR Ganzzahl i = 0, i < sizeof((p_parkhaus->anzahl_parkplaetze) / sizeof(Ganzzahl)), i++:
         WENN p_parkhaus->parkplaetze[i].belegt
-            p_parkhaus->parkplaetze[i].kfz->parkdauer = p_parkhaus->parkplaetze[i].kfz->parkdauer + 1
+            p_parkhaus->parkplaetze[i].p_kfz->parkdauer = p_parkhaus->parkplaetze[i].kfz->parkdauer + 1
         ENDE WENN
     ENDE FÜR    
 
