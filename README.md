@@ -1,4 +1,5 @@
-# Parkhausparkhaus-simulation/
+```
+parkhaus-simulation/
 │
 ├── README.md
 ├── LICENSE
@@ -7,11 +8,8 @@
 ├── docs/
 │   ├── pseudocode/
 │   │   ├── Functions.txt
-│   │   ├── StructsDatentypen.txt
-│   │ 
+│   │   └── StructsDatentypen.txt
 │   ├── diagrams/
-│   │   ...
-│   │
 │   └── statistics_concept.md
 │
 ├── include/
@@ -19,15 +17,15 @@
 │   ├── parkhaus.h
 │   ├── parkvorgang.h
 │   ├── simulation.h
-│   ├── wartschlange.h
+│   └── warteschlange.h
 │
 ├── src/
-│   ├── main.c
-│   ...
+│   └── ...
 │
 ├── tests/
-│   ...
+│   └── ...
 │
 └── .github/
     └── workflows/
         └── build.yml
+```
