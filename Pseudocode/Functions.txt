@@ -70,19 +70,25 @@ FUNKTION (*Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt)
     GIB p_kfz
 ENDE FUNKTION 
 
-FUNKTION aktuelisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Ganzzahl Simulationsdauer, Ganzzahl wahrscheinlichkeite_neus_kfz, Ganzzahl seed):
+FUNKTION aktualisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Ganzzahl Simulationsdauer, Ganzzahl wahrscheinlichkeite_neus_kfz, Ganzzahl seed):
     Ganzzahl alte_anzahl_parkplaetze = p_parkhaus->anzahl_parkplaetze
 
     WENN anzahl_parkplaetze > alte_anzahl_parkplaetze:
-        p_parkplatz->realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * anzahl_parkplaetze)
-        FÜR Ganzzahl i = alte_anzahl_parkplaetze, i < neue_anzahl_parkplaetze, i++:
+        Parkplatz *sicherheitsabfrage = realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * anzahl_parkplaetze)
+        WENN (sicherheitsabfrage == NULL):
+            Ausgabe: "Speicherproblem beim hinzufügen von Parkplätzen"
+        ENDE WENN
+        SONST
+            p_parkhaus->p_parkplaetze = sicherheitsabfrage
+        ENDE SONST
+        FÜR Ganzzahl i = alte_anzahl_parkplaetze, i < anzahl_parkplaetze, i++:
             p_parkhaus->p_parkplaetze[i].belegt = 0
             p_parkhaus->p_parkplaetze[i].p_kfz = NULL
         ENDE FÜR
     ENDE WENN //Falls Parkplaetze hinzugefügt werden -> mit realloc erweitern
 
-    WENN neue_anzahl_parkplaetze < alte_anzahl_parkplaetze:
-        FÜR Ganzzahl i = neue_anzahl_parkplaetze, i < alte_anzahl_parkplaetze, i++:
+    WENN anzahl_parkplaetze < alte_anzahl_parkplaetze:
+        FÜR Ganzzahl i = anzahl_parkplaetze, i < alte_anzahl_parkplaetze, i++:
             WENN p_parkhaus->p_parkplaetze[i].belegt:
                 Kfz *p_kfz_zwischenspeicher = p_parkhaus->p_parkplaetze[i].p_kfz
                 p_parkhaus->p_parkplaetze[i].belegt = 0
@@ -91,11 +97,17 @@ FUNKTION aktuelisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_s
                 kfz_hinzufuegen_warteschlange(Parkhaus p_parkhaus, Kfz p_kfz_zwischenspeicher)
             ENDE WENN
         ENDE FÜR
-        p_parkhaus->p_parkplaetze = realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * neue_anzahl_parkplaetze)
+        Parkplatz *sicherheitsabfrage = realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * anzahl_parkplaetze)
+        WENN (sicherheitsabfrage == NULL):
+            Ausgabe: "Speicherproblem beim hinzufügen von Parkplätzen"
+        ENDE WENN
+        SONST
+            p_parkhaus->p_parkplaetze = sicherheitsabfrage
+        ENDE SONST
     ENDE WENN //Falls Parkplaetze entfernt werden ->realloc und die Fahrzeuge rauschmeißen und in der Warteschlange warten lassen
 
-    p_parkhaus->anzahl_parkplaetze = neue_anzahl_parkplaetze
-    p_simulationsparameter->anzahl_parkplaetze = neue_anzahl_parkplaetze
+    p_parkhaus->anzahl_parkplaetze = anzahl_parkplaetze
+    p_simulationsparameter->anzahl_parkplaetze = anzahl_parkplaetze
     p_parkhaus->maximale_parkdauer = maximale_parkdauer
     p_simulationsparameter->maximale_parkdauer = maximale_parkdauer 
     p_simulationsparameter->simulationsdauer = neue_simulationsdauer //in main eine sicherheitsabfrage. neue Simulationsdauer !< zeitpunkt
@@ -141,7 +153,7 @@ FUNKTION (*Kfz) entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
 ENDE FUNKTION
 
 FUNKTION fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
-    Ganzzahl freie_parkplaetze = p_parkhaus->anzahl_parkplaetze - p_parkhaus->belegte_parkplaetze
+    Ganzzahl freie_parkplaetze = (p_parkhaus->anzahl_parkplaetze) - (p_parkhaus->belegte_parkplaetze)
 
     min = 0
     max = freie_parkplaetze
