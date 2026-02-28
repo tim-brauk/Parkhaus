@@ -1,0 +1,26 @@
+STRUCTS
+
+Kfz:
+Ganzzahl id //ID für jedes Kfz 
+Ganzzahl parkdauer 
+Ganzzahl verbleibende_parkdauer
+Kfz *p_naechstes_kfz
+
+Parkhaus:
+Ganzzahl maximale_parkdauer
+Parkplatz *p_parkplaetze
+Kfz *p_erstes_auto_in_der_warteschlange
+Ganzzahl anzahl_parkplaetze
+Ganzzahl belegte_parkplaetze //belegte_parkplaetze !< parkplaetze
+
+Simulationsparameter:
+Ganzzahl anzahl_parkplaetze
+Ganzzahl maximale_parkdauer//parkdauer 
+float  simulations_dauer //simulations_dauer 
+Ganzzahl seed
+float wahrscheinlichkeit_neues_kfz
+float wahrscheinlichkeit_kfz_rausfahren
+
+Parkplatz:
+Ganzzahl belegt
+Kfz *p_kfz 
