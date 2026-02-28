@@ -11,7 +11,7 @@ Im Falle nicht vorhandener Information "Rückgabetyp" -> Umsetzung in C als void
 doch noch benötigt wird. Somit muss man die Funktion nichtmehr neu schreiben sondern nur aktualisieren.
 */
 
-FUNKTION (*Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Fließkommazahl simulations_dauer, Ganzzahl seed, Fließkommazahl wahrscheinlichkeit_neues_kfz, Fließkommazahl wahrscheinlichkeit_kfz_rausfahren):
+FUNKTION (*Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Fließkommazahl simulations_dauer, Ganzzahl seed, Fließkommazahl wahrscheinlichkeit_neues_kfz):
     Simulationsparameter *p_simulationsparameter = malloc(sizeof(Simulationsparameter))
     WENN p_simulationsparameter == NULL:
         Ausgabe: "Mallocfehler in init_simulationsparameter"
@@ -21,7 +21,6 @@ FUNKTION (*Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_park
     p_simulationsparameter->simulations_dauer = simulations_dauer
     p_simulationsparameter->seed = seed
     p_simulationsparameter->wahrscheinlichkeit_neues_kfz = wahrscheinlichkeit_neues_kfz
-    p_simulationsparameter->wahrscheinlichkeit_kfz_rausfahren = wahrscheinlichkeit_kfz_rausfahren
     GIB p_simulationsparameter
 ENDE FUNKTION
 
@@ -70,7 +69,7 @@ FUNKTION (*Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt)
     GIB p_kfz
 ENDE FUNKTION 
 
-FUNKTION aktualisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Ganzzahl simulationsdauer, Fließkommazahl wahrscheinlichkeit_neus_kfz, Ganzzahl seed):
+FUNKTION aktualisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Ganzzahl simulations_dauer, Fließkommazahl wahrscheinlichkeit_neus_kfz, Ganzzahl seed):
     Ganzzahl alte_anzahl_parkplaetze = p_parkhaus->anzahl_parkplaetze
 
     WENN anzahl_parkplaetze > alte_anzahl_parkplaetze:
@@ -110,7 +109,7 @@ FUNKTION aktualisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_s
     p_simulationsparameter->anzahl_parkplaetze = anzahl_parkplaetze
     p_parkhaus->maximale_parkdauer = maximale_parkdauer
     p_simulationsparameter->maximale_parkdauer = maximale_parkdauer 
-    p_simulationsparameter->simulationsdauer = simulationsdauer //in main eine sicherheitsabfrage. neue Simulationsdauer !< zeitpunkt
+    p_simulationsparameter->simulations_dauer = simulations_dauer //in main eine sicherheitsabfrage. neue Simulationsdauer !< zeitpunkt
     p_simulationsparameter->wahrscheinlichkeit_neues_kfz = wahrscheinlichkeit_neues_kfz
     p_simulationsparameter->seed = seed
     srand(seed)
@@ -188,7 +187,7 @@ FUNKTION entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
 ENDE FUNKTION
 
 FUNKTION entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus):
-    FÜR Ganzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
+    FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
         WENN p_parkhaus->p_parkplaetze[i].p_kfz != NULL:
             WENN p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer < 0:
                 p_parkhaus->p_parkplaetze[i].belegt = 0
