@@ -11,7 +11,7 @@ Im Falle nicht vorhandener Information "Rückgabetyp" -> Umsetzung in C als void
 doch noch benötigt wird. Somit muss man die Funktion nichtmehr neu schreiben sondern nur aktualisieren.
 */
 
-FUNKTION (*Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, float simulations_dauer, Ganzzahl seed, float wahrscheinlichkeit_neues_kfz, float wahrscheinlichkeit_kfz_rausfahren):
+FUNKTION (*Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Fließkommazahl simulations_dauer, Ganzzahl seed, Fließkommazahl wahrscheinlichkeit_neues_kfz, Fließkommazahl wahrscheinlichkeit_kfz_rausfahren):
     Simulationsparameter *p_simulationsparameter = malloc(sizeof(Simulationsparameter))
     WENN p_simulationsparameter == NULL:
         Ausgabe: "Mallocfehler in init_simulationsparameter"
@@ -45,6 +45,7 @@ FUNKTION (*Parkhaus) init_parkhaus (Ganzzahl maximale_parkdauer, Ganzzahl anzahl
     WENN p_parkplatz == NULL
         Ausgabe: "Mallocfehler in init_parkhaus mit parkplatz"
     ENDE WENN
+    p_parkhaus->p_parkplaetze = p_parkplatz
     FÜR Ganzzahl i = 0, < anzahl_parkplaetze, i++:
         p_parkhaus->p_parkplaetze[i].belegt = 0
         p_parkhaus->p_parkplaetze[i].p_kfz = NULL
@@ -59,6 +60,7 @@ FUNKTION (*Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt)
     Kfz *p_kfz = malloc(sizeof(Kfz))
     WENN p_kfz == NULL:
         Ausgabe: "Malloc Fehler in init_kfz"
+    ENDE WENN
     p_kfz->id = id
     p_kfz->einfahrtszeitpunkt = zeitpunkt
     Ganzzahl min = 1
@@ -68,11 +70,11 @@ FUNKTION (*Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt)
     GIB p_kfz
 ENDE FUNKTION 
 
-FUNKTION aktuelisiere_parameter (Parkhaus *p_parkhaus, Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Ganzzahl Simulationsdauer, Ganzzahl wahrscheinlichkeite_neus_kfz, Ganzzahl seed):
+FUNKTION aktuelisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Ganzzahl Simulationsdauer, Ganzzahl wahrscheinlichkeite_neus_kfz, Ganzzahl seed):
     Ganzzahl alte_anzahl_parkplaetze = p_parkhaus->anzahl_parkplaetze
 
     WENN anzahl_parkplaetze > alte_anzahl_parkplaetze:
-        p_parkplatz->realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * neue_anzahl_parkplaetze)
+        p_parkplatz->realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * anzahl_parkplaetze)
         FÜR Ganzzahl i = alte_anzahl_parkplaetze, i < neue_anzahl_parkplaetze, i++:
             p_parkhaus->p_parkplaetze[i].belegt = 0
             p_parkhaus->p_parkplaetze[i].p_kfz = NULL
@@ -211,7 +213,7 @@ ENDE FUNKTION
     ENDE FÜR
 ENDE FUNKTION
 
-FUNKTION platz_garage(Parkhaus *p_parkhaus): // 1 bei freien Parkplätzen. 0 wenn keine freien parkplätze
+FUNKTION (Ganzzahl) platz_garage(Parkhaus *p_parkhaus): // 1 bei freien Parkplätzen. 0 wenn keine freien parkplätze
     WENN p_parkhaus->anzahl_parkplaetze == p_parkhaus->belegte_parkplaetze
         GIB 0
         ENDE FUNKTION
