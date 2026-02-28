@@ -64,7 +64,7 @@ FUNKTION (*Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt)
     Ganzzahl min = 1
     Ganzzahl max = p_parkhaus->maximale_parkdauer 
     p_kfz->verbleibende_parkdauer = min + rand() % (max - min + 1)  //verbleibende_parkdauer ist ein zufälliger Wert zwischen 0-maximalen_parkdauer
-    p_kfz->p_naechstes_kfz = NULL //wird bei kfz_hinzufügen_warteschlange gesetzt
+    p_kfz->p_naechstes_kfz = NULL //wird bei kfz_hinzufuegen_warteschlange gesetzt
     GIB p_kfz
 ENDE FUNKTION 
 
@@ -86,7 +86,7 @@ FUNKTION aktuelisiere_parameter (Parkhaus *p_parkhaus, Ganzzahl anzahl_parkplaet
                 p_parkhaus->p_parkplaetze[i].belegt = 0
                 p_parkhaus->p_parkplaetze[i].p_kfz = NULL
                 p_parkhaus->belegte_parkplaetze = p_parkhaus->belegte_parkplaetze - 1
-                kfz_hinzufügen_warteschlange(Parkhaus p_parkhaus, Kfz p_kfz_zwischenspeicher)
+                kfz_hinzufuegen_warteschlange(Parkhaus p_parkhaus, Kfz p_kfz_zwischenspeicher)
             ENDE WENN
         ENDE FÜR
         p_parkhaus->p_parkplaetze = realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * neue_anzahl_parkplaetze)
@@ -106,7 +106,7 @@ FUNKTION (Ganzzahl) aktuelle_id(&id): //id als eine Variable in main. Nach jedem
     GIB id + 1
 ENDE FUNKTION
 
-FUNKTION kfz_hinzufügen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz):
+FUNKTION kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz):
     WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL:
         p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz
         p_kfz->p_naechstes_kfz = NULL
@@ -138,7 +138,7 @@ FUNKTION (*Kfz) entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
     GIB p_kfz_zwischenspeicher //Falls mehr als 1 KFZ in der warteschlange
 ENDE FUNKTION
 
-FUNKTION füge_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
+FUNKTION fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
     Ganzzahl freie_parkplaetze = p_parkhaus->anzahl_parkplaetze - p_parkhaus->belegte_parkplaetze
 
     min = 0
@@ -157,7 +157,7 @@ FUNKTION füge_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
             freie_parkplaetze = freie_parkplaetze - 1
         ENDE WENN    
         // Von allen freien Parkplätzen wird eins zufällig ausgesucht zum parken. Erst wenn die Variable "freie_parkplaetze" 0 erreicht wird das Kfz geparkt.
-        // Es wird sozusagen simuliert an wie vielen freien Parkplätzen das Kfz vorbeWENNährt bevor es parkt
+        // Es wird sozusagen simuliert an wie vielen freien Parkplätzen das Kfz vorbeifährt bevor es parkt
     ENDE FÜR
 ENDE FUNKTION
 
@@ -197,7 +197,7 @@ ENDE FUNKTION
         ELSE
             Kfz akfz = NULL
             init_kfz(Parkhaus *p_parkhaus, Kfz akfz, Ganzzahl id, Kfz NULL)
-            kfz_hinzufügen_warteschlange(parkhaus *p_parkhaus, Kfz akfz)
+            kfz_hinzufuegen_warteschlange(parkhaus *p_parkhaus, Kfz akfz)
         ENDE ELSE
     ENDE FÜR
 ENDE FUNKTION
@@ -239,7 +239,7 @@ FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_s
     WENN zufall <= p_simulationsparameter->wahrscheinlichkeit_neues_kfz: // ">=" statt ">" da falls Wahrscheinlichkeit = 1 und zufall = 1 soll trotzdem Kfz rein. Bei 100% wahrscheinlichkeit MUSS eine Kfz rein
         Kfz *p_neues_kfz = init_kfz(Parkhaus *p_parkhaus, Ganzzahl id)
         id = aktuelle_id(Ganzzahl id)
-        kfz_hinzufügen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_neues_kfz)
+        kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_neues_kfz)
     ENDE WENN 
     
     FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
@@ -254,8 +254,8 @@ FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_s
     freie_parkplaetze_wahrheitsvariable = platz_garage(Parkhaus *p_parkhaus)
 
     WENN freie_parkplaetze_wahrheitsvariable AND p_parkhaus->p_erstes_kfz_in_der_warteschlange != NULL:
-        Kfz *p_kfz_hinzufügen_aus_queue = entferne_kfz_warteschlange(Parkhaus *p_parkhaus)
-        füge_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz_hinzufügen_aus_queue)
+        Kfz *p_kfz_hinzufuegen_aus_queue = entferne_kfz_warteschlange(Parkhaus *p_parkhaus)
+        fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz_hinzufuegen_aus_queue)
     ENDE WENN
     zeitpunkt = zeitpunkt + 1
 ENDE FUNKTION
