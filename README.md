@@ -1,4 +1,8 @@
-```
+# Parkhaus
+## Empfohlene Ordnerstruktur
+
+
+```bash
 parkhaus-simulation/
 │
 ├── README.md
