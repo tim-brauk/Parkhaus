@@ -265,9 +265,10 @@ FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_s
     Ganzzahl freie_parkplaetze_wahrheitsvariable = 0; // 0 = keine freien Parkplaetze. 1 = freie Parkplaetze
     freie_parkplaetze_wahrheitsvariable = platz_garage(Parkhaus *p_parkhaus)
 
-    WENN freie_parkplaetze_wahrheitsvariable AND p_parkhaus->p_erstes_kfz_in_der_warteschlange != NULL:
+    SOLANGE freie_parkplaetze_wahrheitsvariable AND p_parkhaus->p_erstes_kfz_in_der_warteschlange != NULL:
         Kfz *p_kfz_hinzufuegen_aus_queue = entferne_kfz_warteschlange(Parkhaus *p_parkhaus)
         fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz_hinzufuegen_aus_queue)
-    ENDE WENN
+        freie_parkplaetze_wahrheitsvariable = platz_garage(Parkhaus *p_parkhaus)
+    ENDE SOLANGE
     zeitpunkt = zeitpunkt + 1
 ENDE FUNKTION
