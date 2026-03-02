@@ -7,22 +7,29 @@ WENN = if Verzweigung
 SONST = else
 FUNKTION (Rückgabetyp) Funktionsname (variable variablenname, ...): = Rückgabetyp Funktionsname(variable variablenname, ...){} 
 Im Falle nicht vorhandener Information "Rückgabetyp" -> Umsetzung in C als void
-/*Funktion*/ bedeutet, dass die Funktion nicht mehr relevant und korrekt ist. Die Funktion wird drin gelassen bis falls sie im späteren Verlauf 
+/*Funktion*/ bedeutet, dass die Funktion nicht mehr relevant und korrekt ist. Die Funktion wird drin gelassen falls sie im späteren Verlauf 
 doch noch benötigt wird. Somit muss man die Funktion nichtmehr neu schreiben sondern nur aktualisieren.
 */
 
+
 FUNKTION (*Simulationsparameter) init_simulationsparameter (Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Fließkommazahl simulations_dauer, Ganzzahl seed, Fließkommazahl wahrscheinlichkeit_neues_kfz):
+    
     Simulationsparameter *p_simulationsparameter = malloc(sizeof(Simulationsparameter))
+    
     WENN p_simulationsparameter == NULL:
         Ausgabe: "Mallocfehler in init_simulationsparameter"
     ENDE WENN
+    //Fehlerüberprüfung
+
     p_simulationsparameter->anzahl_parkplaetze = anzahl_parkplaetze
     p_simulationsparameter->maximale_parkdauer = maximale_parkdauer
     p_simulationsparameter->simulations_dauer = simulations_dauer
     p_simulationsparameter->seed = seed
     p_simulationsparameter->wahrscheinlichkeit_neues_kfz = wahrscheinlichkeit_neues_kfz
+
     GIB p_simulationsparameter
 ENDE FUNKTION
+
 
 /*FUNKTION (*Parkplatz) init_parkplatz():
     Parkplatz *p_parkplatz = malloc(sizeof(Parkplatz))
@@ -34,42 +41,66 @@ ENDE FUNKTION
     GIB p_parkplatz
 ENDE FUNKTION*/
 
+
 FUNKTION (*Parkhaus) init_parkhaus (Ganzzahl maximale_parkdauer, Ganzzahl anzahl_parkplaetze): //Die Variablen NICHT selber festlegen in main sondern von Simulationsparameter ablesen
+    
     Parkhaus *p_parkhaus = malloc(sizeof(Parkhaus))
+    
     WENN p_parkhaus == NULL
         Ausgabe: "Mallocfehler in init_parkhaus mit parkhaus"
     ENDE WENN
+    //Fehlerüberprüfung
+    
     p_parkhaus->maximale_parkdauer = maximale_parkdauer
+    
     Parkplatz *p_parkplatz = malloc(sizeof(Parkplatz) * anzahl_parkplaetze)
+    
     WENN p_parkplatz == NULL
         Ausgabe: "Mallocfehler in init_parkhaus mit parkplatz"
     ENDE WENN
+    //Fehlerüberprüfung
+    
     p_parkhaus->p_parkplaetze = p_parkplatz
+    
     FÜR Ganzzahl i = 0, < anzahl_parkplaetze, i++:
         p_parkhaus->p_parkplaetze[i].belegt = 0
         p_parkhaus->p_parkplaetze[i].p_kfz = NULL
     ENDE FÜR
+    //Alle Parkplätze im Parkhaus als leer deklarieren (belegt = 0, p_kfz = NULL)
+
     p_parkhaus->p_erstes_kfz_in_der_warteschlange = NULL
     p_parkhaus->anzahl_parkplaetze = anzahl_parkplaetze
     p_parkhaus->belegte_parkplaetze = 0
     GIB p_parkhaus
 ENDE FUNKTION 
 
+
 FUNKTION (*Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt): //einfahrtszeitpunkt ist eine variable in main
+    
     Kfz *p_kfz = malloc(sizeof(Kfz))
+    
     WENN p_kfz == NULL:
         Ausgabe: "Malloc Fehler in init_kfz"
     ENDE WENN
+    //Fehlerüberprüfung
+    
     p_kfz->id = id
     p_kfz->einfahrtszeitpunkt = zeitpunkt
+    
     Ganzzahl min = 1
     Ganzzahl max = p_parkhaus->maximale_parkdauer 
-    p_kfz->verbleibende_parkdauer = min + rand() % (max - min + 1)  //verbleibende_parkdauer ist ein zufälliger Wert zwischen 0-maximalen_parkdauer
-    p_kfz->p_naechstes_kfz = NULL //wird bei kfz_hinzufuegen_warteschlange gesetzt
+    p_kfz->verbleibende_parkdauer = min + rand() % (max - min + 1)
+    //verbleibende_parkdauer ist ein zufälliger Wert zwischen 0-maximalen_parkdauer
+    
+    p_kfz->p_naechstes_kfz = NULL 
+    //wird bei kfz_hinzufuegen_warteschlange gesetzt
+    
     GIB p_kfz
 ENDE FUNKTION 
 
+
 FUNKTION aktualisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Ganzzahl simulations_dauer, Fließkommazahl wahrscheinlichkeit_neues_kfz, Ganzzahl seed):
+    
     Ganzzahl alte_anzahl_parkplaetze = p_parkhaus->anzahl_parkplaetze
 
     WENN anzahl_parkplaetze > alte_anzahl_parkplaetze:
@@ -77,14 +108,21 @@ FUNKTION aktualisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_s
         WENN (sicherheitsabfrage == NULL):
             Ausgabe: "Speicherproblem beim hinzufügen von Parkplätzen"
         ENDE WENN
+        //Fehlerüberprüfung
+
         SONST
             p_parkhaus->p_parkplaetze = sicherheitsabfrage
         ENDE SONST
+        //Erweiterung des Speicher
+        
         FÜR Ganzzahl i = alte_anzahl_parkplaetze, i < anzahl_parkplaetze, i++:
             p_parkhaus->p_parkplaetze[i].belegt = 0
             p_parkhaus->p_parkplaetze[i].p_kfz = NULL
         ENDE FÜR
-    ENDE WENN //Falls Parkplaetze hinzugefügt werden -> mit realloc erweitern
+        //Alle neuen Parkplätze im Parkhaus als leer deklarieren (belegt = 0, p_kfz = NULL)
+
+    ENDE WENN 
+    //Falls Parkplaetze hinzugefügt werden -> mit realloc erweitern
 
     WENN anzahl_parkplaetze < alte_anzahl_parkplaetze:
         FÜR Ganzzahl i = anzahl_parkplaetze, i < alte_anzahl_parkplaetze, i++:
@@ -94,16 +132,22 @@ FUNKTION aktualisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_s
                 p_parkhaus->p_parkplaetze[i].p_kfz = NULL
                 p_parkhaus->belegte_parkplaetze = p_parkhaus->belegte_parkplaetze - 1
                 kfz_hinzufuegen_warteschlange(Parkhaus p_parkhaus, Kfz p_kfz_zwischenspeicher)
+                //Fahrzeuge die im Parkhaus sind werden in die Warteschlange hinzugefügt bevor die Parkplätze entfernt werden, bevor der Speicher verringert wird.
+
             ENDE WENN
         ENDE FÜR
         Parkplatz *sicherheitsabfrage = realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * anzahl_parkplaetze)
         WENN (sicherheitsabfrage == NULL):
             Ausgabe: "Speicherproblem beim hinzufügen von Parkplätzen"
         ENDE WENN
+        //Sicherheitsüberprüfung
+        
         SONST
             p_parkhaus->p_parkplaetze = sicherheitsabfrage
         ENDE SONST
-    ENDE WENN //Falls Parkplaetze entfernt werden ->realloc und die Fahrzeuge rauschmeißen und in der Warteschlange warten lassen
+
+    ENDE WENN 
+    //Falls Parkplaetze entfernt werden ->realloc und die Fahrzeuge rauschmeißen und in der Warteschlange warten lassen
 
     p_parkhaus->anzahl_parkplaetze = anzahl_parkplaetze
     p_simulationsparameter->anzahl_parkplaetze = anzahl_parkplaetze
@@ -115,49 +159,68 @@ FUNKTION aktualisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_s
     srand(seed)
 ENDE FUNKTION
 
+
 FUNKTION (Ganzzahl) aktuelle_id(&id): //id als eine Variable in main. Nach jedem init_kfz soll ein aktuelle_id folgen
     GIB id + 1
 ENDE FUNKTION
 
+
 FUNKTION kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz):
+
     WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL:
         p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz
         p_kfz->p_naechstes_kfz = NULL
-        ENDE FUNKTION //falls keine KFZ in der Warteschlange wird das auto als erster gesetz
+        ENDE FUNKTION 
+        //falls keine KFZ in der Warteschlange wird das KFZ als erster gesetzt
+
     ENDE WENN
+    
     Kfz *p_aktuelles_kfz = p_parkhaus->p_erstes_kfz_in_der_warteschlange
+    
     SOLANGE (p_aktuelles_kfz->p_naechstes_kfz != NULL):
         p_aktuelles_kfz = p_aktuelles_kfz->p_naechstes_kfz
     ENDE SOLANGE
+    //p_aktuelles_kfz wird so lange aktualisiert bis es am das letzte in der Warteschlange ist
+    
     p_aktuelles_kfz->p_naechstes_kfz = p_kfz
     p_kfz->p_naechstes_kfz = NULL
 ENDE FUNKTION
 
+
 FUNKTION (*Kfz) entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
+    
     WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL:
         Ausgabe: "Keine kfzs in der Warteschlange"
         GIB NULL
         ENDE FUNKTION
     ENDE WENN
+    
     WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz == NULL:
         Kfz *p_kfz_zwischenspeicher = p_parkhaus->p_erstes_kfz_in_der_warteschlange
         p_parkhaus->p_erstes_kfz_in_der_warteschlange = NULL
         GIB p_kfz_zwischenspeicher
-        ENDE FUNKTION // Falls nur 1 KFZ in der warteschlange wird er ausgebeben und erster auf NULL gesetzt 
+        ENDE FUNKTION 
+        // Falls nur 1 KFZ in der warteschlange wird er ausgebeben und erstes_kfz_in_der_warteschlange auf NULL gesetzt 
+    
     ENDE WENN
+
+    //Falls mehr als 1 KFZ in der warteschlange
     Kfz *p_kfz_zwischenspeicher = p_parkhaus->p_erstes_kfz_in_der_warteschlange
     p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz_zwischenspeicher->p_naechstes_kfz
     p_kfz_zwischenspeicher->p_naechstes_kfz = NULL
-    GIB p_kfz_zwischenspeicher //Falls mehr als 1 KFZ in der warteschlange
+    GIB p_kfz_zwischenspeicher 
 ENDE FUNKTION
 
+
 FUNKTION fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
+    
     Ganzzahl freie_parkplaetze = (p_parkhaus->anzahl_parkplaetze) - (p_parkhaus->belegte_parkplaetze)
 
     Ganzzahl min = 0
     Ganzzahl max = freie_parkplaetze - 1 // Bei 5 freien parkplätzen liegt der Bereich zwischen 0-4 Somit haben wir 5 Werte.
     Ganzzahl zufaelliger_parkplatz = 0
     zufaelliger_parkplatz = min + (rand() % (max - min + 1)) //Formel für zufällige zahl zwischen min - max     
+    
     FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
         WENN !zufaelliger_parkplatz
             p_parkhaus->p_parkplaetze[i].belegt = 1
@@ -173,8 +236,11 @@ FUNKTION fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
     ENDE FÜR
 ENDE FUNKTION
 
+
 FUNKTION entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
     FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
+        
+        //nach p_kfz im Parkhaus suchen
         WENN p_kfz == p_parkhaus->p_parkplaetze[i].p_kfz:
             p_parkhaus->p_parkplaetze[i].belegt = 0
             free(p_kfz)
@@ -183,8 +249,10 @@ FUNKTION entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
             ENDE FUNKTION
         ENDE WENN
     ENDE FÜR
-    Ausgabe: "Dieses Kfz wurde im Parkhaus nicht gefunden" //Fehlermeldung
+    Ausgabe: "Dieses Kfz wurde im Parkhaus nicht gefunden" 
+    //Fehlermeldung (Im Normalfall darf das nicht passieren)
 ENDE FUNKTION
+
 
 FUNKTION entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus):
     FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
@@ -192,12 +260,15 @@ FUNKTION entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus):
             WENN p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer < 0:
                 p_parkhaus->p_parkplaetze[i].belegt = 0
                 free(p_parkhaus->p_parkplaetze[i].p_kfz)
-                p_parkhaus->p_parkplaetze[i].p_kfz = NULL //Falls Parkdauer überschritten fährt das Kfz raus
-                Ausgabe: "Ein KFZ musste aufgrund zu hoher Parkzeit entfernt werden oder aufgrund von Bauarbeiten" //Kann auftreten wenn maximale_parkdauer zur Laufzeit verringert wird.
+                p_parkhaus->p_parkplaetze[i].p_kfz = NULL 
+                //Falls Parkdauer überschritten fährt das Kfz raus
+                Ausgabe: "Ein KFZ musste aufgrund zu hoher Parkzeit entfernt werden oder aufgrund von Bauarbeiten" 
+                //Kann auftreten wenn maximale_parkdauer zur Laufzeit verringert wird.
             ENDE WENN
         ENDE WENN
     ENDE FÜR
 ENDE FUNKTION
+
 
 /*FUNKTION add_num_of_cars(Ganzzahl neue_kfzs, Parkhaus *p_parkhaus):
     FÜR Ganzzahl i = 0, i < neue_kfzs, i++:
@@ -214,6 +285,7 @@ ENDE FUNKTION
     ENDE FÜR
 ENDE FUNKTION*/
 
+
 /*FUNKTION remove_num_of_cars(Ganzzahl rausfahrENDEe_kfzs, Parkhaus *p_parkhaus):
     FÜR Ganzzahl i = 0, i < rausfahrENDEe_kfzs, i++:
         WENN p_parkhaus->p_parkplaetze[i].belegt:
@@ -223,7 +295,8 @@ ENDE FUNKTION*/
     ENDE FÜR
 ENDE FUNKTION*/
 
-FUNKTION (Ganzzahl) platz_garage(Parkhaus *p_parkhaus): // 1 bei freien Parkplätzen. 0 wenn keine freien parkplätze
+
+FUNKTION (Ganzzahl) platz_garage(Parkhaus *p_parkhaus): 
     WENN p_parkhaus->anzahl_parkplaetze == p_parkhaus->belegte_parkplaetze
         GIB 0
         ENDE FUNKTION
@@ -233,9 +306,12 @@ FUNKTION (Ganzzahl) platz_garage(Parkhaus *p_parkhaus): // 1 bei freien Parkplä
         ENDE FUNKTION
     ENDE SONST
 ENDE FUNKTION
+// 1 bei freien Parkplätzen. 0 wenn keine freien parkplätze
+
 
 FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, &id, &zeitpunkt):
-    //jedem Fahrzeug die aktuelle parkzeit um 1 erhöhen
+    
+    //jedem KFZ die verbleibende parkdauer um 1 verringern
     FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
         WENN p_parkhaus->p_parkplaetze[i].belegt
             p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer = p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer - 1
@@ -245,11 +321,15 @@ FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_s
     Ganzzahl min = 0
     Ganzzahl max = 1
     Fließkommazahl zufall = 0
-    zufall = min + ((Fließkommazahl)rand() / RAND_MAX) * (max - min) // liefert eine zufällige Kommazahl zwischen 0-1 (wird benötigt bezüglich des Vergleichs mit der Wahrscheinlichkeit)
+    zufall = min + ((Fließkommazahl)rand() / RAND_MAX) * (max - min) 
+    // liefert eine zufällige Kommazahl zwischen 0-1 (wird benötigt bezüglich des Vergleichs mit der Wahrscheinlichkeit)
     //RAND_MAX ist eine C definierte Konstante die den maximalwert von rand liefert.
+    
     entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus)
-    WENN zufall <= p_simulationsparameter->wahrscheinlichkeit_neues_kfz: // ">=" statt ">" da falls Wahrscheinlichkeit = 1 und zufall = 1 soll trotzdem Kfz rein. Bei 100% wahrscheinlichkeit MUSS eine Kfz rein
-        Kfz *p_neues_kfz = init_kfz(Parkhaus *p_parkhaus, Ganzzahl id)
+
+    WENN zufall <= p_simulationsparameter->wahrscheinlichkeit_neues_kfz: 
+        // ">=" statt ">" da falls Wahrscheinlichkeit = 1 und zufall = 1 soll trotzdem Kfz rein. Bei 100% wahrscheinlichkeit MUSS eine Kfz rein
+        Kfz *p_neues_kfz = init_kfz(Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt)
         id = aktuelle_id(Ganzzahl id)
         kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_neues_kfz)
     ENDE WENN 
@@ -261,6 +341,7 @@ FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_s
             ENDE WENN
         ENDE WENN
     ENDE FÜR
+    //Bei allen KFZ wird die verbleibende parkdauer überprüft. Falls diese 0 erreicht werden sie entfernt
 
     Ganzzahl freie_parkplaetze_wahrheitsvariable = 0; // 0 = keine freien Parkplaetze. 1 = freie Parkplaetze
     freie_parkplaetze_wahrheitsvariable = platz_garage(Parkhaus *p_parkhaus)
@@ -270,5 +351,7 @@ FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_s
         fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz_hinzufuegen_aus_queue)
         freie_parkplaetze_wahrheitsvariable = platz_garage(Parkhaus *p_parkhaus)
     ENDE SOLANGE
+    //Es werden alle KFZs aus der Warteschlange hinzugefügt solange platz im Parkhaus vorhanden ist. 
+    
     zeitpunkt = zeitpunkt + 1
 ENDE FUNKTION
