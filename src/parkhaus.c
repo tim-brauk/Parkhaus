@@ -4,14 +4,9 @@ Parkhaus *init_parkhaus(Parkplatz *p_parkplaetze,
                         int anzahl_parkplaetze, 
                         int maximale_parkdauer)
 {    
-    Parkhaus *p_parkplaetze = NULL;
+    //deklaration schon oben
 
-    p_parkhaus = (Parkhaus*)malloc(sizeof(Parkhaus));
-
-    if (p_parkhaus == NULL)
-        return NULL;
-
-    return p_parkhaus;
+    Parkhaus *p_parkhaus = (Parkhaus*)malloc(sizeof(Parkhaus));
 
     for (int i = 0; i < anzahl_parkplaetze; i++)
     {
@@ -20,9 +15,15 @@ Parkhaus *init_parkhaus(Parkplatz *p_parkplaetze,
     }
 
     p_parkhaus->maximale_parkdauer = maximale_parkdauer;
-    p_parkhaus->p_erstes_kfz_in_der_warteschlange = NULL
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange = NULL;
+
     p_parkhaus->anzahl_parkplaetze = anzahl_parkplaetze;
     p_parkhaus->belegte_parkplaetze = 0;
 
+    if (p_parkhaus == NULL)
+    {    
+        return NULL;
+    }
     return p_parkhaus;
+    //return p_parkhaus hierher verschoben, dass oberer teil ausgeführt wird
 }
