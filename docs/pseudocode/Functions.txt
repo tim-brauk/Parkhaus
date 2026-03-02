@@ -69,7 +69,7 @@ FUNKTION (*Kfz) init_kfz (Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt)
     GIB p_kfz
 ENDE FUNKTION 
 
-FUNKTION aktualisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Ganzzahl simulations_dauer, Fließkommazahl wahrscheinlichkeit_neus_kfz, Ganzzahl seed):
+FUNKTION aktualisiere_parameter (Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, Ganzzahl anzahl_parkplaetze, Ganzzahl maximale_parkdauer, Ganzzahl simulations_dauer, Fließkommazahl wahrscheinlichkeit_neues_kfz, Ganzzahl seed):
     Ganzzahl alte_anzahl_parkplaetze = p_parkhaus->anzahl_parkplaetze
 
     WENN anzahl_parkplaetze > alte_anzahl_parkplaetze:
