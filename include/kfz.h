@@ -7,14 +7,14 @@ typedef struct Kfz
     int parkdauer; //parkdauer in sekunden 
     int einfahrtszeit; //einfahrtszeit
     int verbleibende_parkdauer;
-    Kfz *p_naechstes_kfz;
+    struct Kfz *p_naechstes_kfz;
 } Kfz;
 /**
-* @brief Erstellt ein neues Auto und reserviert den Speicher dafür.
+* @brief Erstellt ein neues Kfz und reserviert den Speicher dafür.
 *
-*Reserviert Speicher für ein Auto initialiesiert alle Werte und setzt p_naechstes_auto auf NULL.
+*Reserviert Speicher für ein Kfz initialisiert alle Werte und setzt p_naechstes_kfz auf NULL.
 * 
-* @param[in] id des Autos
+* @param[in] id des Kfz
 * @return p_kfz Zeiger auf das neu erstellte Kfz
 */
 Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id);

@@ -20,7 +20,7 @@ typedef struct Parkhaus
 * Reserviert Speichert für das Parkhaus und setzt p_erstes_kfz_in_der_warteschlange auf NULL.
 * @param[in]  p_parkplaetze Zeiger auf das Array der Parkplaetze
 * @param[in]  anzahl_parkplaetze Anzahl der Parkplaetze
-* @param[in]  maximale_parkdauer in Stunden 
+* @param[in]  maximale_parkdauer maximale Parkdauer 
 * @return p_parkhaus Zeiger auf das Parkhaus
 */
 Parkhaus *init_parkhaus(Parkplatz *p_parkplaetze, int anzahl_parkplaetze, int maximale_parkdauer);
