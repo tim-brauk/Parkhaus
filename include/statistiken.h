@@ -97,6 +97,13 @@ float berechne_durchschnitt_warteschlangenlaenge(
     const SimulationStats *stats
 );
 
+
+/**
+ * @brief berechnet die durchschnittliche Wartezeit.
+ *
+ * @param[in] stats Statistikstruktur
+ * @return Durchschnittliche Wartezeit in Minuten
+ */
 float berechne_durchschnittliche_wartezeit(
     const SimulationStats *stats
 );
