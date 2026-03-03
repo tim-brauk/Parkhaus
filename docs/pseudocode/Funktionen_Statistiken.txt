@@ -142,3 +142,11 @@ FUNKTION (Fließkommazahl) berechne_durchschnittliche_wartezeit(SimulationsStats
     GIB durchschnittliche_wartezeit
 ENDE FUNKTION
 
+FUNKTION ausgabe_statistiken(SimulationsStats *p_statistik):
+    Ausgabe: "\nDurchschnittliche Auslastung liegt bei: " + berechne_durchschnitt_auslastung(SimulationsStats *p_statistik)
+    Ausgabe: "\nDurchschnittliche länge der Warteschlange liegt bei: " + berechne_durchschnitt_warteschlangenlaenge(SimulationsStats *p_statistik)
+    Ausgabe: "\nDurchschnittliche Wartezeit liegt bei: " + berechne_durchschnittliche_wartezeit(SimulationsStats *p_statistik)
+    Ausgabe: "\nMaximale Auslastung: " + p_statistik->maximale_auslastung
+    Ausgabe: "\nMaximale Länge der Warteschlange: " + p_statistik->maximale_warteschlangenlaenge
+ENDE FUNKTION
+
