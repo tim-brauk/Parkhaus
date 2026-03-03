@@ -56,6 +56,14 @@ void aktualisiere_groesse_statistik(
  */
 float berechne_aktuelle_auslastung(const Parkhaus *parkhaus);
 
+/**
+* @brief Berechnet die aktuelle durchschnittliche Wartezeit in Minuten.
+ *
+ * @param[in] parkhaus Zeiger auf Parkhaus
+ * @return aktuelle Durchschnittliche Wartezeit in Minuten
+ */
+float berechne_aktuelle_wartezeit(const Parkhaus *parkhaus);
+
 
 /**
  * @brief Berechnet aktuelle Warteschlangenlänge.
