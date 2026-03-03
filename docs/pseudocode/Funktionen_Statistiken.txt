@@ -51,3 +51,18 @@ FUNKTION (Ganzzahl) berechne_aktuelle_auslastung(Parkhaus *p_parkhaus):
 ENDE FUNKTION
 
 
+FUNKTION (Ganzzahl) berechne_aktuelle_warteschlangenlaenge(Parkhaus p_parkhaus):
+    Ganzzahl summe = 0
+    WENN p_parkhaus->erstes_kfz_in_der_warteschlange == NULL:
+        GIB summe
+        ENDE FUNKTION
+    ENDE WENN
+    Kfz *p_kfz_aktuell = p_parkhaus->erstes_kfz_in_der_warteschlange
+    SOLANGE p_kfz_aktuell->p_naechstes_kfz != NULL:
+        p_kfz_aktuell = p_aktuelles_kfz->p_naechstes_kfz
+        summe = summe + 1
+    ENDE SOLANGE 
+
+    GIB summe + 1
+ENDE FUNKTION
+
