@@ -28,6 +28,7 @@ FUNKTION (SimulationsStats) init_statistik:
     Fließkommazahl maximale_auslastung = 0
     Ganzzahl maximale_warteschlangenlaenge = 0
     Ganzzahl zeitschritte = 0
+    Ganzzahl durchlaufene_zeitschritte = 0
     auslastung_pro_zeitschritt = 0
     warteschlange_pro_zeitschritt = 0
     wartezeit_pro_zeitschritt = 0
@@ -43,6 +44,7 @@ FUNKTION (SimulationsStats) init_statistik:
     statistik->maximale_auslastung = maximale_auslastung
     statistik->maximale_warteschlangenlaenge = maximale_warteschlangenlaenge
     statistik->zeitschritte = zeitschritte
+    statisitk->durchlaufene_zeitschritte = durchlaufene_zeitschritte
     GIB statistik
 ENDE FUNKTION
 
@@ -115,7 +117,7 @@ ENDE FUNKTION
 
 FUNKTION (Fließkommazahl) berechne_durchschnitt_auslastung(SimulationStats statistik):
     Fließkommazahl durchschnittliche_auslastung = 0
-    FÜR i = 0, i < sizeof(statistik->auslastung_pro_zeitschritt)/sizeof(Fließkommazahl), i++:
+    FÜR i = 0, i < statistik->durchlaufene_zeitschritte - 1, i++:
         durchschnittliche_auslastung = durchschnittliche_auslastung + statistik->auslastung_pro_zeitschritt[i]
     ENDE FÜR
     durchschnittliche_auslastung = durchschnittliche_auslastung / (sizeof(statistik->auslastung_pro_zeitschritt)/sizeof(Ganzzahl))
@@ -125,7 +127,7 @@ ENDE FUNKTION
 
 FUNKTION (Fließkommazahl) berechne_durchschnitt_warteschlangenlaenge(SimulationsStats statistik):
     Fließkommazahl durchschnittliche_warteschlangenlaenge = 0
-    FÜR i = 0, i < sizeof(statistik->warteschlange_pro_zeitschritt)/sizeof(Fließkommazahl), i++:
+    FÜR i = 0, i < sstatistik->durchlaufene_zeitschritte - 1, i++:
         durchschnittliche_warteschlangenlaenge = durchschnittliche_warteschlangenlaenge + statistik->warteschlange_pro_zeitschritt[i]
     ENDE FÜR
     durchschnittliche_warteschlangenlaenge = durchschnittliche_warteschlangenlaenge / (sizeof(statistik->warteschlange_pro_zeitschritt)/sizeof(Fließkommazahl))
@@ -134,7 +136,7 @@ ENDE FUNKTION
 
 FUNKTION (Fließkommazahl) berechne_durchschnittliche_wartezeit(SimulationsStats statistik):
     Fließkommazahl durchschnittliche_wartezeit = 0
-    FÜR i = 0, i < sizeof(statistik->wartezeit_pro_zeitschritt)/sizeof(Fließkommazahl), i++:
+    FÜR i = 0, i < statistik->durchlaufene_zeitschritte - 1, i++:
         durchschnittliche_wartezeit = durchschnittliche_wartezeit + statistik->wartezeit_pro_zeitschritt[i]
     ENDE FÜR
     durchschnittliche_wartezeit = durchschnittliche_wartezeit / (sizeof(statistik->wartezeit_pro_zeitschritt)/sizeof(Fließkommazahl))
