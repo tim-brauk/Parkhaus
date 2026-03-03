@@ -354,12 +354,12 @@ FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_s
     ENDE SOLANGE
     //Es werden alle KFZs aus der Warteschlange hinzugefügt solange platz im Parkhaus vorhanden ist. 
     
-    p_statistik->auslastung_pro_zeitschritt[zeitpunkt] = berechne_aktuelle_auslastung
-    p_statistik->warteschlange_pro_zeitschritt[zeitpunkt] = berechne_aktuelle_warteschlangenlaenge
-    p_statistik->wartezeit_pro_zeitschritt[zeitpunkt] = berechne_aktuelle_wartezeit
-    aktualisiere_maximale_auslastung
-    aktualisiere_maximale_warteschlangenlaenge
-    ausgabe_statistiken(SimulationsStats p_statistik)
+    p_statistik->auslastung_pro_zeitschritt[zeitpunkt] = berechne_aktuelle_auslastung(Parkhaus *p_parkhaus)
+    p_statistik->warteschlange_pro_zeitschritt[zeitpunkt] = berechne_aktuelle_warteschlangenlaenge(Parkhaus *p_parkhaus)
+    p_statistik->wartezeit_pro_zeitschritt[zeitpunkt] = berechne_aktuelle_wartezeit(Parkhaus *p_parkhaus)
+    aktualisiere_maximale_auslastung(Parkhaus *p_parkhaus)
+    aktualisiere_maximale_warteschlangenlaenge(Parkhaus *p_parkhaus)
+    ausgabe_statistiken(SimulationsStats *p_statistik)
     p_statistik->durchlaufene_zeitschritte = p_statistik->durchlaufene_zeitschritte + 1
 
     zeitpunkt = zeitpunkt + 1
