@@ -33,7 +33,7 @@ typedef struct
  *
  * @return Zeiger auf initialisierte Statistikstruktur
  */
-SimulationStats* init_statistik();
+SimulationsStats* init_statistik();
 
 
  /**
@@ -43,8 +43,8 @@ SimulationStats* init_statistik();
  * @param[in] zeitschritte Anzahl der neuen Zeitschritte
  */
 void aktualisiere_groesse_statistik(
-    SimulationsStats *p_statistik 
-    Ganzzahl zeitschritte
+    SimulationsStats *p_statistik, 
+    int zeitschritte
 );
 
 
@@ -62,7 +62,7 @@ float berechne_aktuelle_auslastung(const Parkhaus *parkhaus);
  * @param[in] parkhaus Zeiger auf Parkhaus
  * @return aktuelle Durchschnittliche Wartezeit in Minuten
  */
-float berechne_aktuelle_wartezeit(const Parkhaus *parkhaus, &zeitpunkt);
+float berechne_aktuelle_wartezeit(const Parkhaus *parkhaus, int &zeitpunkt);
 
 
 /**
@@ -82,7 +82,7 @@ int berechne_aktuelle_warteschlangenlaenge(const Parkhaus *parkhaus);
  * @param[in] p_parkhaus Zeiger auf Parkhaus
  */
 void aktualisiere_maximale_auslastung(
-    SimulationStats *stats
+    SimulationsStats *stats
     Parkhaus *p_parkhaus
 );
 
@@ -94,7 +94,7 @@ void aktualisiere_maximale_auslastung(
  * @param[in] p_parkhaus Zeiger auf Parkhaus
  */
 void aktualisiere_maximale_warteschlangenlaenge(
-    SimulationStats *stats,
+    SimulationsStats *stats,
     Parkhaus *p_parkhaus
 );
 
@@ -106,7 +106,7 @@ void aktualisiere_maximale_warteschlangenlaenge(
  * @return Durchschnittliche Auslastung in Prozent
  */
 float berechne_durchschnitt_auslastung(
-    const SimulationStats *stats
+    const SimulationsStats *stats
 );
 
 
@@ -117,7 +117,7 @@ float berechne_durchschnitt_auslastung(
  * @return Durchschnittliche Warteschlangenlänge
  */
 float berechne_durchschnitt_warteschlangenlaenge(
-    const SimulationStats *stats
+    const SimulationsStats *stats
 );
 
 
@@ -128,7 +128,7 @@ float berechne_durchschnitt_warteschlangenlaenge(
  * @return Durchschnittliche Wartezeit in Minuten
  */
 float berechne_durchschnittliche_wartezeit(
-    const SimulationStats *stats
+    const SimulationsStats *stats
 );
 
 /**
