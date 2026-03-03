@@ -1,4 +1,4 @@
-#include "statistik.h"
+#include "statistiken.h"
 #include "parkhaus.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,7 +48,7 @@ SimulationsStats *init_statistik(){
 }
 
 void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zeitschritte){
-    Ganzzahl neue_groesse = p_statistik->zeitschritte + zeitschritte
+    /*Ganzzahl neue_groesse = p_statistik->zeitschritte + zeitschritte
     
     Fließkommazahl *zwischenspeicher_auslastung = realloc(p_statistik->auslastung_pro_zeitschritt, sizeof(Fließkommazahl) * neue_groesse)
     WENN zwischenspeicher_auslastung == NULL:
@@ -81,6 +81,7 @@ void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zeitschri
     ENDE SONST
     p_statistik->zeitschritte = neue_groesse
     //Aktualisierung der groesse
+    */
 }
 
 float berechne_aktuelle_auslastung(Parkhaus *p_parkhaus){
@@ -127,7 +128,7 @@ void aktualisiere_maximale_warteschlangenlaenge(SimulationsStats *p_statistik, P
     */
 }
 
-float berechne_durchschnitt_auslastung(SimulationStats *p_statistik){
+float berechne_durchschnitt_auslastung(SimulationsStats *p_statistik){
     /*
     Fließkommazahl durchschnittliche_auslastung = 0
     FÜR i = 0, i < p_statistik->durchlaufene_zeitschritte, i++:

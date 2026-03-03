@@ -7,6 +7,7 @@ WENN = if Verzweigung
 SONST = else
 FUNKTION (Rückgabetyp) Funktionsname (variable variablenname, ...): = Rückgabetyp Funktionsname(variable variablenname, ...){} 
 Im Falle nicht vorhandener Information "Rückgabetyp" -> Umsetzung in C als void
+Im Pseudocode wird beim Funktionsaufruf übersichtshalber Argumenttyp mitgeschrieben.
 /*Funktion*/ bedeutet, dass die Funktion nicht mehr relevant und korrekt ist. Die Funktion wird drin gelassen falls sie im späteren Verlauf 
 doch noch benötigt wird. Somit muss man die Funktion nichtmehr neu schreiben sondern nur aktualisieren.
 */
@@ -142,7 +143,7 @@ FUNKTION aktualisiere_maximale_warteschlangenlaenge(SimulationsStats *p_statisti
 ENDE FUNKTION
 
 
-FUNKTION (Fließkommazahl) berechne_durchschnitt_auslastung(SimulationStats *p_statistik):
+FUNKTION (Fließkommazahl) berechne_durchschnitt_auslastung(SimulationsStats *p_statistik):
     Fließkommazahl durchschnittliche_auslastung = 0
     FÜR i = 0, i < p_statistik->durchlaufene_zeitschritte, i++:
         durchschnittliche_auslastung = durchschnittliche_auslastung + p_statistik->auslastung_pro_zeitschritt[i]

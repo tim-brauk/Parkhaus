@@ -7,6 +7,7 @@ WENN = if Verzweigung
 SONST = else
 FUNKTION (Rückgabetyp) Funktionsname (variable variablenname, ...): = Rückgabetyp Funktionsname(variable variablenname, ...){} 
 Im Falle nicht vorhandener Information "Rückgabetyp" -> Umsetzung in C als void
+Im Pseudocode wird beim Funktionsaufruf übersichtshalber Argumenttyp mitgeschrieben.
 /*Funktion*/ bedeutet, dass die Funktion nicht mehr relevant und korrekt ist. Die Funktion wird drin gelassen falls sie im späteren Verlauf 
 doch noch benötigt wird. Somit muss man die Funktion nichtmehr neu schreiben sondern nur aktualisieren.
 */
