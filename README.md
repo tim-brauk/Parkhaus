@@ -38,5 +38,5 @@ parkhaus-simulation/
 │
 └── .github/
 └── workflows/
-└── (build.yml)
+└── .gitignore
 ```
