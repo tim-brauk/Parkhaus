@@ -4,10 +4,12 @@
 #include "simulation.h"
 #include "warteschlange.h"
 #include "statistiken.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 FUNKTION main
 {
-    // Variablen Deklaration
+ /*  // Variablen Deklaration
     Ganzzahl id = 0
     Ganzzahl zeitpunkt = 0
     Ganzzahl anzahl_parkplaetze = 0
@@ -15,7 +17,7 @@ FUNKTION main
     float simulations_dauer = 0
     Ganzzahl seed = 0
     float wahrscheinlichkeit_neues_kfz = 0
-    Ganzzahl aendern = 0
+    
 
     // Parameter ueber Terminal eingeben mit Sicherheitsabfragen
     Ausgabe: "Anzahl Parkplaetze eingeben: "
@@ -113,21 +115,10 @@ FUNKTION main
 
         // Zeitschritt simulieren
         simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, &id, &zeitpunkt)
+       
 
-        // Statistiken fuer diesen Zeitschritt aktualisieren
-        aktualisiere_maximale_auslastung(p_statistik, p_parkhaus)
-        aktualisiere_maximale_warteschlangenlaenge(p_statistik, p_parkhaus)
-        p_statistik->auslastung_pro_zeitschritt[p_statistik->durchlaufene_zeitschritte] = berechne_aktuelle_auslastung(p_parkhaus)
-        p_statistik->warteschlange_pro_zeitschritt[p_statistik->durchlaufene_zeitschritte] = berechne_aktuelle_warteschlangenlaenge(p_parkhaus)
-        p_statistik->durchlaufene_zeitschritte = p_statistik->durchlaufene_zeitschritte + 1
-
-        //Statistiken in der Konsole ausgeben 
-        ausgabe_statistiken(p_statistik)
-
-
-        // Statistiken des aktuellen Zeitschritts in Datei und Konsole schreiben
+        // Statistiken des aktuellen Zeitschritts in Datei
         fprintf(p_datei, "Zeitschritt: %d\n", p_statistik->durchlaufene_zeitschritte)
-        fprintf(p_datei, "Aktuelle Auslastung: %.2f%%\n", berechne_aktuelle_auslastung(p_parkhaus))
         fprintf(p_datei, "Durchschnittliche Auslastung: %.2f%%\n", berechne_durchschnitt_auslastung(p_statistik))
         fprintf(p_datei, "Durchschnittliche Warteschlangenlaenge: %.2f\n", berechne_durchschnitt_warteschlangenlaenge(p_statistik))
         fprintf(p_datei, "Maximale Auslastung: %.2f%%\n", p_statistik->maximale_auslastung)
@@ -154,4 +145,5 @@ FUNKTION main
     free(p_parkhaus)
     free(p_simulationsparameter)
     GIB 0
+*/
 }
