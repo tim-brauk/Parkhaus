@@ -54,7 +54,20 @@ FUNKTION main
 
     // Parkhaus und Simulationsparameter initialisieren
     Simulationsparameter *p_simulationsparameter = init_simulationsparameter(anzahl_parkplaetze, maximale_parkdauer, simulations_dauer, seed, wahrscheinlichkeit_neues_kfz)
+        WENN p_simulationsparameter == NULL:
+            Ausgabe: "Fehler bei der Initialisierung der Simulationsparameter."
+            GIB 1
     Parkhaus *p_parkhaus = init_parkhaus(p_simulationsparameter->maximale_parkdauer, p_simulationsparameter->anzahl_parkplaetze)
+        WENN p_parkhaus == NULL:
+            Ausgabe: "Fehler bei der Initialisierung des Parkhauses."
+            GIB 1
+
+
+    //Statstiken initialisieren
+    Simulationsstats *p_statisik = init_statistiken()
+        WENN p_statisik == NULL:
+            Ausgabe: "Fehler bei der Initialisierung der Statistiken."
+            GIB 1
 
     // Simulationsschleife
     SOLANGE zeitpunkt < simulations_dauer:
@@ -64,10 +77,23 @@ FUNKTION main
         Eingabe: aendern
         WENN aendern == 1:
             Eingabe: anzahl_parkplaetze
+            SOLANGE anzahl_parkplaetze <= 0:
+                Ausgabe: "Ungueltige Eingabe. Anzahl Parkplaetze muss groesser als 0 sein: "
+                Eingabe: anzahl_parkplaetze
             Eingabe: maximale_parkdauer
+            SOLANGE maximale_parkdauer <= 0:
+                Ausgabe: "Ungueltige Eingabe. Maximale Parkdauer muss groesser als 0 sein: "
+                Eingabe: maximale_parkdauer
             Eingabe: simulations_dauer
+            SOLANGE simulations_dauer <= zeitpunkt:
+                Ausgabe: "Ungueltige Eingabe. Simulationsdauer muss groesser als aktueller Zeitpunkt sein: "
+                Eingabe: simulations_dauer
+            ENDE SOLANGE
             Eingabe: seed
             Eingabe: wahrscheinlichkeit_neues_kfz
+            SOLANGE wahrscheinlichkeit_neues_kfz < 0 ODER wahrscheinlichkeit_neues_kfz > 1:
+                Ausgabe: "Ungueltige Eingabe. Wahrscheinlichkeit muss zwischen 0.0 und 1.0 liegen: "
+                Eingabe: wahrscheinlichkeit_neues_kfz
             aktualisiere_parameter(p_parkhaus, p_simulationsparameter, anzahl_parkplaetze, maximale_parkdauer, simulations_dauer, wahrscheinlichkeit_neues_kfz, seed)
         ENDE WENN
 
