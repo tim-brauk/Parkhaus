@@ -22,7 +22,7 @@ kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz)
 }
 
 
-(*Kfz) entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
+Kfz* entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
 {   
     /*
      * WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL:
