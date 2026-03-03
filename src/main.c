@@ -3,7 +3,7 @@
 #include "parkvorgang.h"    
 #include "simulation.h"
 #include "warteschlange.h"
-#include  "statisken.h"
+#include "statistiken.h"
 
 FUNKTION main
 {
@@ -48,34 +48,38 @@ FUNKTION main
         Ausgabe: "Ungueltige Eingabe. Wahrscheinlichkeit muss zwischen 0.0 und 1.0 liegen: "
         Eingabe: wahrscheinlichkeit_neues_kfz
     ENDE SOLANGE
-    
-    //zufallszahlengenerator initialisieren
-    srand(seed);
 
-    // Parkhaus und Simulationsparameter initialisieren
-    Simulationsparameter *p_simulationsparameter = init_simulationsparameter(anzahl_parkplaetze, maximale_parkdauer, simulations_dauer, seed, wahrscheinlichkeit_neues_kfz)
-        WENN p_simulationsparameter == NULL:
-            Ausgabe: "Fehler bei der Initialisierung der Simulationsparameter."
-            GIB 1
+    // Zufallszahlengenerator initialisieren
+    srand(seed)
+
+    // Simulationsparameter initialisieren
+    SimulationsParameter *p_simulationsparameter = init_simulationsparameter(anzahl_parkplaetze, maximale_parkdauer, simulations_dauer, seed, wahrscheinlichkeit_neues_kfz)
+    WENN p_simulationsparameter == NULL:
+        Ausgabe: "Fehler bei der Initialisierung der Simulationsparameter."
+        GIB 1
+    ENDE WENN
+
+    // Parkhaus initialisieren
     Parkhaus *p_parkhaus = init_parkhaus(p_simulationsparameter->maximale_parkdauer, p_simulationsparameter->anzahl_parkplaetze)
-        WENN p_parkhaus == NULL:
-            Ausgabe: "Fehler bei der Initialisierung des Parkhauses."
-            GIB 1
+    WENN p_parkhaus == NULL:
+        Ausgabe: "Fehler bei der Initialisierung des Parkhauses."
+        GIB 1
+    ENDE WENN
 
+    // Statistiken initialisieren
+    SimulationsStats *p_statistik = init_statistik()
+    WENN p_statistik == NULL:
+        Ausgabe: "Fehler bei der Initialisierung der Statistiken."
+        GIB 1
+    ENDE WENN
 
-    //Statstiken initialisieren
-    Simulationsstats *p_statisik = init_statistiken()
-        WENN p_statisik == NULL:
-            Ausgabe: "Fehler bei der Initialisierung der Statistiken."
-            GIB 1
-
-     
     // Datei oeffnen
     Datei *p_datei = fopen("simulation_ausgabe.txt", "w")
     WENN p_datei == NULL:
         Ausgabe: "Fehler beim Oeffnen der Ausgabedatei"
         GIB 1
     ENDE WENN
+
     // Simulationsschleife
     SOLANGE zeitpunkt < simulations_dauer:
 
@@ -87,10 +91,12 @@ FUNKTION main
             SOLANGE anzahl_parkplaetze <= 0:
                 Ausgabe: "Ungueltige Eingabe. Anzahl Parkplaetze muss groesser als 0 sein: "
                 Eingabe: anzahl_parkplaetze
+            ENDE SOLANGE
             Eingabe: maximale_parkdauer
             SOLANGE maximale_parkdauer <= 0:
                 Ausgabe: "Ungueltige Eingabe. Maximale Parkdauer muss groesser als 0 sein: "
                 Eingabe: maximale_parkdauer
+            ENDE SOLANGE
             Eingabe: simulations_dauer
             SOLANGE simulations_dauer <= zeitpunkt:
                 Ausgabe: "Ungueltige Eingabe. Simulationsdauer muss groesser als aktueller Zeitpunkt sein: "
@@ -101,32 +107,45 @@ FUNKTION main
             SOLANGE wahrscheinlichkeit_neues_kfz < 0 ODER wahrscheinlichkeit_neues_kfz > 1:
                 Ausgabe: "Ungueltige Eingabe. Wahrscheinlichkeit muss zwischen 0.0 und 1.0 liegen: "
                 Eingabe: wahrscheinlichkeit_neues_kfz
+            ENDE SOLANGE
             aktualisiere_parameter(p_parkhaus, p_simulationsparameter, anzahl_parkplaetze, maximale_parkdauer, simulations_dauer, wahrscheinlichkeit_neues_kfz, seed)
         ENDE WENN
 
+        // Zeitschritt simulieren
         simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, &id, &zeitpunkt)
-        //Ausgabe der Statisken im aktuelllen Zeitschritt
-        ausgabe_statistiken_zeitschritt(p_parkhaus, p_stats, zeitpunkt)
-        //Schreiben der Statisken in die Datei
-        fprintf(p_datei, "Zeitschritt: %d\n", zeitpunkt)
-        fprintf(p_datei, "Auslastung: %.2f%%\n", auslastung)
-        fprintf(p_datei, "Belegte Parkplaetze: %d\n", p_parkhaus->belegte_parkplaetze)
-        fprintf(p_datei, "Freie Parkplaetze: %d\n", p_parkhaus->anzahl_parkplaetze - p_parkhaus->belegte_parkplaetze)
-        fprintf(p_datei, "Warteschlangenlaenge: %d\n", warteschlangenlaenge)
 
+        // Statistiken fuer diesen Zeitschritt aktualisieren
+        aktualisiere_maximale_auslastung(p_statistik, p_parkhaus)
+        aktualisiere_maximale_warteschlangenlaenge(p_statistik, p_parkhaus)
+        p_statistik->auslastung_pro_zeitschritt[p_statistik->durchlaufene_zeitschritte] = berechne_aktuelle_auslastung(p_parkhaus)
+        p_statistik->warteschlange_pro_zeitschritt[p_statistik->durchlaufene_zeitschritte] = berechne_aktuelle_warteschlangenlaenge(p_parkhaus)
+        p_statistik->durchlaufene_zeitschritte = p_statistik->durchlaufene_zeitschritte + 1
 
-        
-        
+        // Statistiken des aktuellen Zeitschritts in Datei und Konsole schreiben
+        fprintf(p_datei, "Zeitschritt: %d\n", p_statistik->durchlaufene_zeitschritte)
+        fprintf(p_datei, "Aktuelle Auslastung: %.2f%%\n", berechne_aktuelle_auslastung(p_parkhaus))
+        fprintf(p_datei, "Durchschnittliche Auslastung: %.2f%%\n", berechne_durchschnitt_auslastung(p_statistik))
+        fprintf(p_datei, "Durchschnittliche Warteschlangenlaenge: %.2f\n", berechne_durchschnitt_warteschlangenlaenge(p_statistik))
+        fprintf(p_datei, "Maximale Auslastung: %.2f%%\n", p_statistik->maximale_auslastung)
+        fprintf(p_datei, "Maximale Warteschlangenlaenge: %d\n", p_statistik->maximale_warteschlangenlaenge)
+        fprintf(p_datei, "Durchschnittliche Wartezeit: %.2f\n", berechne_durchschnittliche_wartezeit(p_statistik))
 
     ENDE SOLANGE
 
-    //Schreiben der finalen Statisken in die Datei
-    fprintf(p_datei, "Durchschnittliche Auslastung: %.2f%%\n", berechne_durchschnitt_auslastung(p_stats))
-    fprintf(p_datei, "Maximale Auslastung: %.2f%%\n", p_stats->maximale_auslastung)
-    fprintf(p_datei, "Maximale Warteschlangenlaenge: %d\n", p_stats->maximale_warteschlangenlaenge)
+    // Finale Statistiken in Datei schreiben
+    fprintf(p_datei, "\n--- Finale Statistiken ---\n")
+    fprintf(p_datei, "Durchschnittliche Auslastung: %.2f%%\n", berechne_durchschnitt_auslastung(p_statistik))
+    fprintf(p_datei, "Maximale Auslastung: %.2f%%\n", p_statistik->maximale_auslastung)
+    fprintf(p_datei, "Maximale Warteschlangenlaenge: %d\n", p_statistik->maximale_warteschlangenlaenge)
+    fprintf(p_datei, "Durchschnittliche Wartezeit: %.2f\n", berechne_durchschnittliche_wartezeit(p_statistik))
+    fprintf(p_datei, "Durchschnittliche Warteschlangenlaenge: %.2f\n", berechne_durchschnitt_warteschlangenlaenge(p_statistik))
     fclose(p_datei)
 
     // Speicher freigeben
+    free(p_statistik->auslastung_pro_zeitschritt)
+    free(p_statistik->warteschlange_pro_zeitschritt)
+    free(p_statistik->wartezeit_pro_zeitschritt)
+    free(p_statistik)
     free(p_parkhaus->p_parkplaetze)
     free(p_parkhaus)
     free(p_simulationsparameter)
