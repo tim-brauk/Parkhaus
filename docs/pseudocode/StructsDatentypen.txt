@@ -2,6 +2,7 @@ STRUCTS
 
 Kfz:
 Ganzzahl id //ID für jedes Kfz 
+Ganzzahl einfahrtszeitpunkt
 Ganzzahl parkdauer 
 Ganzzahl verbleibende_parkdauer
 Kfz *p_naechstes_kfz
@@ -9,7 +10,7 @@ Kfz *p_naechstes_kfz
 Parkhaus:
 Ganzzahl maximale_parkdauer
 Parkplatz *p_parkplaetze
-Kfz *p_erstes_auto_in_der_warteschlange
+Kfz *p_erstes_kfz_in_der_warteschlange
 Ganzzahl anzahl_parkplaetze
 Ganzzahl belegte_parkplaetze //belegte_parkplaetze !< parkplaetze
 
