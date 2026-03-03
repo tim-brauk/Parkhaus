@@ -62,13 +62,14 @@ float berechne_aktuelle_auslastung(const Parkhaus *parkhaus);
  * @param[in] parkhaus Zeiger auf Parkhaus
  * @return aktuelle Durchschnittliche Wartezeit in Minuten
  */
-float berechne_aktuelle_wartezeit(const Parkhaus *parkhaus);
+float berechne_aktuelle_wartezeit(const Parkhaus *parkhaus, &zeitpunkt);
 
 
 /**
  * @brief Berechnet aktuelle Warteschlangenlänge.
  *
  * @param[in] parkhaus Zeiger auf Parkhaus
+ * @param[in] zeitpunkt Aktueller Zeitpunkt der Simulation
  * @return Anzahl wartender Fahrzeuge
  */
 int berechne_aktuelle_warteschlangenlaenge(const Parkhaus *parkhaus);

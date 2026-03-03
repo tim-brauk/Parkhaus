@@ -103,13 +103,26 @@ FUNKTION (Ganzzahl) berechne_aktuelle_warteschlangenlaenge(Parkhaus *p_parkhaus)
         ENDE FUNKTION
     ENDE WENN
     Kfz *p_kfz_aktuell = p_parkhaus->erstes_kfz_in_der_warteschlange
-    SOLANGE p_kfz_aktuell->p_naechstes_kfz != NULL:
+    SOLANGE p_kfz_aktuell != NULL:
         p_kfz_aktuell = p_aktuell_kfz->p_naechstes_kfz
         summe = summe + 1
         //Für jedes KFZ wird die summe um 1 erhöht
     ENDE SOLANGE 
-    //+1 da das letzte KFZ nicht mitgerechnet wurde
-    GIB summe + 1
+    GIB summe
+ENDE FUNKTION
+
+
+FUNKTION (Fließkommazahl) berechne_aktuelle_wartezeit(Parkhaus *p_parkhaus, &zeitpunkt):
+    WENN p_parkhaus->erstes_kfz_in_der_warteschlange == NULL:
+        GIB 0
+    ENDE WENN
+
+    Ganzzahl summe = 0
+    Kfz *p_kfz_zwischenspeicher = p_parkhaus->erstes_kfz_in_der_warteschlange
+    SOLANGE p_kfz_zwischenspeicher != NULL
+        summe = summe + (zeitpunkt - p_kfz_zwischenspeicher->einfahrtszeitpunkt)
+    ENDE SOLANGE
+    GIB summe / berechne_aktuelle_warteschlangenlaenge(p_parkhaus)
 ENDE FUNKTION
 
 
@@ -163,6 +176,7 @@ FUNKTION (Fließkommazahl) berechne_durchschnittliche_wartezeit(SimulationsStats
     //Die summe wird durch die Anzahl der durchlaufenen zeitschritte dividiert
     GIB durchschnittliche_wartezeit
 ENDE FUNKTION
+
 
 FUNKTION ausgabe_statistiken(SimulationsStats *p_statistik):
     Ausgabe: "\nDurchschnittliche Auslastung liegt bei: " + berechne_durchschnitt_auslastung(SimulationsStats *p_statistik)
