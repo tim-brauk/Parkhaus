@@ -46,7 +46,7 @@ FUNKTION (*SimulationsStats) init_statistik():
 ENDE FUNKTION
 
 
-FUNKTION aktualisiere_groeße_statistik(SimulationsStats *p_statistik, Ganzzahl zeitschritte):
+FUNKTION aktualisiere_groesse_statistik(SimulationsStats *p_statistik, Ganzzahl zeitschritte):
     Ganzzahl neue_groesse = p_statistik->zeitschritte + zeitschritte
     
     Fließkommazahl *zwischenspeicher_auslastung = realloc(p_statistik->auslastung_pro_zeitschritt, sizeof(Fließkommazahl) * neue_groesse)

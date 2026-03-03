@@ -10,7 +10,7 @@
 
 
 /**
- * @struct SimulationStats
+ * @struct SimulationsStats
  * @brief Speichert alle statistischen Werte der Simulation.
  */
 typedef struct
@@ -23,7 +23,7 @@ typedef struct
     int zeitschritte;
     int durchlaufene_zeitschritte;
 
-} SimulationStats;
+} SimulationsStats;
 
 /**
  * @brief Initialisiert die Statistik-Struktur.
@@ -34,6 +34,19 @@ typedef struct
  * @return Zeiger auf initialisierte Statistikstruktur
  */
 SimulationStats* init_statistik();
+
+
+ /**
+ * @brief Aktualisiert die groessen der Statistik-Arrays.
+ * 
+ * @param[in] p_statistik Zeiger auf Statistikstruktur
+ * @param[in] zeitschritte Anzahl der neuen Zeitschritte
+ */
+void aktualisiere_groesse_statistik(
+    SimulationsStats *p_statistik 
+    Ganzzahl zeitschritte
+);
+
 
 /**
  * @brief Berechnet die aktuelle Auslastung in Prozent.
@@ -108,5 +121,13 @@ float berechne_durchschnitt_warteschlangenlaenge(
 float berechne_durchschnittliche_wartezeit(
     const SimulationStats *stats
 );
+
+/**
+* @brief Gibt alle gesammelten Statistiken aus.
+*
+* @param[in] p_statistik Zeiger auf Statistikstruktur
+*/
+void ausgabe_statistiken(SimulationsStats *p_statistik);
+
 
 #endif /* STATISTIKEN_H */
