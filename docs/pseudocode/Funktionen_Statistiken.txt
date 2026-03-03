@@ -121,6 +121,26 @@ FUNKTION (Fließkommazahl) berechne_durchschnitt_auslastung(SimulationStats stat
     FÜR i = 0, i < sizeof(statistik->auslastung_pro_zeitschritt)/sizeof(Fließkommazahl), i++:
         durchschnittliche_auslastung = durchschnittliche_auslastung + statistik->auslastung_pro_zeitschritt[i]
     ENDE FÜR
-    durchschnittliche_auslastung = durchschnittliche_auslastung / (sizeof(statistik->auslastung_pro_zeitschritt)/sizeof(Fließkommazahl))
+    durchschnittliche_auslastung = durchschnittliche_auslastung / (sizeof(statistik->auslastung_pro_zeitschritt)/sizeof(Ganzzahl))
     GIB durchschnittliche_auslastung
 ENDE FUNKTION
+
+
+FUNKTION (Fließkommazahl) berechne_durchschnitt_warteschlangenlaenge(SimulationsStats statistik):
+    Fließkommazahl durchschnittliche_warteschlangenlaenge = 0
+    FÜR i = 0, i < sizeof(statistik->warteschlange_pro_zeitschritt)/sizeof(Fließkommazahl), i++:
+        durchschnittliche_warteschlangenlaenge = durchschnittliche_warteschlangenlaenge + statistik->warteschlange_pro_zeitschritt[i]
+    ENDE FÜR
+    durchschnittliche_warteschlangenlaenge = durchschnittliche_warteschlangenlaenge / (sizeof(statistik->warteschlange_pro_zeitschritt)/sizeof(Fließkommazahl))
+    GIB durchschnittliche_warteschlangenlaenge
+ENDE FUNKTION
+
+FUNKTION (Fließkommazahl) berechne_durchschnittliche_wartezeit(SimulationsStats statistik):
+    Fließkommazahl durchschnittliche_wartezeit = 0
+    FÜR i = 0, i < sizeof(statistik->wartezeit_pro_zeitschritt)/sizeof(Fließkommazahl), i++:
+        durchschnittliche_wartezeit = durchschnittliche_wartezeit + statistik->wartezeit_pro_zeitschritt[i]
+    ENDE FÜR
+    durchschnittliche_wartezeit = durchschnittliche_wartezeit / (sizeof(statistik->wartezeit_pro_zeitschritt)/sizeof(Fließkommazahl))
+    GIB durchschnittliche_wartezeit
+ENDE FUNKTION
+
