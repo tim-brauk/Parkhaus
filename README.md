@@ -11,10 +11,10 @@ parkhaus-simulation/
 │   │   ├── statistiken_funktionen.txt
 │   │   └── StructsDatentypen.txt
 │   ├── diagrams/
-│   │   ├── Flussdiagramm_entferne_kfzs_maximale_parkdauer
-│   │   ├── Flussdiagramm_fuege_kfz_hinzu
-│   │   └── Flussdiagramm_kfz_hinzufuegen_warteschlange
-│   └── statistics_concept.md
+│       ├── Flussdiagramm_entferne_kfzs_maximale_parkdauer
+│       ├── Flussdiagramm_fuege_kfz_hinzu
+│       └── Flussdiagramm_kfz_hinzufuegen_warteschlange
+│   
 │
 ├── include/
 │   ├── kfz.h
