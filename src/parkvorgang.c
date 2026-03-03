@@ -1,6 +1,7 @@
 #include "parkvorgang.h"
 
-FUNKTION fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
+fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
+{
   /* Ganzzahl freie_parkplaetze = (p_parkhaus->anzahl_parkplaetze) - (p_parkhaus->belegte_parkplaetze)
    *
    * Ganzzahl min = 0
@@ -24,11 +25,11 @@ FUNKTION fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz):
 
    //Die Funktion wird in Teil 2 des Projekts programmiert
 
-ENDE FUNKTION
+}
 
 
-
-FUNKTION entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
+entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
+{    
     /*FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
      *  WENN p_kfz == p_parkhaus->p_parkplaetze[i].p_kfz:
      *       p_parkhaus->p_parkplaetze[i].belegt = 0
@@ -43,12 +44,11 @@ FUNKTION entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
      */
 
     //Die Funktion wird in Teil 2 des Projekts programmiert
-
-ENDE FUNKTION
-
+}
 
 
-FUNKTION entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus):
+entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus):
+{    
     /*FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
      *  WENN p_parkhaus->p_parkplaetze[i].p_kfz != NULL:
      *       WENN p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer < 0:
@@ -62,5 +62,4 @@ FUNKTION entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus):
      */
 
     //Die Funktion wird in Teil 2 des Projekts programmiert
-
-ENDE FUNKTION
+}

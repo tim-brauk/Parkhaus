@@ -1,6 +1,7 @@
 #include "simulation.h"
 
-FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, &id, &zeitpunkt):
+simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, &id, &zeitpunkt):
+{   
     /*
      * FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
      *     WENN p_parkhaus->p_parkplaetze[i].belegt
@@ -39,5 +40,4 @@ FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_s
      */
 
     //Die Funktion wird in Teil 2 des Projekts programmiert
-
-ENDE FUNKTION
+}

@@ -1,7 +1,8 @@
 #include "warteschlange.h"
 #include "parkhaus.h"
 
-FUNKTION kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz)
+kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz)
+{ 
     /*
      * WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL:
      *     p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz
@@ -18,11 +19,11 @@ FUNKTION kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz)
      */
 
     //Die Funktion wird in Teil 2 des Projekts programmiert
+}
 
-ENDE FUNKTION
 
-
-FUNKTION (*Kfz) entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
+(*Kfz) entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
+{   
     /*
      * WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL:
      *     Ausgabe: "Keine kfzs in der Warteschlange"
@@ -44,5 +45,4 @@ FUNKTION (*Kfz) entferne_kfz_warteschlange(Parkhaus *p_parkhaus):
      */
 
     //Die Funktion wird in Teil 2 des Projekts programmiert
-
-ENDE FUNKTION
+}

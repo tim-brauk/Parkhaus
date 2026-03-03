@@ -3,7 +3,7 @@
 Parkhaus *init_parkhaus(Parkplatz *p_parkplaetze, 
                         int anzahl_parkplaetze, 
                         int maximale_parkdauer)
-    /*
+{   /*
      * Parkhaus *p_parkhaus = malloc(sizeof(Parkhaus))
      * WENN p_parkhaus == NULL:
      *     GIB NULL
@@ -29,5 +29,4 @@ Parkhaus *init_parkhaus(Parkplatz *p_parkplaetze,
      */
 
     //Die Funktion wird in Teil 2 des Projekts programmiert
-
-ENDE FUNKTION
+}

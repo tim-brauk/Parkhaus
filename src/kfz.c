@@ -1,7 +1,7 @@
 #include "kfz.h"
 
-FUNKTION Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id, int zeitpunkt)
-    /*
+Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id, int zeitpunkt)
+{   /*
      * Kfz *p_kfz = malloc(sizeof(Kfz))
      * WENN p_kfz == NULL:
      *     Ausgabe: "Malloc Fehler in init_kfz"
@@ -16,5 +16,4 @@ FUNKTION Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id, int zeitpunkt)
      */
 
     //Die Funktion wird in Teil 2 des Projekts programmiert
-
-ENDE FUNKTION
+}
