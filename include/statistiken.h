@@ -20,6 +20,8 @@ typedef struct
     int   *wartezeit_pro_zeitschritt;
     float maximale_auslastung;
     int maximale_warteschlangenlaenge;
+    int zeitschritte;
+    int durchlaufene_zeitschritte;
 
 } SimulationStats;
 
@@ -55,11 +57,11 @@ int berechne_aktuelle_warteschlangenlaenge(const Parkhaus *parkhaus);
  * @brief aktualisiert die maximale Auslastung.
  *
  * @param[in] stats Statistikstruktur
- * @param[in] aktuelle_auslastung Aktuelle Auslastung
+ * @param[in] p_parkhaus Zeiger auf Parkhaus
  */
 void aktualisiere_maximale_auslastung(
-    SimulationStats *stats,
-    float aktuelle_auslastung
+    SimulationStats *stats
+    Parkhaus *p_parkhaus
 );
 
 
@@ -67,11 +69,11 @@ void aktualisiere_maximale_auslastung(
  * @brief aktualisiert die maximale Warteschlangenlänge.
  *
  * @param[in] stats Statistikstruktur
- * @param[in] aktuelle_laenge Aktuelle Warteschlangenlänge
+ * @param[in] p_parkhaus Zeiger auf Parkhaus
  */
 void aktualisiere_maximale_warteschlangenlaenge(
     SimulationStats *stats,
-    int aktuelle_laenge
+    Parkhaus *p_parkhaus
 );
 
 

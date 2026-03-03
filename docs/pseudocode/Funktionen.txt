@@ -309,7 +309,7 @@ ENDE FUNKTION
 // 1 bei freien Parkplätzen. 0 wenn keine freien parkplätze
 
 
-FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, &id, &zeitpunkt):
+FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, SimulationsStats *p_statistik, &id, &zeitpunkt):
     
     //jedem KFZ die verbleibende parkdauer um 1 verringern
     FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
@@ -353,5 +353,8 @@ FUNKTION simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_s
     ENDE SOLANGE
     //Es werden alle KFZs aus der Warteschlange hinzugefügt solange platz im Parkhaus vorhanden ist. 
     
+    ausgabe_statistiken(SimulationsStats *p_statistik)
+    p_statistik->durchlaufene_zeitschritte = p_statistik->durchlaufene_zeitschritte + 1
+
     zeitpunkt = zeitpunkt + 1
 ENDE FUNKTION
