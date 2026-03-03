@@ -3,6 +3,7 @@
 #include "parkvorgang.h"    
 #include "simulation.h"
 #include "warteschlange.h"
+#include  "statisken.h"
 
 FUNKTION main
 {
@@ -15,13 +16,38 @@ FUNKTION main
     Ganzzahl seed = 0
     float wahscheinlichkeit_neues_kfz = 0
 
-    //Parameter über Terminal eingeben
+    // Parameter ueber Terminal eingeben mit Sicherheitsabfragen
+    Ausgabe: "Anzahl Parkplaetze eingeben: "
     Eingabe: anzahl_parkplaetze
-    Eingabe: maximale_parkdauer
-    Eingabe: simuations_dauer
-    Eingabe: seed
-    Eingabe: wahscheinlichkeit_neues_kfz
+    SOLANGE anzahl_parkplaetze <= 0:
+        Ausgabe: "Ungueltige Eingabe. Anzahl Parkplaetze muss groesser als 0 sein: "
+        Eingabe: anzahl_parkplaetze
+    ENDE SOLANGE
 
+    Ausgabe: "Maximale Parkdauer eingeben (in Stunden): "
+    Eingabe: maximale_parkdauer
+    SOLANGE maximale_parkdauer <= 0:
+        Ausgabe: "Ungueltige Eingabe. Maximale Parkdauer muss groesser als 0 sein: "
+        Eingabe: maximale_parkdauer
+    ENDE SOLANGE
+
+    Ausgabe: "Simulationsdauer eingeben (in Stunden): "
+    Eingabe: simulations_dauer
+    SOLANGE simulations_dauer <= 0:
+        Ausgabe: "Ungueltige Eingabe. Simulationsdauer muss groesser als 0 sein: "
+        Eingabe: simulations_dauer
+    ENDE SOLANGE
+
+    Ausgabe: "Seed eingeben: "
+    Eingabe: seed
+
+    Ausgabe: "Ankunftswahrscheinlichkeit neues Kfz eingeben (0.0 - 1.0): "
+    Eingabe: wahrscheinlichkeit_neues_kfz
+    SOLANGE wahrscheinlichkeit_neues_kfz < 0 ODER wahrscheinlichkeit_neues_kfz > 1:
+        Ausgabe: "Ungueltige Eingabe. Wahrscheinlichkeit muss zwischen 0.0 und 1.0 liegen: "
+        Eingabe: wahrscheinlichkeit_neues_kfz
+    ENDE SOLANGE
+    
     //zufallszahlengenerator initialisieren
     srand(seed);
     //initalisieren Parkhaus/simulation
