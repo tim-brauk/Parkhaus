@@ -121,6 +121,10 @@ FUNKTION main
         p_statistik->warteschlange_pro_zeitschritt[p_statistik->durchlaufene_zeitschritte] = berechne_aktuelle_warteschlangenlaenge(p_parkhaus)
         p_statistik->durchlaufene_zeitschritte = p_statistik->durchlaufene_zeitschritte + 1
 
+        //Statistiken in der Konsole ausgeben 
+        ausgabe_statistiken(p_statistik)
+
+
         // Statistiken des aktuellen Zeitschritts in Datei und Konsole schreiben
         fprintf(p_datei, "Zeitschritt: %d\n", p_statistik->durchlaufene_zeitschritte)
         fprintf(p_datei, "Aktuelle Auslastung: %.2f%%\n", berechne_aktuelle_auslastung(p_parkhaus))
