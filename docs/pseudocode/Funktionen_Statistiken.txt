@@ -66,9 +66,16 @@ FUNKTION (Ganzzahl) berechne_aktuelle_warteschlangenlaenge(Parkhaus p_parkhaus):
 ENDE FUNKTION
 
 FUNKTION aktualisiere_maximale_auslastung(SimulationsStats statistik, Parkhaus p_parkhaus):
-    Ganzzahl aktuelle_auslastung = statistik.berechne_aktuelle_auslastung(Parkhaus p_parkhaus)
+    Ganzzahl aktuelle_auslastung = berechne_aktuelle_auslastung(Parkhaus p_parkhaus)
     WENN aktuelle_auslastung > statistik->maximale_auslastung
         statistik->maximale_auslastung = aktuelle_auslastung
+    ENDE WENN
+ENDE FUNKTION
+
+FUNKTION aktualisiere_maximale_warteschlangenlaenge(SimulationsStats statistik, Parkhaus p_parkhaus):
+    Ganzzahl aktuelle_laenge = berechne_aktuelle_warteschlangenlaenge(Parkhaus p_parkhaus)
+    WENN aktuelle_laenge > statistik->maximale_warteschlangenlaenge:
+        statistik->maximale_warteschlangenlaenge = aktuelle_laenge
     ENDE WENN
 ENDE FUNKTION
 
