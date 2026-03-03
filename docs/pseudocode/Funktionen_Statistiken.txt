@@ -50,31 +50,28 @@ ENDE FUNKTION
 FUNKTION aktualisiere_groeße_statistik(SimulationsStats statistik, Ganzzahl zeitschritte):
     Ganzzahl neue_groesse = statistik->zeitschritte + zeitschritte
     
-    Fließkommazahl *zwischenspeicher = realloc(statistik->auslastung_pro_zeitschritt, sizeof(Fließkommazahl) * neue_groesse)
+    Fließkommazahl *zwischenspeicher_auslastung = realloc(statistik->auslastung_pro_zeitschritt, sizeof(Fließkommazahl) * neue_groesse)
     WENN zwischenspeicher == NULL:
         Ausgabe: "Fehler beim anpassen von auslastung_pro_zeitschritt"
     ENDE WENN
     SONST 
-        statistik->auslastung_pro_zeitschritt = zwischenspeicher
-        free(zwischenspeicher)
+        statistik->auslastung_pro_zeitschritt = zwischenspeicher_auslastung
     ENDE SONST
 
-    Ganzzahl *zwischenspeicher = realloc(statistik->warteschlange_pro_zeitschritt, sizeof(Ganzzahl) * neue_groesse)
+    Ganzzahl *zwischenspeicher_warteschlange = realloc(statistik->warteschlange_pro_zeitschritt, sizeof(Ganzzahl) * neue_groesse)
     WENN zwischenspeicher == NULL:
         Ausgabe: "Fehler beim anpassen von warteschlange_pro_zeitschritt"
     ENDE WENN
     SONST 
-        statistik->warteschlange_pro_zeitschritt = zwischenspeicher
-        free(zwischenspeicher)
+        statistik->warteschlange_pro_zeitschritt = zwischenspeicher_warteschlange
     ENDE SONST
 
-    Ganzzahl *zwischenspeicher = realloc(statistik->wartezeit_pro_zeitschritt, sizeof(Ganzzahl) * neue_groesse)
+    Ganzzahl *zwischenspeicher_wartezeit = realloc(statistik->wartezeit_pro_zeitschritt, sizeof(Ganzzahl) * neue_groesse)
     WENN zwischenspeicher == NULL:
         Ausgabe: "Fehler beim anpassen von wartezeit_pro_zeitschritt"
     ENDE WENN
     SONST 
-        statistik->wartezeit_pro_zeitschritt = zwischenspeicher
-        free(zwischenspeicher)
+        statistik->wartezeit_pro_zeitschritt = zwischenspeicher_wartezeit
     ENDE SONST
 ENDE FUNKTION
 
