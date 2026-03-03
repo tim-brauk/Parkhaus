@@ -29,10 +29,9 @@ typedef struct
  * Reserviert Speicher für alle Arrays entsprechend
  * der Anzahl an Zeitschritten.
  *
- * @param[in] anzahl_zeitschritte Anzahl der Simulationsschritte
  * @return Zeiger auf initialisierte Statistikstruktur
  */
-SimulationStats* init_statistik(int anzahl_zeitschritte);
+SimulationStats* init_statistik();
 
 /**
  * @brief Berechnet die aktuelle Auslastung in Prozent.
