@@ -64,20 +64,3 @@ FUNKTION entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus):
     //Die Funktion wird in Teil 2 des Projekts programmiert
 
 ENDE FUNKTION
-
-
-
-FUNKTION (Ganzzahl) platz_garage(Parkhaus *p_parkhaus):
-    /*WENN p_parkhaus->anzahl_parkplaetze == p_parkhaus->belegte_parkplaetze
-     *   GIB 0
-     *   ENDE FUNKTION
-     * ENDE WENN
-     * SONST
-     *   GIB 1
-     *   ENDE FUNKTION
-     * ENDE SONST
-     */
-
-    //Die Funktion wird in Teil 2 des Projekts programmiert
-
-ENDE FUNKTION
