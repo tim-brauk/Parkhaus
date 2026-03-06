@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "kfz.h"
-
+#include "../include/kfz.h"
 
 Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id, int zeitpunkt)
 {   
