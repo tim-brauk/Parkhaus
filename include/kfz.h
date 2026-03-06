@@ -15,8 +15,9 @@ typedef struct Kfz
 *Reserviert Speicher für ein Kfz initialisiert alle Werte und setzt p_naechstes_kfz auf NULL.
 * 
 * @param[in] id des Kfz
+* @param[in] zeitpunkt der Einfahrt des Kfz
 * @return p_kfz Zeiger auf das neu erstellte Kfz
 */
-Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id);
+Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id, int zeitpunkt);
 
 #endif  /*KFZ_H*/
