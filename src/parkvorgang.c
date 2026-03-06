@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "parkvorgang.h"
+#include "../include/parkvorgang.h"
 
 void fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz)
 {
