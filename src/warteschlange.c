@@ -1,24 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "warteschlange.h"
 #include "parkhaus.h"
 
-kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz)
+void kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz)
 { 
-    /*
-     * WENN p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL:
-     *     p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz
-     *     p_kfz->p_naechstes_kfz = NULL
-     *     ENDE FUNKTION
-     * ENDE WENN
-     *
-     * Kfz *p_aktuelles_kfz = p_parkhaus->p_erstes_kfz_in_der_warteschlange
-     * SOLANGE p_aktuelles_kfz->p_naechstes_kfz != NULL:
-     *     p_aktuelles_kfz = p_aktuelles_kfz->p_naechstes_kfz
-     * ENDE SOLANGE
-     * p_aktuelles_kfz->p_naechstes_kfz = p_kfz
-     * p_kfz->p_naechstes_kfz = NULL
-     */
-
-    //Die Funktion wird in Teil 2 des Projekts programmiert
+    
+    if(p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL)
+    {
+         p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz;
+         p_kfz->p_naechstes_kfz = NULL;
+         return;
+    }
+    
+    Kfz *p_aktuelles_kfz = p_parkhaus->p_erstes_kfz_in_der_warteschlange;
+    while(p_aktuelles_kfz->p_naechstes_kfz != NULL)
+    {
+        p_aktuelles_kfz = p_aktuelles_kfz->p_naechstes_kfz;
+    }
+    p_aktuelles_kfz->p_naechstes_kfz = p_kfz;
+    p_kfz->p_naechstes_kfz = NULL;
 }
 
 
