@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "warteschlange.h"
-#include "parkhaus.h"
+#include "../include/warteschlange.h"
+#include "../include/parkhaus.h"
 
 void kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz)
 { 
