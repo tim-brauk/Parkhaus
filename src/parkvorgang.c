@@ -32,22 +32,20 @@ void fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz)
 }
 
 
-entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz):
+entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz)
 {    
-    /*FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
-     *  WENN p_kfz == p_parkhaus->p_parkplaetze[i].p_kfz:
-     *       p_parkhaus->p_parkplaetze[i].belegt = 0
-     *       free(p_kfz)
-     *       p_parkhaus->p_parkplaetze[i].p_kfz = NULL
-     *       p_parkhaus->belegte_parkplaetze = p_parkhaus->belegte_parkplaetze - 1
-     *       ENDE FUNKTION
-     *   ENDE WENN
-     * ENDE FÜR
-     *
-     * Ausgabe: "Dieses Kfz wurde im Parkhaus nicht gefunden"
-     */
-
-    //Die Funktion wird in Teil 2 des Projekts programmiert
+    for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
+    {
+        if(p_kfz == p_parkhaus->p_parkplaetze[i].p_kfz)
+        {
+            p_parkhaus->p_parkplaetze[i].belegt = 0;
+            free(p_kfz);
+            p_parkhaus->p_parkplaetze[i].p_kfz = NULL;
+            p_parkhaus->belegte_parkplaetze = p_parkhaus->belegte_parkplaetze - 1;
+            return;
+        }
+    }
+    printf("Dieses Kfz wurde im Parkhaus nicht gefunden\n");
 }
 
 
