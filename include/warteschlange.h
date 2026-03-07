@@ -10,7 +10,7 @@
  * @param[in] p_kfz Zeiger auf das hinzuzufuegende Kfz
  * @return void
  */
-void add_car_queue(Parkhaus *p_parkhaus, Kfz *p_kfz);
+void kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz);
 
 /**
  * @brief Entfernt das erste Kfz aus der Warteschlange und gibt es zurück.
@@ -22,5 +22,5 @@ void add_car_queue(Parkhaus *p_parkhaus, Kfz *p_kfz);
  * @retval    p_kfz      Zeiger auf das entfernte Kfz
  * @retval    NULL       Wenn die Warteschlange leer ist
  */
-Kfz *remove_car_queue(Parkhaus *p_parkhaus);
+Kfz *entferne_kfz_warteschlange(Parkhaus *p_parkhaus);
 #endif /* WARTESCHLANGE_H */
