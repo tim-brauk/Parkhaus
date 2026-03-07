@@ -26,5 +26,5 @@ typedef struct Simulationsparameter
  * @param[in] p_parkhaus Zeiger auf das Parkhaus
  * @return void
  */
-void simulate_timestep(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter);
+void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter);
 #endif /* SIMULATION_H */
