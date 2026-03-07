@@ -91,3 +91,49 @@ void test_entferne_kfz_nicht_vorhanden(){
     free(p_kfz);
     free(p_parkhaus);
 }
+
+void test_entferne_kfzs_maximale_parkdauer(){
+    Parkhaus *p_parkhaus = init_parkhaus(3, 40); //Erstellen eines Parkhauses mit 3 Parkplätzen und einer maximalen Parkdauer von 40
+    p_parkhaus->p_parkplaetze[0] = init_kfz(p_parkhaus, 1, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
+    p_parkhaus->p_parkplaetze[0]->belegt = 1;
+    p_parkhaus->p_parkplaetze[1] = init_kfz(p_parkhaus, 2, 10); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
+    p_parkhaus->p_parkplaetze[1]->belegt = 1;
+    p_parkhaus->p_parkplaetze[2] = init_kfz(p_parkhaus, 3, 10); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
+    p_parkhaus->p_parkplaetze[2]->belegt = 1;
+    p_parkhaus->belegte_parkplaetze = 3;
+    //Parkhaus mit 3 belegten Parkplätzen
+
+    p_parkhaus->p_parkplaetze[2]->p_kfz->verbleibende_parkzeit = -1; //Setzt die verbleibende Parkzeit des Kfz auf -1, damit es die maximale Parkdauer überschreitet
+    entferne_kfzs_maximale_parkdauer(p_parkhaus); //Entfernt Kfz, die die maximale Parkdauer überschritten haben
+    assert(p_parkhaus->p_parkplaetze[0] != NULL);
+    assert(p_parkhaus->p_parkplaetze[1] != NULL);
+    assert(p_parkhaus->p_parkplaetze[2] == NULL); //Überprüft, ob das Kfz mit der überschrittenen Parkdauer entfernt wurde
+    assert(p_parkhaus->belegte_parkplaetze == 2); //Überprüft, ob die Anzahl der belegten Parkplätze um 1 reduziert wurde
+
+    free(p_parkhaus);
+}
+
+void test_entferne_kfzs_maximale_parkdauer_keine_ueberschreitung(){
+    Parkhaus *p_parkhaus = init_parkhaus(3, 40); //Erstellen eines Parkhauses mit 3 Parkplätzen und einer maximalen Parkdauer von 40
+    
+    p_parkhaus->p_parkplaetze[0] = init_kfz(p_parkhaus, 1, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
+    p_parkhaus->p_parkplaetze[0]->belegt = 1;
+    p_parkhaus->p_parkplaetze[1] = init_kfz(p_parkhaus, 2, 10); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
+    p_parkhaus->p_parkplaetze[1]->belegt = 1;
+    p_parkhaus->p_parkplaetze[2] = init_kfz(p_parkhaus, 3, 10); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
+    p_parkhaus->p_parkplaetze[2]->belegt = 1;
+    p_parkhaus->belegte_parkplaetze = 3;
+    //Parkhaus mit 3 belegten Parkplätzen
+
+    entferne_kfzs_maximale_parkdauer(p_parkhaus); //Entfernt Kfz, die die maximale Parkdauer überschritten haben
+    
+    for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++){
+        if(p_parkhaus->p_parkplaetze[i] != NULL){
+            assert(p_parkhaus->p_parkplaetze[i]->p_kfz != NULL); //Überprüft, ob alle Kfz weiterhin im Parkhaus sind
+        }
+    }
+    
+    assert(p_parkhaus->belegte_parkplaetze == 3); //Überprüft, ob die Anzahl der belegten Parkplätze unverändert geblieben ist
+
+    free(p_parkhaus);
+}
