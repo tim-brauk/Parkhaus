@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "parkvorgang.h"
 #include "parkhaus.h"
+#include "kfz.h"
 
 void test_fuege_kfz_hinzu_leer(){
     Parkhaus *p_parkhaus = init_parkhaus(5, 40); //Erstellen eines Parkhauses mit 5 Parkplätzen und einer maximalen Parkdauer von 40 
@@ -136,4 +137,13 @@ void test_entferne_kfzs_maximale_parkdauer_keine_ueberschreitung(){
     assert(p_parkhaus->belegte_parkplaetze == 3); //Überprüft, ob die Anzahl der belegten Parkplätze unverändert geblieben ist
 
     free(p_parkhaus);
+}
+
+void main(){
+    test_fuege_kfz_hinzu_leer();
+    test_fuege_kfz_hinzu_belegt();
+    test_entferne_kfz_normalfall();
+    test_entferne_kfz_nicht_vorhanden();
+    test_entferne_kfzs_maximale_parkdauer();
+    test_entferne_kfzs_maximale_parkdauer_keine_ueberschreitung();
 }
