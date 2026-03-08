@@ -103,3 +103,29 @@ void test_berechne_aktuelle_warteschlangenlaenge_leer(){
 
     free(p_parkhaus);
 }
+
+void test_berechne_aktuelle_wartezeit_normal(){
+    Parkhaus *p_parkhaus = init_parkhaus(10, 40);
+
+    p_parkhaus->p_erster_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
+    p_parkhaus->p_erster_in_der_warteschlange->p_naechster = init_kfz(p_parkhaus, 2, 61);
+    p_parkhaus->p_erster_in_der_warteschlange->p_naechster->p_naechster = init_kfz(p_parkhaus, 3, 62);
+    //Erstellen einer Warteschlange mit 3 Fahrzeugen
+    int zeitpunkt = 70;
+    float wartezeit = berechne_aktuelle_wartezeit(p_parkhaus, zeitpunkt);
+    assert(wartezeit == 9.0f); //(70-60) + (70-61) + (70-62)) / 3 = 9.0f
+    //Überprüfen, ob die Wartezeit korrekt berechnet wird
+
+    free(p_parkhaus);
+}
+
+void test_berechne_aktuelle_wartezeit_leer(){
+    Parkhaus *p_parkhaus = init_parkhaus(10, 40);
+
+    int zeitpunkt = 70;
+    float wartezeit = berechne_aktuelle_wartezeit(p_parkhaus, zeitpunkt);
+    assert(wartezeit == 0.0f);
+    //Überprüfen, ob die Wartezeit korrekt berechnet wird, wenn keine Fahrzeuge in der Warteschlange sind
+
+    free(p_parkhaus);
+}
