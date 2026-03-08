@@ -129,3 +129,34 @@ void test_berechne_aktuelle_wartezeit_leer(){
 
     free(p_parkhaus);
 }
+
+void test_aktualisiere_maximale_auslastung(){
+    SimulationsStats *p_stats = init_statistik();
+    Parkhaus *p_parkhaus = init_parkhaus(10, 40);
+
+    p_parkhaus->belegte_plaetze = 5;
+    p_stats->maximale_auslastung = 30.0f;
+
+    aktualisiere_maximale_auslastung(p_stats, p_parkhaus);
+    
+    assert(p_stats->maximale_auslastung == 50.0f);
+    //Überprüfen, ob die maximale Auslastung korrekt aktualisiert wird
+
+    free(p_stats);
+}
+
+void test_aktualisiere_maximale_auslastung_unveraendert(){
+    SimulationsStats *p_stats = init_statistik();
+    Parkhaus *p_parkhaus = init_parkhaus(10, 40);
+
+    p_parkhaus->belegte_plaetze = 3;
+    p_stats->maximale_auslastung = 40.0f;
+
+    aktualisiere_maximale_auslastung(p_stats, p_parkhaus);
+
+    assert(p_stats->maximale_auslastung == 40.0f);
+    //Überprüfen, ob die maximale Auslastung nicht verändert wird
+
+    free(p_parkhaus);
+    free(p_stats);
+}
