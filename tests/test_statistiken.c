@@ -232,3 +232,17 @@ void test_berechne_durchschnitt_warteschlangenlaenge(){
     free(p_stats);
 }
 
+void test_berechne_durchschnittliche_wartezeit(){
+    SimulationsStats *p_stats = init_statistik();
+
+    p_stats->zeitschritte = 3;
+    p_stats->p_wartezeit_pro_zeitschritt[0] = 5.0f;
+    p_stats->p_wartezeit_pro_zeitschritt[1] = 10.0f;
+    p_stats->p_wartezeit_pro_zeitschritt[2] = 15.0f;
+
+    float durchschnitt = berechne_durchschnittliche_wartezeit(p_stats);
+    assert(durchschnitt == 10.0f); //(5.0f + 10.0f + 15.0f) / 3 = 10.0f
+    //Überprüfen, ob der Durchschnitt der Wartezeit korrekt berechnet wird
+
+    free(p_stats);
+}
