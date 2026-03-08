@@ -249,3 +249,25 @@ void test_berechne_durchschnittliche_wartezeit(){
 
 
 //Für die Ausgabe sehe ich es nicht als nötig eine Testfunktionen zu schreiben
+
+
+int main(){
+    test_init_statistik();
+    test_init_statistik_pointer();
+    test_aktualisiere_groesse_statistik_erweiterung();
+    test_aktualisiere_groesse_statistik_merhfacherweiterung();
+    test_berechne_aktuelle_auslastung_normal();
+    test_berechne_aktuelle_auslastung_randwerte();
+    test_berechne_aktuelle_warteschlangenlaenge_normal();
+    test_berechne_aktuelle_warteschlangenlaenge_leer();
+    test_berechne_aktuelle_wartezeit_normal();
+    test_berechne_aktuelle_wartezeit_leer();
+    test_aktualisiere_maximale_auslastung_normal();
+    test_aktualisiere_maximale_auslastung_unveraendert();
+    test_aktualisiere_maximale_warteschlangenlaenge_normal();
+    test_aktualisiere_maximale_warteschlangenlaenge_unveraendert();
+    test_berechne_durchschnitt_auslastung();
+    test_berechne_durchschnitt_warteschlangenlaenge();  
+    test_berechne_durchschnittliche_wartezeit();
+    return 0;
+}

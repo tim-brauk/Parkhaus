@@ -59,3 +59,11 @@ void test_entferne_kfz_warteschlange_leer(){
     
     free(p_parkhaus);
 }
+
+int main() {
+    test_kfz_hinzufuegen_warteschlange_leer();
+    test_kfz_hinzufuegen_warteschlange_normal();
+    test_entferne_kfz_warteschlange_normal();
+    test_entferne_kfz_warteschlange_leer();
+    return 0;
+}
