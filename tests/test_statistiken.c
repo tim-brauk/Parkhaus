@@ -197,3 +197,21 @@ void test_aktualisiere_maximale_warteschlangenlaenge_unveraendert(){
     free(p_parkhaus);
     free(p_stats);
 }
+
+void test_berechne_durchschnitt_auslastung(){
+    SimulationsStats *p_stats = init_statistik();
+
+    p_stats->zeitschritte = 3;
+    p_stats->p_auslastung_pro_zeitschritt[0] = 13.2f;
+    p_stats->p_auslastung_pro_zeitschritt[1] = 17.0f;
+    p_stats->p_auslastung_pro_zeitschritt[2] = 25.0f;
+
+    float durchschnitt = berechne_durchschnitt_auslastung(p_stats);
+    assert(durchschnitt == 18.4f); //(13.2f + 17.0f + 25.0f) / 3 = 18.4f
+    //Überprüfen, ob der Durchschnitt der Auslastung korrekt berechnet wird
+
+    free(p_stats);
+}
+
+//void test_test_berechne_durchschnitt_auslastung_ Hier fällt mir kein weitere sinvoller Test ein. bitte um ideen
+
