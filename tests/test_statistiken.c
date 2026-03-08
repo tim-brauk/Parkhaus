@@ -246,3 +246,6 @@ void test_berechne_durchschnittliche_wartezeit(){
 
     free(p_stats);
 }
+
+
+//Für die Ausgabe sehe ich es nicht als nötig eine Testfunktionen zu schreiben
