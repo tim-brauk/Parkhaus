@@ -130,7 +130,7 @@ void test_berechne_aktuelle_wartezeit_leer(){
     free(p_parkhaus);
 }
 
-void test_aktualisiere_maximale_auslastung(){
+void test_aktualisiere_maximale_auslastung_normal(){
     SimulationsStats *p_stats = init_statistik();
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
@@ -156,6 +156,43 @@ void test_aktualisiere_maximale_auslastung_unveraendert(){
 
     assert(p_stats->maximale_auslastung == 40.0f);
     //Überprüfen, ob die maximale Auslastung nicht verändert wird
+
+    free(p_parkhaus);
+    free(p_stats);
+}
+
+void test_aktualisiere_maximale_warteschlangenlaenge_normal(){
+    Parkhaus *p_parkhaus = init_parkhaus(10, 40);
+    SimulationsStats *p_stats = init_statistik();
+
+    p_stats->maximale_warteschlangenlaenge = 2;
+    
+    p_parkhaus->p_erster_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
+    p_parkhaus->p_erster_in_der_warteschlange->p_naechster = init_kfz(p_parkhaus, 2, 61);
+    p_parkhaus->p_erster_in_der_warteschlange->p_naechster->p_naechster = init_kfz(p_parkhaus, 3, 62);
+    //Erstellen einer Warteschlange mit 3 Fahrzeugen
+
+    aktualisiere_maximale_warteschlangenlaenge(p_stats, p_parkhaus);
+    assert(p_stats->maximale_warteschlangenlaenge == 3);
+    //Überprüfen, ob die maximale Warteschlangenlänge korrekt aktualisiert wird
+
+    free(p_parkhaus);
+    free(p_stats);
+}
+
+void test_aktualisiere_maximale_warteschlangenlaenge_unveraendert(){
+    Parkhaus *p_parkhaus = init_parkhaus(10, 40);
+    SimulationsStats *p_stats = init_statistik();
+
+    p_stats->maximale_warteschlangenlaenge = 4;
+
+    p_parkhaus->p_erster_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
+    p_parkhaus->p_erster_in_der_warteschlange->p_naechster = init_kfz(p_parkhaus, 2, 61);
+    //Erstellen einer Warteschlange mit 2 Fahrzeugen
+
+    aktualisiere_maximale_warteschlangenlaenge(p_stats, p_parkhaus);
+    assert(p_stats->maximale_warteschlangenlaenge == 4);
+    //Überprüfen, ob die maximale Warteschlangenlänge nicht verändert wird
 
     free(p_parkhaus);
     free(p_stats);
