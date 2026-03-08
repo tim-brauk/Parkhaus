@@ -173,9 +173,9 @@ int main()
     fprintf(p_datei, "Durchschnittliche Warteschlangenlaenge: %.2f\n", berechne_durchschnitt_warteschlangenlaenge(p_statistik));
     fclose(p_datei);
 
-    free(p_statistik->auslastung_pro_zeitschritt);
-    free(p_statistik->warteschlange_pro_zeitschritt);
-    free(p_statistik->wartezeit_pro_zeitschritt);
+    free(p_statistik->p_auslastung_pro_zeitschritt);
+    free(p_statistik->p_warteschlange_pro_zeitschritt);
+    free(p_statistik->p_wartezeit_pro_zeitschritt);
     free(p_statistik);
     free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);

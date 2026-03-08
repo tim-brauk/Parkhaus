@@ -3,92 +3,100 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//Die im Pseudocode geschriebene Logik wird im Teil 2 der Projekts implementiert. Hier werden die Funktionen definiert, die in der Header-Datei deklariert wurden.
+SimulationsStats *init_statistik()
+{
+    float *p_auslastung_pro_zeitschritt = malloc(sizeof(float));
+    if(p_auslastung_pro_zeitschritt == NULL)
+    {
+        printf("Fehler bei Speicherreservierung fuer auslastung_pro_zeitschritt\n");
+        return NULL;
+    }
 
-SimulationsStats *init_statistik(){
-    /*
-    Fließkommazahl *auslastung_pro_zeitschritt = malloc(sizeof(Fließkommazahl))
-    WENN auslastung_pro_zeitschritt == NULL:
-        Ausgabe: "Fehler bei Speicherreservierung für auslastung_pro_zeitschritt"
-        //Sicherheitsüberprüfung
-    ENDE WENN
-    Ganzzahl *warteschlange_pro_zeitschritt = malloc(sizeof(Ganzzahl))
-    WENN warteschlange_pro_zeitschritt == NULL:
-        Ausgabe: "Fehler bei Speicherreservierung für warteschlange_pro_zeitschritt"
-        //Sicherheitsüberprüfung
-    ENDE WENN
-    Ganzzahl *wartezeit_pro_zeitschritt = malloc(sizeof(Ganzzahl))
-    WENN wartezeit_pro_zeitschritt == NULL:
-        Ausgabe: "Fehler bei Speicherreservierung für wartezeit_pro_zeitschritt"
-        //Sicherheitsüberprüfung
-    ENDE WENN
+    int *p_warteschlange_pro_zeitschritt = malloc(sizeof(int));
 
-    Fließkommazahl maximale_auslastung = 0
-    Ganzzahl maximale_warteschlangenlaenge = 0
-    Ganzzahl zeitschritte = 0
-    Ganzzahl durchlaufene_zeitschritte = 0
-    //Alle Werte mit 0 Initialisieren, da noch kein Zeitabschnitt simuliert wurde
+    if(p_warteschlange_pro_zeitschritt == NULL)
+    {
+        printf("Fehler bei Speicherreservierung fuer warteschlange_pro_zeitschritt\n");
+        return NULL;
+    }
 
-    SimulationsStats *p_statistik = malloc(sizeof(SimulationsStats))
-    WENN p_statistik == NULL
-        Ausgabe: "Fehler bei Speicherreservierung für p_statistik"
-        //Sicherheitsüberprüfung
-    ENDE WENN
+    int *p_wartezeit_pro_zeitschritt = malloc(sizeof(int));
 
-    p_statistik->auslastung_pro_zeitschritt = auslastung_pro_zeitschritt
-    p_statistik->warteschlange_pro_zeitschritt = warteschlange_pro_zeitschritt
-    p_statistik->wartezeit_pro_zeitschritt = wartezeit_pro_zeitschritt
-    p_statistik->maximale_auslastung = maximale_auslastung
-    p_statistik->maximale_warteschlangenlaenge = maximale_warteschlangenlaenge
-    p_statistik->zeitschritte = zeitschritte
-    p_statistik->durchlaufene_zeitschritte = durchlaufene_zeitschritte
-    //Initialisierung von statistik
-    GIB p_statistik
-    */
+    if(p_wartezeit_pro_zeitschritt == NULL)
+    {
+        printf("Fehler bei Speicherreservierung fuer wartezeit_pro_zeitschritt\n");
+        return NULL;
+    }
+
+    SimulationsStats *p_statistik = malloc(sizeof(SimulationsStats));
+
+    if(p_statistik == NULL)
+    {
+        printf("Fehler bei Speicherreservierung fuer p_statistik\n");
+        return NULL;
+    }
+
+    float maximale_auslastung = 0.0f;
+    int maximale_warteschlangenlaenge = 0;
+    int zeitschritte = 0;
+    int durchlaufene_zeitschritte = 0;
+
+    p_statistik->p_auslastung_pro_zeitschritt = p_auslastung_pro_zeitschritt;
+    p_statistik->p_warteschlange_pro_zeitschritt = p_warteschlange_pro_zeitschritt;
+    p_statistik->p_wartezeit_pro_zeitschritt = p_wartezeit_pro_zeitschritt;
+    p_statistik->maximale_auslastung = maximale_auslastung;
+    p_statistik->maximale_warteschlangenlaenge = maximale_warteschlangenlaenge;
+    p_statistik->zeitschritte = zeitschritte;
+    p_statistik->durchlaufene_zeitschritte = durchlaufene_zeitschritte;
+    return p_statistik;
 }
 
-void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zeitschritte){
-    /*Ganzzahl neue_groesse = p_statistik->zeitschritte + zeitschritte
-    
-    Fließkommazahl *zwischenspeicher_auslastung = realloc(p_statistik->auslastung_pro_zeitschritt, sizeof(Fließkommazahl) * neue_groesse)
-    WENN zwischenspeicher_auslastung == NULL:
-        Ausgabe: "Fehler beim anpassen von auslastung_pro_zeitschritt"
-        //Sicherheitsüberprüfung
-    ENDE WENN
-    SONST 
-        p_statistik->auslastung_pro_zeitschritt = zwischenspeicher_auslastung
-        //Falls Sicherheitsüberprüfung erfolgreich wird aktualisiert
-    ENDE SONST
+void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zeitschritte)
+{
+    int neue_groesse = p_statistik->zeitschritte + zeitschritte;
+    float *p_zwischenspeicher_auslastung =
+        realloc(p_statistik->p_auslastung_pro_zeitschritt, sizeof(float) * neue_groesse);
 
-    Ganzzahl *zwischenspeicher_warteschlange = realloc(p_statistik->warteschlange_pro_zeitschritt, sizeof(Ganzzahl) * neue_groesse)
-    WENN zwischenspeicher_warteschlange == NULL:
-        Ausgabe: "Fehler beim anpassen von warteschlange_pro_zeitschritt"
-        //Sicherheitsüberprüfung
-    ENDE WENN
-    SONST 
-        p_statistik->warteschlange_pro_zeitschritt = zwischenspeicher_warteschlange
-        //Falls Sicherheitsüberprüfung erfolgreich wird aktualisiert
-    ENDE SONST
+    if(p_zwischenspeicher_auslastung == NULL)
+    {
+        printf("Fehler beim Anpassen von auslastung_pro_zeitschritt\n");
+    }
+    else
+    {
+        p_statistik->p_auslastung_pro_zeitschritt = p_zwischenspeicher_auslastung;
+    }
 
-    Ganzzahl *zwischenspeicher_wartezeit = realloc(p_statistik->wartezeit_pro_zeitschritt, sizeof(Ganzzahl) * neue_groesse)
-    WENN zwischenspeicher_wartezeit == NULL:
-        Ausgabe: "Fehler beim anpassen von wartezeit_pro_zeitschritt"
-        //Sicherheitsüberprüfung
-    ENDE WENN
-    SONST 
-        p_statistik->wartezeit_pro_zeitschritt = zwischenspeicher_wartezeit
-        //Falls Sicherheitsüberprüfung erfolgreich wird aktualisiert
-    ENDE SONST
-    p_statistik->zeitschritte = neue_groesse
-    //Aktualisierung der groesse
-    */
+    int *p_zwischenspeicher_warteschlange =
+        realloc(p_statistik->p_warteschlange_pro_zeitschritt, sizeof(int) * neue_groesse);
+
+    if(p_zwischenspeicher_warteschlange == NULL)
+    {
+        printf("Fehler beim Anpassen von warteschlange_pro_zeitschritt\n");
+    }
+    else
+    {
+        p_statistik->p_warteschlange_pro_zeitschritt = p_zwischenspeicher_warteschlange;
+    }
+
+    int *p_zwischenspeicher_wartezeit =
+        realloc(p_statistik->p_wartezeit_pro_zeitschritt, sizeof(int) * neue_groesse);
+
+    if(p_zwischenspeicher_wartezeit == NULL)
+    {
+        printf("Fehler beim Anpassen von wartezeit_pro_zeitschritt\n");
+    }
+    else
+    {
+        p_statistik->p_wartezeit_pro_zeitschritt = p_zwischenspeicher_wartezeit;
+    }
+
+    p_statistik->zeitschritte = neue_groesse;
 }
 
 float berechne_aktuelle_auslastung(Parkhaus *p_parkhaus){
-    /*
-    GIB ((Fließkommazahl) p_parkhaus->belegte_parkplaetze / p_parkhaus->anzahl_parkplaetze) * 100
+    
+    return ((float) p_parkhaus->belegte_parkplaetze / p_parkhaus->anzahl_parkplaetze) * 100;
     //Berechnet die aktuelle Auslastung in % 
-    */
 }
 
 int berechne_aktuelle_warteschlangenlaenge(Parkhaus *p_parkhaus){
