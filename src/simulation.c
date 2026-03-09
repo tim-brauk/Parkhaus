@@ -1,27 +1,32 @@
 #include "simulation.h"
+#include <stdlib.h>
 
-simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, &id, &zeitpunkt):
-{   
-    /*
-     * FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
-     *     WENN p_parkhaus->p_parkplaetze[i].belegt
-     *         p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer = p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer - 1
-     *     ENDE WENN
-     * ENDE FÜR
-     *
-     * Ganzzahl min = 0
-     * 
-     * Ganzzahl max = 1
-     * 
-     * Fließkommazahl zufall = 0
-     * zufall = min + ((Fließkommazahl)rand() / RAND_MAX) * (max - min)
-     *
-     * // liefert eine zufällige Kommazahl zwischen 0-1 (wird benötigt bezüglich des Vergleichs mit der Wahrscheinlichkeit)
-     *
-     * //RAND_MAX ist eine C definierte Konstante die den maximalwert von rand liefert.
-     * 
-     * entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus)
-     *
+void simuliere_zeitabschnitt(Parkhaus *p_parkhaus,
+                             Simulationsparameter *p_simulationsparameter,
+                             int *p_id,
+                             int *p_zeitpunkt,
+                             SimulationsStats *p_statistik)
+{
+    for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
+    {
+        if(p_parkhaus->p_parkplaetze[i].belegt)
+        {
+            p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer =
+                p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer - 1;
+        }
+    }
+
+    float zufall = (float)rand() / (float)RAND_MAX;
+
+    entferne_kfzs_maximale_parkdauer(p_parkhaus);
+
+    if(zufall <= p_simulationsparameter->wahrscheinlichkeit_neues_kfz)
+    {
+        Kfz *p_neues_kfz = init_kfz(p_parkhaus, *p_id, *p_zeitpunkt);
+        *p_id = aktuelle_id(*p_id);
+        kfz_hinzufuegen_warteschlange(p_parkhaus, p_neues_kfz);
+    }
+
      * WENN zufall <= p_simulationsparameter->wahrscheinlichkeit_neues_kfz:
      *     // ">=" statt ">" da falls Wahrscheinlichkeit = 1 und zufall = 1 soll trotzdem Kfz rein. Bei 100% wahrscheinlichkeit MUSS eine Kfz rein
      *     Kfz *p_neues_kfz = init_kfz(Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt)
