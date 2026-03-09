@@ -1,3 +1,14 @@
+/*
+   @file main.c
+   @brief Hauptprogramm der Parkhaus-Simulation.
+  
+   Dieses Programm liest die Simulationsparameter von der Konsole ein,
+   initialisiert das Parkhaus sowie die benötigten Datenstrukturen und
+   führt anschließend die Simulation über mehrere Zeitschritte aus.
+   Während der Simulation können Parameter angepasst werden und
+   Statistiken werden in eine Ausgabedatei geschrieben.
+*/
+
 #include "kfz.h"
 #include "parkhaus.h"
 #include "parkvorgang.h"    
@@ -6,6 +17,19 @@
 #include "statistiken.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+/*
+   @brief Startpunkt der Parkhaus-Simulation.
+
+   Liest die Simulationsparameter von der Konsole ein, initialisiert
+   Parkhaus, Statistik und Parameterstrukturen und führt anschließend
+   die Simulation über mehrere Zeitschritte aus. Während der Simulation
+   können Parameter geändert werden. Die Ergebnisse werden in eine
+   Ausgabedatei geschrieben.
+ 
+   @return int Gibt 0 bei erfolgreicher Ausführung zurück,
+    ansonsten 1 bei Fehlern während der Initialisierung.
+*/
 
 int main()
 {
@@ -19,42 +43,69 @@ int main()
     float wahrscheinlichkeit_neues_kfz = 0.0f;
     
     printf("Anzahl Parkplaetze eingeben: ");
-    scanf("%d", &anzahl_parkplaetze);
+    if(scanf("%d", &anzahl_parkplaetze)!=1)
+    {
+        printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+    }
 
     while(anzahl_parkplaetze <= 0)
     {
         printf("Ungueltige Eingabe. Anzahl Parkplaetze muss groesser als 0 sein: ");
-        scanf("%d", &anzahl_parkplaetze);
+        if(scanf("%d", &anzahl_parkplaetze)!=1)
+        {
+            printf("Flasche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+        }
     }
 
     printf("Maximale Parkdauer eingeben (in Stunden): ");
-    scanf("%d", &maximale_parkdauer);
+    if(scanf("%d", &maximale_parkdauer)!=1)
+    {
+        printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+    }
 
     while(maximale_parkdauer <= 0)
     {
         printf("Ungueltige Eingabe. Maximale Parkdauer muss groesser als 0 sein: ");
-        scanf("%d", &maximale_parkdauer);
+        if(scanf("%d", &maximale_parkdauer)!=1)
+        {
+            printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+        }
     }
 
     printf("Simulationsdauer eingeben (in Stunden): ");
-    scanf("%f", &simulations_dauer);
+    if(scanf("%f", &simulations_dauer)!=1)
+    {
+        printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+    }
 
     while(simulations_dauer <= 0.0f)
     {
         printf("Ungueltige Eingabe. Simulationsdauer muss groesser als 0 sein: ");
-        scanf("%f", &simulations_dauer);
+        if(scanf("%f", &simulations_dauer)!=1)
+        {
+            printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+        }
     }
 
     printf("Seed eingeben: ");
-    scanf("%d", &seed);
+    if(scanf("%d", &seed)!=1)
+    {
+        printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+    }
 
     printf("Ankunftswahrscheinlichkeit neues Kfz eingeben (0.0 - 1.0): ");
-    scanf("%f", &wahrscheinlichkeit_neues_kfz);
+    if(scanf("%f", &wahrscheinlichkeit_neues_kfz)!=1)
+    {
+        printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+    }
 
     while(wahrscheinlichkeit_neues_kfz < 0.0f || wahrscheinlichkeit_neues_kfz > 1.0f)
     {
         printf("Ungueltige Eingabe. Wahrscheinlichkeit muss zwischen 0.0 und 1.0 liegen: ");
-        scanf("%f", &wahrscheinlichkeit_neues_kfz);
+        if(scanf("%f", &wahrscheinlichkeit_neues_kfz)!=1)
+        {
+            printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+        }
     }
 
     srand(seed);
@@ -104,41 +155,71 @@ int main()
     while(zeitpunkt < simulations_dauer)
     {
         printf("Parameter aendern? (1 = ja, 0 = nein)\n");
-        scanf("%d", &aendern);
+        if(scanf("%d", &aendern)!=1)
+        {
+            printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+        }
 
         if(aendern == 1)
         {
-            scanf("%d", &anzahl_parkplaetze);
+            if(scanf("%d", &anzahl_parkplaetze)!=1)
+            {
+                printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+            }
 
             while(anzahl_parkplaetze <= 0)
             {
                 printf("Ungueltige Eingabe. Anzahl Parkplaetze muss groesser als 0 sein: ");
-                scanf("%d", &anzahl_parkplaetze);
+                if(scanf("%d", &anzahl_parkplaetze)!=1)
+                {
+                    printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+                }
             }
 
-            scanf("%d", &maximale_parkdauer);
+            if(scanf("%d", &maximale_parkdauer)!=1)
+            {
+                printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+            }
 
             while(maximale_parkdauer <= 0)
             {
                 printf("Ungueltige Eingabe. Maximale Parkdauer muss groesser als 0 sein: ");
-                scanf("%d", &maximale_parkdauer);
+                if(scanf("%d", &maximale_parkdauer)!=1)
+                {
+                    printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+                }
             }
 
-            scanf("%f", &simulations_dauer);
+            if(scanf("%f", &simulations_dauer)!=1)
+            {
+                printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+            }
 
             while(simulations_dauer <= zeitpunkt)
             {
                 printf("Ungueltige Eingabe. Simulationsdauer muss groesser als aktueller Zeitpunkt sein: ");
-                scanf("%f", &simulations_dauer);
+                if(scanf("%f", &simulations_dauer)!=1)
+                {
+                    printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+                }
             }
 
-            scanf("%d", &seed);
-            scanf("%f", &wahrscheinlichkeit_neues_kfz);
+            if(scanf("%d", &seed)!=1)
+            {
+                printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+            }
+            if(scanf("%f", &wahrscheinlichkeit_neues_kfz)!=1)
+            {
+                printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+            }
 
             while(wahrscheinlichkeit_neues_kfz < 0.0f || wahrscheinlichkeit_neues_kfz > 1.0f)
             {
                 printf("Ungueltige Eingabe. Wahrscheinlichkeit muss zwischen 0.0 und 1.0 liegen: ");
-                scanf("%f", &wahrscheinlichkeit_neues_kfz);
+                if(scanf("%f", &wahrscheinlichkeit_neues_kfz)!=1)
+                {
+                    printf("Falsche Eingabe. Die zahl muss eine Kommazahl sein.\n");
+                }
             }
 
             aktualisiere_parameter(
@@ -151,11 +232,11 @@ int main()
                 seed);
         }
 
-            simuliere_zeitabschnitt(
-                p_parkhaus,
-                p_simulationsparameter,
-                &id,
-                &zeitpunkt);
+        simuliere_zeitabschnitt(
+            p_parkhaus,
+            p_simulationsparameter,
+            &id,
+            &zeitpunkt);
 
         fprintf(p_datei, "Zeitschritt: %d\n", p_statistik->durchlaufene_zeitschritte);
         fprintf(p_datei, "Durchschnittliche Auslastung: %.2f%%\n", berechne_durchschnitt_auslastung(p_statistik));

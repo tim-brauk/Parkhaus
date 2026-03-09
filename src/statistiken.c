@@ -1,3 +1,14 @@
+/*
+   @file statistiken.c
+   @brief Funktionen zur Verwaltung und Berechnung von Simulationsstatistiken.
+  
+   Diese Datei implementiert Funktionen zur Initialisierung der
+   Statistikstruktur, zur dynamischen Anpassung der Speichergröße
+   sowie zur Berechnung verschiedener Kennzahlen der Parkhaus-
+   Simulation, wie z.B. Auslastung, Warteschlangenlänge und
+   durchschnittliche Wartezeit.
+*/
+
 #include "statistiken.h"
 #include "parkhaus.h"
 #include <stdio.h>
@@ -172,7 +183,7 @@ float berechne_durchschnittliche_wartezeit(SimulationsStats *p_statistik)
 
 void ausgabe_statistiken(SimulationsStats *p_statistik)
 {
-    prinft("\nDurchschnittliche Auslastung liegt bei: %.2f", berechne_durchschnitt_auslastung( p_statistik));
+    printf("\nDurchschnittliche Auslastung liegt bei: %.2f", berechne_durchschnitt_auslastung( p_statistik));
     printf("\nDurchschnittliche länge der Warteschlange liegt bei: %.2f", berechne_durchschnitt_warteschlangenlaenge( p_statistik));
     printf("\nDurchschnittliche Wartezeit liegt bei: %.2f", berechne_durchschnittliche_wartezeit( p_statistik));
     printf("\nMaximale Auslastung: %.2f", p_statistik->maximale_auslastung);
