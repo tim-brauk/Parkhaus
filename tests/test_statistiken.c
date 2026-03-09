@@ -6,14 +6,14 @@
 void test_init_statistik(){
     SimulationsStats *p_stats = init_statistik();
 
-    assert(stats != NULL);
-    assert(stats->auslastung_pro_zeitschritt != NULL);
-    assert(stats->warteschlange_pro_zeitschritt != NULL);
-    assert(stats->wartezeit_pro_zeitschritt != NULL);
-    assert(stats->maximale_auslastung == 0.0f);
-    assert(stats->maximale_warteschlangenlaenge == 0);
-    assert(stats->zeitschritte == 0);
-    assert(stats->durchlaufene_zeitschritte == 0);
+    assert(p_stats != NULL);
+    assert(p_stats->auslastung_pro_zeitschritt != NULL);
+    assert(p_stats->warteschlange_pro_zeitschritt != NULL);
+    assert(p_stats->wartezeit_pro_zeitschritt != NULL);
+    assert(p_stats->maximale_auslastung == 0.0f);
+    assert(p_stats->maximale_warteschlangenlaenge == 0);
+    assert(p_stats->zeitschritte == 0);
+    assert(p_stats->durchlaufene_zeitschritte == 0);
     //Überprüfen, ob die Werte richtig initialisiert wurden
 }
 
