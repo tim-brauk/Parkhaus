@@ -96,91 +96,85 @@ void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zeitschri
 float berechne_aktuelle_auslastung(Parkhaus *p_parkhaus){
     
     return ((float) p_parkhaus->belegte_parkplaetze / p_parkhaus->anzahl_parkplaetze) * 100;
-    //Berechnet die aktuelle Auslastung in % 
 }
 
-int berechne_aktuelle_warteschlangenlaenge(Parkhaus *p_parkhaus){
-    /*
-    Ganzzahl summe = 0
-    WENN p_parkhaus->erstes_kfz_in_der_warteschlange == NULL:
-        GIB summe
-        //Falls keine KFZ in der Warteschlange ist die Summe = 0
-        ENDE FUNKTION
-    ENDE WENN
-    Kfz *p_kfz_aktuell = p_parkhaus->erstes_kfz_in_der_warteschlange
-    SOLANGE p_kfz_aktuell->p_naechstes_kfz != NULL:
-        p_kfz_aktuell = p_aktuell_kfz->p_naechstes_kfz
-        summe = summe + 1
-        //Für jedes KFZ wird die summe um 1 erhöht
-    ENDE SOLANGE 
-    //+1 da das letzte KFZ nicht mitgerechnet wurde
-    GIB summe + 1
-    */
+int berechne_aktuelle_warteschlangenlaenge(Parkhaus *p_parkhaus)
+{
+    int summe = 0;
+    if(p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL)
+    {    
+        return summe;
+    }
+    
+    Kfz *p_kfz_aktuell = p_parkhaus->p_erstes_kfz_in_der_warteschlange;
+    while(p_kfz_aktuell->p_naechstes_kfz != NULL)
+    {
+        p_kfz_aktuell = p_kfz_aktuell->p_naechstes_kfz;
+        summe = summe + 1;
+    }
+    
+    return summe + 1;
 }
 
-void aktualisiere_maximale_auslastung(SimulationsStats *p_statistik, Parkhaus *p_parkhaus){
-    /*
-    Ganzzahl aktuelle_auslastung = berechne_aktuelle_auslastung(Parkhaus p_parkhaus)
-    WENN aktuelle_auslastung > p_statistik->maximale_auslastung
-        p_statistik->maximale_auslastung = aktuelle_auslastung
-    ENDE WENN
-    */
+void aktualisiere_maximale_auslastung(SimulationsStats *p_statistik, Parkhaus *p_parkhaus)
+{
+    int aktuelle_auslastung = berechne_aktuelle_auslastung( p_parkhaus);
+    if(aktuelle_auslastung > p_statistik->maximale_auslastung)
+    {
+        p_statistik->maximale_auslastung = aktuelle_auslastung;
+    }
 }
 
 void aktualisiere_maximale_warteschlangenlaenge(SimulationsStats *p_statistik, Parkhaus *p_parkhaus){
-    /*
-    Ganzzahl aktuelle_laenge = berechne_aktuelle_warteschlangenlaenge(Parkhaus p_parkhaus)
-    WENN aktuelle_laenge > p_statistik->maximale_warteschlangenlaenge:
-        p_statistik->maximale_warteschlangenlaenge = aktuelle_laenge
-    ENDE WENN
-    */
+
+    int aktuelle_laenge = berechne_aktuelle_warteschlangenlaenge( p_parkhaus);
+    if(aktuelle_laenge > p_statistik->maximale_warteschlangenlaenge)
+    {
+        p_statistik->maximale_warteschlangenlaenge = aktuelle_laenge;
+    }
 }
 
-float berechne_durchschnitt_auslastung(SimulationsStats *p_statistik){
-    /*
-    Fließkommazahl durchschnittliche_auslastung = 0
-    FÜR i = 0, i < p_statistik->durchlaufene_zeitschritte, i++:
-        durchschnittliche_auslastung = durchschnittliche_auslastung + p_statistik->auslastung_pro_zeitschritt[i]
-        //Addiert alle Auslastungen in eine Summe
-    ENDE FÜR
-    durchschnittliche_auslastung = durchschnittliche_auslastung / p_statistik->durchlaufene_zeitschritte
-    //Die summe wird durch die Anzahl der durchlaufenen zeitschritte dividiert
-    GIB durchschnittliche_auslastung
-    */
+float berechne_durchschnitt_auslastung(SimulationsStats *p_statistik)
+{
+    float durchschnittliche_auslastung = 0.0f;
+    for(int i = 0; i < p_statistik->durchlaufene_zeitschritte; i++)
+    {
+        durchschnittliche_auslastung = durchschnittliche_auslastung + p_statistik->p_auslastung_pro_zeitschritt[i];
+    }
+
+    durchschnittliche_auslastung = durchschnittliche_auslastung / p_statistik->durchlaufene_zeitschritte;
+    return durchschnittliche_auslastung;
 }
 
-float berechne_durchschnitt_warteschlangenlaenge(SimulationsStats *p_statistik){
-    /* 
-    Fließkommazahl durchschnittliche_warteschlangenlaenge = 0
-    FÜR i = 0, i < p_statistik->durchlaufene_zeitschritte, i++:
-        durchschnittliche_warteschlangenlaenge = durchschnittliche_warteschlangenlaenge + p_statistik->warteschlange_pro_zeitschritt[i]
-        //Addiert alle warteschlangelaengen in eine Summe
-    ENDE FÜR
-    durchschnittliche_warteschlangenlaenge = durchschnittliche_warteschlangenlaenge / p_statistik->durchlaufene_zeitschritte
-    //Die summe wird durch die Anzahl der durchlaufenen zeitschritte dividiert
-    GIB durchschnittliche_warteschlangenlaenge
-    */
+float berechne_durchschnitt_warteschlangenlaenge(SimulationsStats *p_statistik)
+{
+    float durchschnittliche_warteschlangenlaenge = 0.0f;
+    for(int i = 0; i < p_statistik->durchlaufene_zeitschritte; i++)
+    {
+        durchschnittliche_warteschlangenlaenge = durchschnittliche_warteschlangenlaenge + p_statistik->p_warteschlange_pro_zeitschritt[i];
+    }
+
+    durchschnittliche_warteschlangenlaenge = durchschnittliche_warteschlangenlaenge / p_statistik->durchlaufene_zeitschritte;
+    return durchschnittliche_warteschlangenlaenge;
 }
 
-float berechne_durchschnittliche_wartezeit(SimulationsStats *p_statistik){
-    /*
-    Fließkommazahl durchschnittliche_wartezeit = 0
-    FÜR i = 0, i < p_statistik->durchlaufene_zeitschritte, i++:
-        durchschnittliche_wartezeit = durchschnittliche_wartezeit + p_statistik->wartezeit_pro_zeitschritt[i]
-        //Addiert alle wartezeiten in eine Summe
-    ENDE FÜR
-    durchschnittliche_wartezeit = durchschnittliche_wartezeit / p_statistik->durchlaufene_zeitschritte
-    //Die summe wird durch die Anzahl der durchlaufenen zeitschritte dividiert
-    GIB durchschnittliche_wartezeit
-    */
+float berechne_durchschnittliche_wartezeit(SimulationsStats *p_statistik)
+{
+    float durchschnittliche_wartezeit = 0.0f;
+    for(int i = 0; i < p_statistik->durchlaufene_zeitschritte; i++)
+    {
+        durchschnittliche_wartezeit = durchschnittliche_wartezeit + p_statistik->p_wartezeit_pro_zeitschritt[i];
+    }
+    
+    durchschnittliche_wartezeit = durchschnittliche_wartezeit / p_statistik->durchlaufene_zeitschritte;
+    return durchschnittliche_wartezeit;
 }
 
-void ausgabe_statistiken(SimulationsStats *p_statistik){
-    /*
-    Ausgabe: "\nDurchschnittliche Auslastung liegt bei: " + berechne_durchschnitt_auslastung(SimulationsStats *p_statistik)
-    Ausgabe: "\nDurchschnittliche länge der Warteschlange liegt bei: " + berechne_durchschnitt_warteschlangenlaenge(SimulationsStats *p_statistik)
-    Ausgabe: "\nDurchschnittliche Wartezeit liegt bei: " + berechne_durchschnittliche_wartezeit(SimulationsStats *p_statistik)
-    Ausgabe: "\nMaximale Auslastung: " + p_statistik->maximale_auslastung
-    Ausgabe: "\nMaximale Länge der Warteschlange: " + p_statistik->maximale_warteschlangenlaenge
-    */
+void ausgabe_statistiken(SimulationsStats *p_statistik)
+{
+    prinft("\nDurchschnittliche Auslastung liegt bei: %.2f", berechne_durchschnitt_auslastung( p_statistik));
+    printf("\nDurchschnittliche länge der Warteschlange liegt bei: %.2f", berechne_durchschnitt_warteschlangenlaenge( p_statistik));
+    printf("\nDurchschnittliche Wartezeit liegt bei: %.2f", berechne_durchschnittliche_wartezeit( p_statistik));
+    printf("\nMaximale Auslastung: %.2f", p_statistik->maximale_auslastung);
+    printf("\nMaximale Länge der Warteschlange: %.2f", p_statistik->maximale_warteschlangenlaenge);
 }
