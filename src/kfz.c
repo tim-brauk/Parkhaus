@@ -4,6 +4,11 @@
 
 Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id, int zeitpunkt)
 {   
+    if(p_parkhaus == NULL)
+    {
+        printf("Fehler: Null-Pointer in init_kfz in kfz.c\n");
+        return NULL;
+    } 
     Kfz *p_kfz = malloc(sizeof(Kfz));
     if(p_kfz == NULL)
     {       
