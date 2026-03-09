@@ -213,8 +213,20 @@ void test_berechne_durchschnitt_auslastung(){
     free(p_stats);
 }
 
-//Mir fallen für die durchschnittlichen Funktionen keine weiteren sinvollen Test eins bitte um Ideen.
+void test_berechne_durchschnitt_auslastung_keine_werte(){
+    SimulationsStats *p_stats = init_statistik();
 
+    p_stats->zeitschritte = 3;
+    p_stats->p_auslastung_pro_zeitschritt[0] = 0.0f;
+    p_stats->p_auslastung_pro_zeitschritt[1] = 0.0f;
+    p_stats->p_auslastung_pro_zeitschritt[2] = 0.0f;
+
+    float durchschnitt = berechne_durchschnitt_auslastung(p_stats);
+    assert(durchschnitt == 0.0f);
+    //Überprüfen, ob der Durchschnitt der Auslastung korrekt berechnet wird, auch wenn alle Werte 0 nicht
+
+    free(p_stats);
+}
 
 void test_berechne_durchschnitt_warteschlangenlaenge(){
     SimulationsStats *p_stats = init_statistik();
