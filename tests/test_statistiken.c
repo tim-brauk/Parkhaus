@@ -244,6 +244,22 @@ void test_berechne_durchschnitt_warteschlangenlaenge(){
     free(p_stats);
 }
 
+void test_berechne_durchschnitt_warteschlangenlaenge_keine_werte(){
+    SimulationsStats *p_stats = init_statistik();
+
+    p_stats->zeitschritte = 4;
+    p_stats->p_warteschlange_pro_zeitschritt[0] = 0;
+    p_stats->p_warteschlange_pro_zeitschritt[1] = 0;
+    p_stats->p_warteschlange_pro_zeitschritt[2] = 0;
+    p_stats->p_warteschlange_pro_zeitschritt[3] = 0;
+
+    float durchschnitt = berechne_durchschnitt_warteschlangenlaenge(p_stats);
+    assert(durchschnitt == 0.0f);
+    //Überprüfen, ob der Durchschnitt der Warteschlangenlänge korrekt berechnet wird, auch wenn alle Werte 0 nicht
+
+    free(p_stats);
+}
+
 void test_berechne_durchschnittliche_wartezeit(){
     SimulationsStats *p_stats = init_statistik();
 
