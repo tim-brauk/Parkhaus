@@ -1,3 +1,7 @@
+/*
+ * File: kfz.c
+ * Description: initialisiert Kfz und definiert die Struktur Kfz
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/kfz.h"

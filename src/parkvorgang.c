@@ -1,3 +1,8 @@
+/*
+ * File: parkvorgang.c
+ * Description: Implementierung der Funktionen zur Verwaltung der Parkvorgänge im Parkhaus
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/parkvorgang.h"

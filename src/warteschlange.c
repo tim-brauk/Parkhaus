@@ -1,3 +1,7 @@
+/*
+ * File: warteschlange.c
+ * Description: Implementierung der Funktionen zur Verwaltung der Warteschlange im Parkhaus
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/warteschlange.h"
