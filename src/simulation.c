@@ -1,15 +1,53 @@
 #include "simulation.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include "statistiken.h"
 
-typedef struct SimulationsStats
+void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int benoetigte_groesse)
 {
-    int *auslastung_pro_zeitschritt;
-    int *warteschlange_pro_zeitschritt;
-    int *wartezeit_pro_zeitschritt;
-    int durchlaufene_zeitschritte;
-    int maximale_auslastung;
-    int maximale_warteschlangenlaenge;
-} SimulationsStats;
+    if (benoetigte_groesse <= p_statistik->durchlaufene_zeitschritte)
+    {
+        return; 
+    }
+
+    int neue_groesse = benoetigte_groesse;
+    int *neu_auslastung = realloc(
+        p_statistik->auslastung_pro_zeitschritt,
+        sizeof(int) * neue_groesse
+    );
+
+    if (neu_auslastung == NULL)
+    {
+        printf("Fehler beim Anpassen von auslastung_pro_zeitschritt\n");
+        return;
+    }
+    p_statistik->auslastung_pro_zeitschritt = neu_auslastung;
+
+    int *neu_warteschlange = realloc(
+        p_statistik->warteschlange_pro_zeitschritt,
+        sizeof(int) * neue_groesse
+    );
+
+    if (neu_warteschlange == NULL)
+    {
+        printf("Fehler beim Anpassen von warteschlange_pro_zeitschritt\n");
+        return;
+    }
+    p_statistik->warteschlange_pro_zeitschritt = neu_warteschlange;
+
+    int *neu_wartezeit = realloc(
+        p_statistik->wartezeit_pro_zeitschritt,
+        sizeof(int) * neue_groesse
+    );
+
+    if (neu_wartezeit == NULL)
+    {
+        printf("Fehler beim Anpassen von wartezeit_pro_zeitschritt\n");
+        return;
+    }
+    p_statistik->wartezeit_pro_zeitschritt = neu_wartezeit;
+    p_statistik->durchlaufene_zeitschritte = neue_groesse;
+}
 
 void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, int *p_id, int *p_zeitpunkt, SimulationsStats *p_statistik)
 {
@@ -52,6 +90,8 @@ void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simul
         freie_plaetze = platz_garage(p_parkhaus);
     }
 
+    aktualisiere_groesse_statistik(p_statistik, *p_zeitpunkt + 1);
+
     p_statistik->auslastung_pro_zeitschritt[*p_zeitpunkt] =
         berechne_aktuelle_auslastung(p_parkhaus);
 
@@ -59,14 +99,12 @@ void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simul
         berechne_aktuelle_warteschlangenlaenge(p_parkhaus);
 
     p_statistik->wartezeit_pro_zeitschritt[*p_zeitpunkt] =
-        berechne_aktuelle_wartezeit(p_parkhaus);
+        berechne_aktuelle_wartezeit(p_parkhaus, *p_zeitpunkt);
 
     aktualisiere_maximale_auslastung(p_parkhaus);
-    aktualisiere_maximale_warteschlangenlaenge(p_parkhaus);
+    aktualisiere_maximale_warteschlangenlaenge(p_parkhaus, *p_zeitpunkt);
 
     ausgabe_statistiken(p_statistik);
-
     p_statistik->durchlaufene_zeitschritte++;
-
     (*p_zeitpunkt)++;
 }
