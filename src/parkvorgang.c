@@ -6,7 +6,7 @@ void fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz)
 {
     if(p_parkhaus == NULL || p_kfz == NULL)
     {
-        printf("Fehler: NULL-Pointer in kfz_hinzufuegen_warteschlange\n");
+        printf("Fehler: NULL-Pointer in fuege_kfz_hinzu in parkvorgang.c\n");
         return;
     }
     int freie_parkplaetze = (p_parkhaus->anzahl_parkplaetze) - (p_parkhaus->belegte_parkplaetze);
@@ -39,6 +39,11 @@ void fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz)
 
 void entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz)
 {  
+     if(p_parkhaus == NULL || p_kfz == NULL)
+    {
+        printf("Fehler: NULL-Pointer in entferne_kfz in parkvorgang.c\n");
+        return;
+    }
     for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
     {
         if(p_kfz == p_parkhaus->p_parkplaetze[i].p_kfz)
