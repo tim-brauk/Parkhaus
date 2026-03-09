@@ -5,7 +5,12 @@
 
 void kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz)
 { 
-    
+    if 
+    (p_parkhaus == NULL || p_kfz == NULL)
+    {
+        printf("Fehler: NULL-Pointer in kfz_hinzufuegen_warteschlange in warteschlange.c\n");
+        return;
+    }
     if(p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL)
     {
          p_parkhaus->p_erstes_kfz_in_der_warteschlange = p_kfz;
