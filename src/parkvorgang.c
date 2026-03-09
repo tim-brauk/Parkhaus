@@ -61,6 +61,11 @@ void entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz)
 
 void entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus)
 {    
+        if(p_parkhaus == NULL)
+        {
+            printf("Fehler: NULL-Pointer in entferne_kfzs_maximale_parkdauer in parkvorgang.c\n");
+            return;
+        }
     for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
     {
         if(p_parkhaus->p_parkplaetze[i].p_kfz != NULL)
