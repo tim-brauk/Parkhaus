@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "parkhaus.h"
 
-Parkhaus* init_parkhaus(Parkplatz *p_parkplaetze,   int anzahl_parkplaetze, int maximale_parkdauer)
+Parkhaus* init_parkhaus(int anzahl_parkplaetze, int maximale_parkdauer)
 {
     Parkhaus *p_parkhaus = malloc(sizeof(Parkhaus));
     if(p_parkhaus == NULL)
