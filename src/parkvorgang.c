@@ -17,6 +17,11 @@ void fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz)
     int freie_parkplaetze = (p_parkhaus->anzahl_parkplaetze) - (p_parkhaus->belegte_parkplaetze);
     int min = 0;
     int max = freie_parkplaetze - 1;
+     if (freie_parkplaetze == 0)
+    {
+        printf("Kein freier Parkplatz verfügbar. Das KFZ kann nicht hinzugefügt werden.\n");
+        return;
+    }
     int zufaelliger_parkplatz = 0;
     zufaelliger_parkplatz = min + (rand() % (max - min + 1));
 
