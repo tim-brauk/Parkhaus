@@ -235,6 +235,7 @@ int main()
         simuliere_zeitabschnitt(
             p_parkhaus,
             p_simulationsparameter,
+            p_statistik,
             &id,
             &zeitpunkt);
 

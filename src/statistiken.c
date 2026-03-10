@@ -27,6 +27,7 @@ SimulationsStats *init_statistik()
 
     if(p_warteschlange_pro_zeitschritt == NULL)
     {
+        free(p_auslastung_pro_zeitschritt);
         printf("Fehler bei Speicherreservierung fuer warteschlange_pro_zeitschritt\n");
         return NULL;
     }
@@ -35,6 +36,8 @@ SimulationsStats *init_statistik()
 
     if(p_wartezeit_pro_zeitschritt == NULL)
     {
+        free(p_auslastung_pro_zeitschritt);
+        free(p_warteschlange_pro_zeitschritt);
         printf("Fehler bei Speicherreservierung fuer wartezeit_pro_zeitschritt\n");
         return NULL;
     }
@@ -43,6 +46,9 @@ SimulationsStats *init_statistik()
 
     if(p_statistik == NULL)
     {
+        free(p_auslastung_pro_zeitschritt);
+        free(p_warteschlange_pro_zeitschritt);
+        free(p_wartezeit_pro_zeitschritt);
         printf("Fehler bei Speicherreservierung fuer p_statistik\n");
         return NULL;
     }
