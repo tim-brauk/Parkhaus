@@ -62,7 +62,7 @@ float berechne_aktuelle_auslastung(const Parkhaus *parkhaus);
  * @param[in] parkhaus Zeiger auf Parkhaus
  * @return aktuelle Durchschnittliche Wartezeit in Minuten
  */
-float berechne_aktuelle_wartezeit(const Parkhaus *parkhaus, int &zeitpunkt);
+float berechne_aktuelle_wartezeit(const Parkhaus *parkhaus, int p_zeitpunkt);
 
 
 /**

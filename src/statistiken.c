@@ -135,7 +135,7 @@ int berechne_aktuelle_warteschlangenlaenge(Parkhaus *p_parkhaus)
 
 void aktualisiere_maximale_auslastung(SimulationsStats *p_statistik, Parkhaus *p_parkhaus)
 {
-    int aktuelle_auslastung = berechne_aktuelle_auslastung( p_parkhaus);
+    float aktuelle_auslastung = berechne_aktuelle_auslastung( p_parkhaus);
     if(aktuelle_auslastung > p_statistik->maximale_auslastung)
     {
         p_statistik->maximale_auslastung = aktuelle_auslastung;
@@ -192,6 +192,6 @@ void ausgabe_statistiken(SimulationsStats *p_statistik)
     printf("\nDurchschnittliche Auslastung liegt bei: %.2f", berechne_durchschnitt_auslastung( p_statistik));
     printf("\nDurchschnittliche länge der Warteschlange liegt bei: %.2f", berechne_durchschnitt_warteschlangenlaenge( p_statistik));
     printf("\nDurchschnittliche Wartezeit liegt bei: %.2f", berechne_durchschnittliche_wartezeit( p_statistik));
-    printf("\nMaximale Auslastung: %.2f", p_statistik->maximale_auslastung);
-    printf("\nMaximale Länge der Warteschlange: %.2f", p_statistik->maximale_warteschlangenlaenge);
+    printf("\nMaximale Auslastung: %d", p_statistik->maximale_auslastung);
+    printf("\nMaximale Länge der Warteschlange: %d", p_statistik->maximale_warteschlangenlaenge);
 }

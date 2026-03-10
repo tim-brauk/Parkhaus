@@ -158,6 +158,7 @@ int main()
         if(scanf("%d", &aendern)!=1)
         {
             printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+            break;
         }
 
         if(aendern == 1)
@@ -165,6 +166,7 @@ int main()
             if(scanf("%d", &anzahl_parkplaetze)!=1)
             {
                 printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+                break;
             }
 
             while(anzahl_parkplaetze <= 0)
@@ -173,12 +175,14 @@ int main()
                 if(scanf("%d", &anzahl_parkplaetze)!=1)
                 {
                     printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+                    break;
                 }
             }
 
             if(scanf("%d", &maximale_parkdauer)!=1)
             {
                 printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+                break;
             }
 
             while(maximale_parkdauer <= 0)
@@ -187,12 +191,14 @@ int main()
                 if(scanf("%d", &maximale_parkdauer)!=1)
                 {
                     printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+                    break;
                 }
             }
 
             if(scanf("%f", &simulations_dauer)!=1)
             {
                 printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+                break;
             }
 
             while(simulations_dauer <= zeitpunkt)
@@ -201,16 +207,20 @@ int main()
                 if(scanf("%f", &simulations_dauer)!=1)
                 {
                     printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+                    break;
                 }
             }
 
             if(scanf("%d", &seed)!=1)
             {
                 printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+                break;
             }
+
             if(scanf("%f", &wahrscheinlichkeit_neues_kfz)!=1)
             {
                 printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+                break;
             }
 
             while(wahrscheinlichkeit_neues_kfz < 0.0f || wahrscheinlichkeit_neues_kfz > 1.0f)
@@ -219,6 +229,7 @@ int main()
                 if(scanf("%f", &wahrscheinlichkeit_neues_kfz)!=1)
                 {
                     printf("Falsche Eingabe. Die zahl muss eine Kommazahl sein.\n");
+                    break;
                 }
             }
 
