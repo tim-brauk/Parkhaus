@@ -53,11 +53,11 @@ void test_aktualisiere_groesse_statistik_merhfacherweiterung(){
 void test_berechne_aktuelle_auslastung_normal(){
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
-    p_parkhaus->belegte_plaetze = 5;
+    p_parkhaus->belegte_parkplaetze = 5;
     float auslastung = berechne_aktuelle_auslastung(p_parkhaus);
     assert(auslastung == 50.0f);
 
-    p_parkhaus->belegte_plaetze = 7;
+    p_parkhaus->belegte_parkplaetze = 7;
     auslastung = berechne_aktuelle_auslastung(p_parkhaus);
     assert(auslastung == 70.0f);
     //Überprüfen, ob die Auslastung korrekt berechnet wird
@@ -68,11 +68,11 @@ void test_berechne_aktuelle_auslastung_normal(){
 void test_berechne_aktuelle_auslastung_randwerte(){
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
-    p_parkhaus->belegte_plaetze = 0;
+    p_parkhaus->belegte_parkplaetze = 0;
     float auslastung = berechne_aktuelle_auslastung(p_parkhaus);
     assert(auslastung == 0.0f);
 
-    p_parkhaus->belegte_plaetze = 10;
+    p_parkhaus->belegte_parkplaetze = 10;
     auslastung = berechne_aktuelle_auslastung(p_parkhaus);
     assert(auslastung == 100.0f);
     //Überprüfen, ob die Auslastung korrekt berechnet wird, wenn das Parkhaus leer ist
@@ -134,7 +134,7 @@ void test_aktualisiere_maximale_auslastung_normal(){
     SimulationsStats *p_stats = init_statistik();
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
-    p_parkhaus->belegte_plaetze = 5;
+    p_parkhaus->belegte_parkplaetze = 5;
     p_stats->maximale_auslastung = 30.0f;
 
     aktualisiere_maximale_auslastung(p_stats, p_parkhaus);
@@ -149,7 +149,7 @@ void test_aktualisiere_maximale_auslastung_unveraendert(){
     SimulationsStats *p_stats = init_statistik();
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
-    p_parkhaus->belegte_plaetze = 3;
+    p_parkhaus->belegte_parkplaetze = 3;
     p_stats->maximale_auslastung = 40.0f;
 
     aktualisiere_maximale_auslastung(p_stats, p_parkhaus);
