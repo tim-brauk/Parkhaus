@@ -3,14 +3,15 @@
 #include <stdio.h>
 #include "statistiken.h"
 
-void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int benoetigte_groesse)
+void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zusaetzliche_zeitschritte)
 {
-    if (benoetigte_groesse <= p_statistik->durchlaufene_zeitschritte)
-    {
-        return; 
-    }
+    int benoetigte_gesamtgroesse = p_statistik->durchlaufene_zeitschritte + zusaetzliche_zeitschritte;
 
-    int neue_groesse = benoetigte_groesse;
+    if (benoetigte_gesamtgroesse <= p_statistik->durchlaufene_zeitschritte)
+        return;
+
+    int neue_groesse = benoetigte_gesamtgroesse;
+
     float *neu_auslastung = realloc(p_statistik->auslastung_pro_zeitschritt, sizeof(float) * neue_groesse);
     int *neu_warteschlange = realloc(p_statistik->warteschlange_pro_zeitschritt, sizeof(int) * neue_groesse);
     int *neu_wartezeit = realloc(p_statistik->wartezeit_pro_zeitschritt, sizeof(int) * neue_groesse);
@@ -67,7 +68,7 @@ void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simul
         freie_plaetze = platz_garage(p_parkhaus);
     }
 
-    aktualisiere_groesse_statistik(p_statistik, *p_zeitpunkt);
+    aktualisiere_groesse_statistik(p_statistik, 1);
 
     p_statistik->auslastung_pro_zeitschritt[*p_zeitpunkt] =
         berechne_aktuelle_auslastung(p_parkhaus);
