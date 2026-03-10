@@ -4,7 +4,6 @@ struct Parkhaus ; // Vorwärtsdeklaration der Struktur Parkhaus, da sie in der F
 typedef struct Kfz 
 {
     int id; //ID für jedes Auto int da eine zahl ausreicht
-    int parkdauer; //parkdauer in sekunden 
     int einfahrtszeitpunkt; //einfahrtszeit
     int verbleibende_parkdauer;
     struct Kfz *p_naechstes_kfz;
