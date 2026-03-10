@@ -201,7 +201,7 @@ void test_aktualisiere_maximale_warteschlangenlaenge_unveraendert(){
 void test_berechne_durchschnitt_auslastung(){
     SimulationsStats *p_stats = init_statistik();
 
-    p_stats->zeitschritte = 3;
+    p_stats->durchlaufene_zeitschritte = 3;
     p_stats->p_auslastung_pro_zeitschritt[0] = 13.2f;
     p_stats->p_auslastung_pro_zeitschritt[1] = 17.0f;
     p_stats->p_auslastung_pro_zeitschritt[2] = 25.0f;
@@ -216,7 +216,7 @@ void test_berechne_durchschnitt_auslastung(){
 void test_berechne_durchschnitt_auslastung_keine_werte(){
     SimulationsStats *p_stats = init_statistik();
 
-    p_stats->zeitschritte = 3;
+    p_stats->durchlaufene_zeitschritte = 3;
     p_stats->p_auslastung_pro_zeitschritt[0] = 0.0f;
     p_stats->p_auslastung_pro_zeitschritt[1] = 0.0f;
     p_stats->p_auslastung_pro_zeitschritt[2] = 0.0f;
@@ -231,7 +231,7 @@ void test_berechne_durchschnitt_auslastung_keine_werte(){
 void test_berechne_durchschnitt_warteschlangenlaenge(){
     SimulationsStats *p_stats = init_statistik();
 
-    p_stats->zeitschritte = 4;
+    p_stats->durchlaufene_zeitschritte = 4;
     p_stats->p_warteschlange_pro_zeitschritt[0] = 2;
     p_stats->p_warteschlange_pro_zeitschritt[1] = 3;
     p_stats->p_warteschlange_pro_zeitschritt[2] = 1;
@@ -247,7 +247,7 @@ void test_berechne_durchschnitt_warteschlangenlaenge(){
 void test_berechne_durchschnitt_warteschlangenlaenge_keine_werte(){
     SimulationsStats *p_stats = init_statistik();
 
-    p_stats->zeitschritte = 4;
+    p_stats->durchlaufene_zeitschritte = 4;
     p_stats->p_warteschlange_pro_zeitschritt[0] = 0;
     p_stats->p_warteschlange_pro_zeitschritt[1] = 0;
     p_stats->p_warteschlange_pro_zeitschritt[2] = 0;
@@ -263,13 +263,13 @@ void test_berechne_durchschnitt_warteschlangenlaenge_keine_werte(){
 void test_berechne_durchschnittliche_wartezeit(){
     SimulationsStats *p_stats = init_statistik();
 
-    p_stats->zeitschritte = 3;
+    p_stats->durchlaufene_zeitschritte = 3;
     p_stats->p_wartezeit_pro_zeitschritt[0] = 5.0f;
     p_stats->p_wartezeit_pro_zeitschritt[1] = 10.0f;
     p_stats->p_wartezeit_pro_zeitschritt[2] = 15.0f;
 
     float durchschnitt = berechne_durchschnittliche_wartezeit(p_stats);
-    assert(durchschnitt == 0.0f); //(5.0f + 10.0f + 15.0f) / 3 = 10.0f
+    assert(durchschnitt == 10.0f); //(5.0f + 10.0f + 15.0f) / 3 = 10.0f
     //Überprüfen, ob der Durchschnitt der Wartezeit korrekt berechnet wird
 
     free(p_stats);
@@ -278,7 +278,7 @@ void test_berechne_durchschnittliche_wartezeit(){
 void test_berechne_durchschnittliche_wartezeit_keine_werte(){
     SimulationsStats *p_stats = init_statistik();
 
-    p_stats->zeitschritte = 3;
+    p_stats->durchlaufene_zeitschritte = 3;
     p_stats->p_wartezeit_pro_zeitschritt[0] = 0.0f;
     p_stats->p_wartezeit_pro_zeitschritt[1] = 0.0f;
     p_stats->p_wartezeit_pro_zeitschritt[2] = 0.0f;
