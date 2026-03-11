@@ -82,7 +82,7 @@ int berechne_aktuelle_warteschlangenlaenge(const Parkhaus *parkhaus);
  * @param[in] p_parkhaus Zeiger auf Parkhaus
  */
 void aktualisiere_maximale_auslastung(
-    SimulationsStats *stats
+    SimulationsStats *stats,
     Parkhaus *p_parkhaus
 );
 
