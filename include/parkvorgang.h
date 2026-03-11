@@ -13,7 +13,7 @@
  * @param[in] p_kfz  Zeiger auf das einzuparkende Kfz
  * @return void
  */
-void add_car(Parkhaus *p_parkhaus, Kfz *p_kfz);
+void fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz);
 
 /**
  * @brief Entfernt ein Kfz von seinem Parkplatz.
@@ -24,7 +24,7 @@ void add_car(Parkhaus *p_parkhaus, Kfz *p_kfz);
  * @param[in] p_kfz  Zeiger auf das zu entfernende Kfz
  * @return void
  */
-void remove_car(Parkhaus *p_parkhaus, Kfz *p_kfz);
+void entferne_kfz(Parkhaus *p_parkhaus, Kfz *p_kfz);
 
 /**
  * @brief Entfernt Kfz mit die die maximale Parkdauer überschritten haben.
@@ -34,5 +34,5 @@ void remove_car(Parkhaus *p_parkhaus, Kfz *p_kfz);
  * @param[in] p_parkhaus Zeiger auf das Parkhaus
  * @return void
  */
-void remove_cars_max_parktime(Parkhaus *p_parkhaus);
+void entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus);
 #endif /* PARKVORGANG_H */

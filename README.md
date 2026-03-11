@@ -34,7 +34,12 @@ parkhaus-simulation/
 │   └── warteschlange.c
 │
 ├── tests/
-│   └── (...)
+│   ├── test_kfz.c
+|   ├── test_parkhaus.c
+|   ├── test_parkvorgang.c
+|   ├── test_simulation.c
+|   ├── test_statistiken.c
+│   └── test_warteschlange.c
 │
 └── .github/
 └── workflows/
