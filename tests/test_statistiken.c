@@ -83,9 +83,9 @@ void test_berechne_aktuelle_auslastung_randwerte(){
 void test_berechne_aktuelle_warteschlangenlaenge_normal(){
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
-    p_parkhaus->p_erster_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
-    p_parkhaus->p_erster_in_der_warteschlange->p_naechster = init_kfz(p_parkhaus, 2, 61);
-    p_parkhaus->p_erster_in_der_warteschlange->p_naechster->p_naechster = init_kfz(p_parkhaus, 3, 62);
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechster = init_kfz(p_parkhaus, 2, 61);
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechster->p_naechster = init_kfz(p_parkhaus, 3, 62);
     //Erstellen einer Warteschlange mit 3 Fahrzeugen
     int warteschlangenlaenge = berechne_aktuelle_warteschlangenlaenge(p_parkhaus);
     assert(warteschlangenlaenge == 3);
@@ -107,9 +107,9 @@ void test_berechne_aktuelle_warteschlangenlaenge_leer(){
 void test_berechne_aktuelle_wartezeit_normal(){
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
-    p_parkhaus->p_erster_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
-    p_parkhaus->p_erster_in_der_warteschlange->p_naechster = init_kfz(p_parkhaus, 2, 61);
-    p_parkhaus->p_erster_in_der_warteschlange->p_naechster->p_naechster = init_kfz(p_parkhaus, 3, 62);
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechster = init_kfz(p_parkhaus, 2, 61);
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechster->p_naechster = init_kfz(p_parkhaus, 3, 62);
     //Erstellen einer Warteschlange mit 3 Fahrzeugen
     int zeitpunkt = 70;
     float wartezeit = berechne_aktuelle_wartezeit(p_parkhaus, zeitpunkt);
@@ -167,9 +167,9 @@ void test_aktualisiere_maximale_warteschlangenlaenge_normal(){
 
     p_stats->maximale_warteschlangenlaenge = 2;
     
-    p_parkhaus->p_erster_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
-    p_parkhaus->p_erster_in_der_warteschlange->p_naechster = init_kfz(p_parkhaus, 2, 61);
-    p_parkhaus->p_erster_in_der_warteschlange->p_naechster->p_naechster = init_kfz(p_parkhaus, 3, 62);
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechster = init_kfz(p_parkhaus, 2, 61);
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechster->p_naechster = init_kfz(p_parkhaus, 3, 62);
     //Erstellen einer Warteschlange mit 3 Fahrzeugen
 
     aktualisiere_maximale_warteschlangenlaenge(p_stats, p_parkhaus);
@@ -186,8 +186,8 @@ void test_aktualisiere_maximale_warteschlangenlaenge_unveraendert(){
 
     p_stats->maximale_warteschlangenlaenge = 4;
 
-    p_parkhaus->p_erster_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
-    p_parkhaus->p_erster_in_der_warteschlange->p_naechster = init_kfz(p_parkhaus, 2, 61);
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
+    p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechster = init_kfz(p_parkhaus, 2, 61);
     //Erstellen einer Warteschlange mit 2 Fahrzeugen
 
     aktualisiere_maximale_warteschlangenlaenge(p_stats, p_parkhaus);
