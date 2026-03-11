@@ -26,22 +26,22 @@ void test_fuege_kfz_hinzu_belegt(){
     Parkhaus *p_parkhaus = init_parkhaus(5, 40); //Erstellen eines Parkhauses mit 5 Parkplätzen und einer maximalen Parkdauer von 40
     Kfz *p_kfz1 = init_kfz(p_parkhaus, 3, 60); //Test Kfz erhält die ID 3 und die einfahrtzeitpunkt von 60
     
-    p_parkhaus->parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 1, 60);
-    p_parkhaus->parkplaetze[0].belegt = 1; //Belegt den ersten Parkplatz
-    p_parkhaus->parkplaetze[1].p_kfz = init_kfz(p_parkhaus, 2, 60);
-    p_parkhaus->parkplaetze[1].belegt = 1; //Belegt den zweiten Parkplatz
+    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 1, 60);
+    p_parkhaus->p_parkplaetze[0].belegt = 1; //Belegt den ersten Parkplatz
+    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, 2, 60);
+    p_parkhaus->p_parkplaetze[1].belegt = 1; //Belegt den zweiten Parkplatz
     
     fuege_kfz_hinzu(p_parkhaus, p_kfz1); //Fügt das Kfz zum Parkhaus hinzu
     
     for(int i = 0; i < 2; i++){
-        if(p_parkhaus->parkplaetze[i].belegt == 1){
-            assert(p_parkhaus->parkplaetze[i].p_kfz != p_kfz1); //Überprüft, ob das Kfz nicht auf einem belegten Parkplatz gelandet ist
+        if(p_parkhaus->p_parkplaetze[i].belegt == 1){
+            assert(p_parkhaus->p_parkplaetze[i].p_kfz != p_kfz1); //Überprüft, ob das Kfz nicht auf einem belegten Parkplatz gelandet ist
         }
     }
     
     for(int i = 2; i < p_parkhaus->anzahl_parkplaetze; i++){
-        if(p_parkhaus->parkplaetze[i].belegt == 1){
-            assert(p_parkhaus->parkplaetze[i].p_kfz == p_kfz1); //Überprüft, ob das Kfz auf einem freien Parkplatz gelandet ist
+        if(p_parkhaus->p_parkplaetze[i].belegt == 1){
+            assert(p_parkhaus->p_parkplaetze[i].p_kfz == p_kfz1); //Überprüft, ob das Kfz auf einem freien Parkplatz gelandet ist
         }
     }
     
