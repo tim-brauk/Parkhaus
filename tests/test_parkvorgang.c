@@ -145,4 +145,5 @@ int main(){
     test_entferne_kfz_nicht_vorhanden();
     test_entferne_kfzs_maximale_parkdauer();
     test_entferne_kfzs_maximale_parkdauer_keine_ueberschreitung();
+    return 0;
 }
