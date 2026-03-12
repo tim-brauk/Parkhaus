@@ -75,7 +75,7 @@ void entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus)
     {
         if(p_parkhaus->p_parkplaetze[i].p_kfz != NULL)
         {
-            if(p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer <= 0)
+            if(p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer < 0)
             {
                 p_parkhaus->p_parkplaetze[i].belegt = 0;
                 free(p_parkhaus->p_parkplaetze[i].p_kfz);
