@@ -4,7 +4,8 @@
 #include "parkhaus.h"
 #include "kfz.h"
 
-void test_simuliere_simuliere_zeitabschnitt(){
+void test_simuliere_simuliere_zeitabschnitt()
+{
     Parkhaus *p_parkhaus = init_parkhaus(3, 40); //Erstellen eines Parkhauses mit 3 Parkplätzen und einer maximalen Parkdauer von 40
     Simulationsparameter *p_simulationsparameter = malloc(sizeof(Simulationsparameter)); //Erstellen eines Simulationsparameters
     if(p_simulationsparameter == NULL) {
@@ -44,7 +45,8 @@ void test_simuliere_simuliere_zeitabschnitt(){
     free(p_parkhaus);
 }
 
-void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt(){
+void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
+{
     Parkhaus *p_parkhaus = init_parkhaus(3, 40); //Erstellen eines Parkhauses mit 3 Parkplätzen und einer maximalen Parkdauer von 40
     Simulationsparameter *p_simulationsparameter = malloc(sizeof(Simulationsparameter)); //Erstellen eines Simulationsparameters
     if(p_simulationsparameter == NULL) {
@@ -81,7 +83,8 @@ void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt(){
     free(p_parkhaus);
 }
 
-int main(){
+int main()
+{
     test_simuliere_simuliere_zeitabschnitt();
     test_simuliere_simuliere_zeitabschnitt_kfz_entfernt();
     return 0;

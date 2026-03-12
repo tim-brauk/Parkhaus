@@ -142,7 +142,8 @@ void aktualisiere_maximale_auslastung(SimulationsStats *p_statistik, Parkhaus *p
     }
 }
 
-void aktualisiere_maximale_warteschlangenlaenge(SimulationsStats *p_statistik, Parkhaus *p_parkhaus){
+void aktualisiere_maximale_warteschlangenlaenge(SimulationsStats *p_statistik, Parkhaus *p_parkhaus)
+{
 
     int aktuelle_laenge = berechne_aktuelle_warteschlangenlaenge( p_parkhaus);
     if(aktuelle_laenge > p_statistik->maximale_warteschlangenlaenge)
