@@ -12,9 +12,10 @@ void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zusaetzli
 
     int neue_groesse = benoetigte_gesamtgroesse;
 
-    float *neu_auslastung = realloc(p_statistik->auslastung_pro_zeitschritt, sizeof(float) * neue_groesse);
-    int *neu_warteschlange = realloc(p_statistik->warteschlange_pro_zeitschritt, sizeof(int) * neue_groesse);
-    int *neu_wartezeit = realloc(p_statistik->wartezeit_pro_zeitschritt, sizeof(int) * neue_groesse);
+    float *neu_auslastung = realloc(p_statistik->p_auslastung_pro_zeitschritt, sizeof(float) * neue_groesse);
+    int *neu_warteschlange = realloc(p_statistik->p_warteschlange_pro_zeitschritt, sizeof(int) * neue_groesse);
+    int *neu_wartezeit = realloc(p_statistik->p_wartezeit_pro_zeitschritt, sizeof(int) * neue_groesse);
+
 
     if (!neu_auslastung || !neu_warteschlange || !neu_wartezeit)
     {
@@ -22,14 +23,20 @@ void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zusaetzli
         return;
     }
 
-    p_statistik->auslastung_pro_zeitschritt = neu_auslastung;
-    p_statistik->warteschlange_pro_zeitschritt = neu_warteschlange;
-    p_statistik->wartezeit_pro_zeitschritt = neu_wartezeit;
+    p_statistik->p_auslastung_pro_zeitschritt = neu_auslastung;
+    p_statistik->p_warteschlange_pro_zeitschritt = neu_warteschlange;
+    p_statistik->p_wartezeit_pro_zeitschritt = neu_wartezeit;
+
 
     p_statistik->durchlaufene_zeitschritte = neue_groesse;
 }
 
-void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, int *p_id, int *p_zeitpunkt, SimulationsStats *p_statistik)
+void simuliere_zeitabschnitt(Parkhaus *p_parkhaus,
+                             Simulationsparameter *p_simulationsparameter,
+                             SimulationsStats *p_statistik,
+                             int *p_id,
+                             int *p_zeitpunkt)
+
 {
     for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
     {
@@ -43,7 +50,7 @@ void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simul
     float zufall = (float)rand() / (float)RAND_MAX;
     if(zufall <= p_simulationsparameter->wahrscheinlichkeit_neues_kfz)
     {
-        Kfz *p_neues_kfz = init_kfz(p_parkhaus, *p_id);
+    Kfz *p_neues_kfz = init_kfz(p_parkhaus, *p_id, *p_zeitpunkt);
 
         *p_id = aktuelle_id(*p_id);
         kfz_hinzufuegen_warteschlange(p_parkhaus, p_neues_kfz);
@@ -70,19 +77,19 @@ void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simul
 
     aktualisiere_groesse_statistik(p_statistik, 1);
 
-    p_statistik->auslastung_pro_zeitschritt[*p_zeitpunkt] =
+    p_statistik->p_auslastung_pro_zeitschritt[*p_zeitpunkt] =
         berechne_aktuelle_auslastung(p_parkhaus);
 
-    p_statistik->warteschlange_pro_zeitschritt[*p_zeitpunkt] =
+    p_statistik->p_warteschlange_pro_zeitschritt[*p_zeitpunkt] =
         berechne_aktuelle_warteschlangenlaenge(p_parkhaus);
 
-    p_statistik->wartezeit_pro_zeitschritt[*p_zeitpunkt] =
+    p_statistik->p_wartezeit_pro_zeitschritt[*p_zeitpunkt] =
         berechne_aktuelle_wartezeit(p_parkhaus, *p_zeitpunkt);
 
-    aktualisiere_maximale_auslastung(p_parkhaus);
-    aktualisiere_maximale_warteschlangenlaenge(p_parkhaus, *p_zeitpunkt);
+    aktualisiere_maximale_auslastung(p_statistik, p_parkhaus);
+    aktualisiere_maximale_warteschlangenlaenge(p_statistik, p_parkhaus);
 
     ausgabe_statistiken(p_statistik);
     p_statistik->durchlaufene_zeitschritte++;
     (*p_zeitpunkt)++;
-}
+}   
