@@ -24,4 +24,11 @@ typedef struct Parkhaus
 * @return p_parkhaus Zeiger auf das Parkhaus
 */
 Parkhaus *init_parkhaus(Parkplatz *p_parkplaetze, int anzahl_parkplaetze, int maximale_parkdauer);
+
+/**
+ * Prüft ob freie Parkplätze vorhanden sind.
+ * @param p_parkhaus Zeiger auf das Parkhaus
+ * @return 1 wenn freie Parkplätze vorhanden, 0 wenn voll
+ */
+int platz_garage(Parkhaus *p_parkhaus);
 #endif /* PARKHAUS_H */
