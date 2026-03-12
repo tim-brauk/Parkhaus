@@ -1,62 +1,90 @@
 #include "simulation.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include "statistiken.h"
 
-simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter, &id, &zeitpunkt):
-{   
-    /*
-     * FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
-     *     WENN p_parkhaus->p_parkplaetze[i].belegt
-     *         p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer = p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer - 1
-     *     ENDE WENN
-     * ENDE FÜR
-     *
-     * Ganzzahl min = 0
-     * 
-     * Ganzzahl max = 1
-     * 
-     * Fließkommazahl zufall = 0
-     * zufall = min + ((Fließkommazahl)rand() / RAND_MAX) * (max - min)
-     *
-     * // liefert eine zufällige Kommazahl zwischen 0-1 (wird benötigt bezüglich des Vergleichs mit der Wahrscheinlichkeit)
-     *
-     * //RAND_MAX ist eine C definierte Konstante die den maximalwert von rand liefert.
-     * 
-     * entferne_kfzs_maximale_parkdauer(Parkhaus *p_parkhaus)
-     *
-     * WENN zufall <= p_simulationsparameter->wahrscheinlichkeit_neues_kfz:
-     *     // ">=" statt ">" da falls Wahrscheinlichkeit = 1 und zufall = 1 soll trotzdem Kfz rein. Bei 100% wahrscheinlichkeit MUSS eine Kfz rein
-     *     Kfz *p_neues_kfz = init_kfz(Parkhaus *p_parkhaus, Ganzzahl id, Ganzzahl zeitpunkt)
-     *     id = aktuelle_id(Ganzzahl id)
-     *     kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_neues_kfz)
-     * ENDE WENN
-     *
-     * FÜR Ganzzahl i = 0, i < p_parkhaus->anzahl_parkplaetze, i++:
-     *     WENN p_parkhaus->p_parkplaetze[i].belegt
-     *         WENN p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer == 0:
-     *             entferne_kfz(Parkhaus p_parkhaus, Kfz p_parkhaus->p_parkplaetze[i].p_kfz)
-     *         ENDE WENN
-     *     ENDE WENN
-     * ENDE FÜR
-     * //Bei allen KFZ wird die verbleibende parkdauer überprüft. Falls diese 0 erreicht werden sie entfernt
-     *
-     * Ganzzahl freie_parkplaetze_wahrheitsvariable = 0; // 0 = keine freien Parkplaetze. 1 = freie Parkplaetze
-     *
-     * SOLANGE freie_parkplaetze_wahrheitsvariable AND p_parkhaus->p_erstes_kfz_in_der_warteschlange != NULL:
-     *     Kfz *p_kfz_hinzufuegen_aus_queue = entferne_kfz_warteschlange(Parkhaus *p_parkhaus)
-     *     fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz_hinzufuegen_aus_queue)
-     *     freie_parkplaetze_wahrheitsvariable = platz_garage(Parkhaus *p_parkhaus)
-     * ENDE SOLANGE
-     * //Es werden alle KFZs aus der Warteschlange hinzugefügt solange platz im Parkhaus vorhanden ist. 
-     * 
-     * p_statistik->auslastung_pro_zeitschritt[zeitpunkt] = berechne_aktuelle_auslastung(Parkhaus *p_parkhaus)
-     * p_statistik->warteschlange_pro_zeitschritt[zeitpunkt] = berechne_aktuelle_warteschlangenlaenge(Parkhaus *p_parkhaus)
-     * p_statistik->wartezeit_pro_zeitschritt[zeitpunkt] = berechne_aktuelle_wartezeit(Parkhaus *p_parkhaus)
-     * aktualisiere_maximale_auslastung(Parkhaus *p_parkhaus)
-     * aktualisiere_maximale_warteschlangenlaenge(Parkhaus *p_parkhaus)
-     * ausgabe_statistiken(SimulationsStats *p_statistik)
-     * p_statistik->durchlaufene_zeitschritte = p_statistik->durchlaufene_zeitschritte + 1
-     *
-     * zeitpunkt = zeitpunkt + 1
-     */
+void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zusaetzliche_zeitschritte)
+{
+    int benoetigte_gesamtgroesse = p_statistik->durchlaufene_zeitschritte + zusaetzliche_zeitschritte;
 
-    //Die Funktion wird in Teil 2 des Projekts programmiert
+    if (benoetigte_gesamtgroesse <= p_statistik->durchlaufene_zeitschritte)
+        return;
+
+    int neue_groesse = benoetigte_gesamtgroesse;
+    float *neu_auslastung = realloc(p_statistik->p_auslastung_pro_zeitschritt, sizeof(float) * neue_groesse);
+    int *neu_warteschlange = realloc(p_statistik->p_warteschlange_pro_zeitschritt, sizeof(int) * neue_groesse);
+    int *neu_wartezeit = realloc(p_statistik->p_wartezeit_pro_zeitschritt, sizeof(int) * neue_groesse);
+
+    if (!neu_auslastung || !neu_warteschlange || !neu_wartezeit)
+    {
+        printf("Fehler beim Anpassen der Statistikarrays\n");
+        return;
+    }
+
+    p_statistik->p_auslastung_pro_zeitschritt = neu_auslastung;
+    p_statistik->p_warteschlange_pro_zeitschritt = neu_warteschlange;
+    p_statistik->p_wartezeit_pro_zeitschritt = neu_wartezeit;
+
+    p_statistik->durchlaufene_zeitschritte = neue_groesse;
 }
+
+void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter,SimulationsStats *p_statistik, 
+                             int *p_id,
+                             int *p_zeitpunkt)
+
+{
+    for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
+    {
+        if(p_parkhaus->p_parkplaetze[i].belegt)
+        {
+            p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer =
+                p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer - 1;
+        }
+    }
+
+    float zufall = (float)rand() / (float)RAND_MAX;
+    if(zufall <= p_simulationsparameter->wahrscheinlichkeit_neues_kfz)
+    {
+    Kfz *p_neues_kfz = init_kfz(p_parkhaus, *p_id, *p_zeitpunkt);
+
+        *p_id = aktuelle_id(*p_id);
+        kfz_hinzufuegen_warteschlange(p_parkhaus, p_neues_kfz);
+    }
+
+    for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
+    {
+        if(p_parkhaus->p_parkplaetze[i].belegt)
+        {
+            if(p_parkhaus->p_parkplaetze[i].p_kfz->verbleibende_parkdauer == 0)
+            {
+                entferne_kfz(p_parkhaus, p_parkhaus->p_parkplaetze[i].p_kfz);
+            }
+        }
+    }
+
+    int freie_plaetze = platz_garage(p_parkhaus);
+    while(freie_plaetze && p_parkhaus->p_erstes_kfz_in_der_warteschlange != NULL)
+    {
+        Kfz *p_kfz = entferne_kfz_warteschlange(p_parkhaus);
+        fuege_kfz_hinzu(p_parkhaus, p_kfz);
+        freie_plaetze = platz_garage(p_parkhaus);
+    }
+
+    aktualisiere_groesse_statistik(p_statistik, 1);
+
+    p_statistik->p_auslastung_pro_zeitschritt[*p_zeitpunkt] =
+        berechne_aktuelle_auslastung(p_parkhaus);
+
+    p_statistik->p_warteschlange_pro_zeitschritt[*p_zeitpunkt] =
+        berechne_aktuelle_warteschlangenlaenge(p_parkhaus);
+
+    p_statistik->p_wartezeit_pro_zeitschritt[*p_zeitpunkt] =
+        berechne_aktuelle_wartezeit(p_parkhaus, *p_zeitpunkt);
+
+    aktualisiere_maximale_auslastung(p_statistik, p_parkhaus);
+    aktualisiere_maximale_warteschlangenlaenge(p_statistik, p_parkhaus);
+
+    ausgabe_statistiken(p_statistik);
+    p_statistik->durchlaufene_zeitschritte++;
+    (*p_zeitpunkt)++;
+}   
