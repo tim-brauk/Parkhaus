@@ -192,6 +192,6 @@ void ausgabe_statistiken(SimulationsStats *p_statistik)
     printf("\nDurchschnittliche Auslastung liegt bei: %.2f", berechne_durchschnitt_auslastung( p_statistik));
     printf("\nDurchschnittliche länge der Warteschlange liegt bei: %.2f", berechne_durchschnitt_warteschlangenlaenge( p_statistik));
     printf("\nDurchschnittliche Wartezeit liegt bei: %.2f", berechne_durchschnittliche_wartezeit( p_statistik));
-    printf("\nMaximale Auslastung: %d", p_statistik->maximale_auslastung);
+    printf("\nMaximale Auslastung: %.2f%%", p_statistik->maximale_auslastung);
     printf("\nMaximale Länge der Warteschlange: %d", p_statistik->maximale_warteschlangenlaenge);
 }
