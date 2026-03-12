@@ -4,7 +4,8 @@
 #include "parkhaus.h"
 #include "kfz.h"
 
-void test_fuege_kfz_hinzu_leer(){
+void test_fuege_kfz_hinzu_leer()
+{
     Parkhaus *p_parkhaus = init_parkhaus(5, 40); //Erstellen eines Parkhauses mit 5 Parkplätzen und einer maximalen Parkdauer von 40 
     Kfz *p_kfz = init_kfz(p_parkhaus, 1, 60); //Test Kfz erhält die ID 1 und die einfahrtzeitpunkt von 60
     
@@ -12,8 +13,10 @@ void test_fuege_kfz_hinzu_leer(){
     
     assert(p_parkhaus->belegte_parkplaetze == 1); //Überprüft, ob das Kfz einen Parkplatz zugewiesen bekommen hat
     
-    for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++){
-        if(p_parkhaus->p_parkplaetze[i].belegt){
+    for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
+    {
+        if(p_parkhaus->p_parkplaetze[i].belegt)
+        {
             assert(p_parkhaus->p_parkplaetze[i].p_kfz == p_kfz); //Überprüft, ob das Kfz auch im Parkhaus angekommen ist
         }
     }
@@ -22,7 +25,8 @@ void test_fuege_kfz_hinzu_leer(){
     free(p_parkhaus);
 }
 
-void test_fuege_kfz_hinzu_belegt(){
+void test_fuege_kfz_hinzu_belegt()
+{
     Parkhaus *p_parkhaus = init_parkhaus(5, 40); //Erstellen eines Parkhauses mit 5 Parkplätzen und einer maximalen Parkdauer von 40
     Kfz *p_kfz1 = init_kfz(p_parkhaus, 3, 60); //Test Kfz erhält die ID 3 und die einfahrtzeitpunkt von 60
     
@@ -33,14 +37,18 @@ void test_fuege_kfz_hinzu_belegt(){
     
     fuege_kfz_hinzu(p_parkhaus, p_kfz1); //Fügt das Kfz zum Parkhaus hinzu
     
-    for(int i = 0; i < 2; i++){
-        if(p_parkhaus->p_parkplaetze[i].belegt == 1){
+    for(int i = 0; i < 2; i++)
+    {
+        if(p_parkhaus->p_parkplaetze[i].belegt == 1)
+        {
             assert(p_parkhaus->p_parkplaetze[i].p_kfz != p_kfz1); //Überprüft, ob das Kfz nicht auf einem belegten Parkplatz gelandet ist
         }
     }
     
-    for(int i = 2; i < p_parkhaus->anzahl_parkplaetze; i++){
-        if(p_parkhaus->p_parkplaetze[i].belegt == 1){
+    for(int i = 2; i < p_parkhaus->anzahl_parkplaetze; i++)
+    {
+        if(p_parkhaus->p_parkplaetze[i].belegt == 1)
+        {
             assert(p_parkhaus->p_parkplaetze[i].p_kfz == p_kfz1); //Überprüft, ob das Kfz auf einem freien Parkplatz gelandet ist
         }
     }
@@ -50,7 +58,8 @@ void test_fuege_kfz_hinzu_belegt(){
 }
 
 
-void test_entferne_kfz_normalfall(){
+void test_entferne_kfz_normalfall()
+{
     Parkhaus *p_parkhaus = init_parkhaus(5, 40); //Erstellen eines Parkhauses mit 5 Parkplätzen und einer maximalen Parkdauer von 40 
     Kfz *p_kfz = init_kfz(p_parkhaus, 1, 60); //Test Kfz erhält die ID 1 und die einfahrtzeitpunkt von 60
 
@@ -71,7 +80,8 @@ void test_entferne_kfz_normalfall(){
     free(p_parkhaus);
 }
 
-void test_entferne_kfz_nicht_vorhanden(){
+void test_entferne_kfz_nicht_vorhanden()
+{
     Parkhaus *p_parkhaus = init_parkhaus(5, 40); //Erstellen eines Parkhauses mit 5 Parkplätzen und einer maximalen Parkdauer von 40 
     Kfz *p_kfz = init_kfz(p_parkhaus, 1, 60); //Test Kfz erhält die ID 1 und die einfahrtzeitpunkt von 60
 
@@ -92,7 +102,8 @@ void test_entferne_kfz_nicht_vorhanden(){
     free(p_parkhaus);
 }
 
-void test_entferne_kfzs_maximale_parkdauer(){
+void test_entferne_kfzs_maximale_parkdauer()
+{
     Parkhaus *p_parkhaus = init_parkhaus(3, 40); //Erstellen eines Parkhauses mit 3 Parkplätzen und einer maximalen Parkdauer von 40
     p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 1, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
     p_parkhaus->p_parkplaetze[0].belegt = 1;
@@ -113,7 +124,8 @@ void test_entferne_kfzs_maximale_parkdauer(){
     free(p_parkhaus);
 }
 
-void test_entferne_kfzs_maximale_parkdauer_keine_ueberschreitung(){
+void test_entferne_kfzs_maximale_parkdauer_keine_ueberschreitung()
+{
     Parkhaus *p_parkhaus = init_parkhaus(3, 40); //Erstellen eines Parkhauses mit 3 Parkplätzen und einer maximalen Parkdauer von 40
     
     p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 1, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
@@ -127,8 +139,10 @@ void test_entferne_kfzs_maximale_parkdauer_keine_ueberschreitung(){
 
     entferne_kfzs_maximale_parkdauer(p_parkhaus); //Entfernt Kfz, die die maximale Parkdauer überschritten haben
     
-    for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++){
-        if(p_parkhaus->p_parkplaetze[i].belegt == 1){
+    for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
+    {
+        if(p_parkhaus->p_parkplaetze[i].belegt == 1)
+        {
             assert(p_parkhaus->p_parkplaetze[i].p_kfz != NULL); //Überprüft, ob alle Kfz weiterhin im Parkhaus sind
         }
     }
@@ -138,7 +152,8 @@ void test_entferne_kfzs_maximale_parkdauer_keine_ueberschreitung(){
     free(p_parkhaus);
 }
 
-int main(){
+int main()
+{
     test_fuege_kfz_hinzu_leer();
     test_fuege_kfz_hinzu_belegt();
     test_entferne_kfz_normalfall();

@@ -3,7 +3,8 @@
 #include "statistiken.h"
 #include "parkhaus.h"
 
-void test_init_statistik(){
+void test_init_statistik()
+{
     SimulationsStats *p_stats = init_statistik();
 
     assert(p_stats != NULL);
@@ -17,7 +18,8 @@ void test_init_statistik(){
     //Überprüfen, ob die Werte richtig initialisiert wurden
 }
 
-void test_init_statistik_pointer(){
+void test_init_statistik_pointer()
+{
     SimulationsStats *p_stats = init_statistik();
 
     assert(p_stats->p_auslastung_pro_zeitschritt != p_stats->p_warteschlange_pro_zeitschritt);
@@ -26,7 +28,8 @@ void test_init_statistik_pointer(){
     //Überprüfen, ob die Zeiger auf verschiedene Speicherbereiche zeigen
 }
 
-void test_aktualisiere_groesse_statistik_erweiterung(){
+void test_aktualisiere_groesse_statistik_erweiterung()
+{
     SimulationsStats *p_stats = init_statistik();
     int zusätzliche_zeitschritte = 10;
     int gesamte_zeitschritte = p_stats->zeitschritte + zusätzliche_zeitschritte;
@@ -37,12 +40,14 @@ void test_aktualisiere_groesse_statistik_erweiterung(){
     //Überprüfen, ob die Anzahl der Zeitschritte korrekt aktualisiert wurde
 }
 
-void test_aktualisiere_groesse_statistik_merhfacherweiterung(){
+void test_aktualisiere_groesse_statistik_merhfacherweiterung()
+{
     SimulationsStats *p_stats = init_statistik();
     int zusätzliche_zeitschritte = 5;
     int gesamte_zeitschritte = 0;
     
-    for(int i = 0; i < 3; i++){
+    for(int i = 0; i < 3; i++)
+    {
         gesamte_zeitschritte = p_stats->zeitschritte + zusätzliche_zeitschritte;
         aktualisiere_groesse_statistik(p_stats, gesamte_zeitschritte);
         assert(p_stats->zeitschritte == 15); //nach 3 Erweiterungen mit jeweils 5 zusätzlichen Zeitschritten sollte die Anzahl der Zeitschritte 15 sein
@@ -50,7 +55,8 @@ void test_aktualisiere_groesse_statistik_merhfacherweiterung(){
     //Überprüfen, ob die Anzahl der Zeitschritte korrekt aktualisiert wurde, auch nach mehreren Erweiterungen
 }
 
-void test_berechne_aktuelle_auslastung_normal(){
+void test_berechne_aktuelle_auslastung_normal()
+{
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
     p_parkhaus->belegte_parkplaetze = 5;
@@ -65,7 +71,8 @@ void test_berechne_aktuelle_auslastung_normal(){
     free(p_parkhaus);
 }
 
-void test_berechne_aktuelle_auslastung_randwerte(){
+void test_berechne_aktuelle_auslastung_randwerte()
+{
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
     p_parkhaus->belegte_parkplaetze = 0;
@@ -80,7 +87,8 @@ void test_berechne_aktuelle_auslastung_randwerte(){
     free(p_parkhaus);
 }
 
-void test_berechne_aktuelle_warteschlangenlaenge_normal(){
+void test_berechne_aktuelle_warteschlangenlaenge_normal()
+{
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
     p_parkhaus->p_erstes_kfz_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
@@ -94,7 +102,8 @@ void test_berechne_aktuelle_warteschlangenlaenge_normal(){
     free(p_parkhaus);
 }
 
-void test_berechne_aktuelle_warteschlangenlaenge_leer(){
+void test_berechne_aktuelle_warteschlangenlaenge_leer()
+{
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
     int warteschlangenlaenge = berechne_aktuelle_warteschlangenlaenge(p_parkhaus);
@@ -104,7 +113,8 @@ void test_berechne_aktuelle_warteschlangenlaenge_leer(){
     free(p_parkhaus);
 }
 
-void test_berechne_aktuelle_wartezeit_normal(){
+void test_berechne_aktuelle_wartezeit_normal()
+{
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
     p_parkhaus->p_erstes_kfz_in_der_warteschlange = init_kfz(p_parkhaus, 1, 60);
@@ -119,7 +129,8 @@ void test_berechne_aktuelle_wartezeit_normal(){
     free(p_parkhaus);
 }
 
-void test_berechne_aktuelle_wartezeit_leer(){
+void test_berechne_aktuelle_wartezeit_leer()
+{
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
     int zeitpunkt = 70;
@@ -130,7 +141,8 @@ void test_berechne_aktuelle_wartezeit_leer(){
     free(p_parkhaus);
 }
 
-void test_aktualisiere_maximale_auslastung_normal(){
+void test_aktualisiere_maximale_auslastung_normal()
+{
     SimulationsStats *p_stats = init_statistik();
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
@@ -145,7 +157,8 @@ void test_aktualisiere_maximale_auslastung_normal(){
     free(p_stats);
 }
 
-void test_aktualisiere_maximale_auslastung_unveraendert(){
+void test_aktualisiere_maximale_auslastung_unveraendert()
+{
     SimulationsStats *p_stats = init_statistik();
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
 
@@ -161,7 +174,8 @@ void test_aktualisiere_maximale_auslastung_unveraendert(){
     free(p_stats);
 }
 
-void test_aktualisiere_maximale_warteschlangenlaenge_normal(){
+void test_aktualisiere_maximale_warteschlangenlaenge_normal()
+{
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
     SimulationsStats *p_stats = init_statistik();
 
@@ -180,7 +194,8 @@ void test_aktualisiere_maximale_warteschlangenlaenge_normal(){
     free(p_stats);
 }
 
-void test_aktualisiere_maximale_warteschlangenlaenge_unveraendert(){
+void test_aktualisiere_maximale_warteschlangenlaenge_unveraendert()
+{
     Parkhaus *p_parkhaus = init_parkhaus(10, 40);
     SimulationsStats *p_stats = init_statistik();
 
@@ -198,7 +213,8 @@ void test_aktualisiere_maximale_warteschlangenlaenge_unveraendert(){
     free(p_stats);
 }
 
-void test_berechne_durchschnitt_auslastung(){
+void test_berechne_durchschnitt_auslastung()
+{
     SimulationsStats *p_stats = init_statistik();
 
     p_stats->durchlaufene_zeitschritte = 3;
@@ -213,7 +229,8 @@ void test_berechne_durchschnitt_auslastung(){
     free(p_stats);
 }
 
-void test_berechne_durchschnitt_auslastung_keine_werte(){
+void test_berechne_durchschnitt_auslastung_keine_werte()
+{
     SimulationsStats *p_stats = init_statistik();
 
     p_stats->durchlaufene_zeitschritte = 3;
@@ -228,7 +245,8 @@ void test_berechne_durchschnitt_auslastung_keine_werte(){
     free(p_stats);
 }
 
-void test_berechne_durchschnitt_warteschlangenlaenge(){
+void test_berechne_durchschnitt_warteschlangenlaenge()
+{
     SimulationsStats *p_stats = init_statistik();
 
     p_stats->durchlaufene_zeitschritte = 4;
@@ -244,7 +262,8 @@ void test_berechne_durchschnitt_warteschlangenlaenge(){
     free(p_stats);
 }
 
-void test_berechne_durchschnitt_warteschlangenlaenge_keine_werte(){
+void test_berechne_durchschnitt_warteschlangenlaenge_keine_werte()
+{
     SimulationsStats *p_stats = init_statistik();
 
     p_stats->durchlaufene_zeitschritte = 4;
@@ -260,7 +279,8 @@ void test_berechne_durchschnitt_warteschlangenlaenge_keine_werte(){
     free(p_stats);
 }
 
-void test_berechne_durchschnittliche_wartezeit(){
+void test_berechne_durchschnittliche_wartezeit()
+{
     SimulationsStats *p_stats = init_statistik();
 
     p_stats->durchlaufene_zeitschritte = 3;
@@ -275,7 +295,8 @@ void test_berechne_durchschnittliche_wartezeit(){
     free(p_stats);
 }
 
-void test_berechne_durchschnittliche_wartezeit_keine_werte(){
+void test_berechne_durchschnittliche_wartezeit_keine_werte()
+{
     SimulationsStats *p_stats = init_statistik();
 
     p_stats->durchlaufene_zeitschritte = 3;
@@ -294,7 +315,8 @@ void test_berechne_durchschnittliche_wartezeit_keine_werte(){
 //Für die Ausgabe sehe ich es nicht als nötig eine Testfunktionen zu schreiben
 
 
-int main(){
+int main()
+{
     test_init_statistik();
     test_init_statistik_pointer();
     test_aktualisiere_groesse_statistik_erweiterung();

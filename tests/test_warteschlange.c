@@ -4,7 +4,8 @@
 #include "kfz.h"
 #include "warteschlange.h"
 
-void test_kfz_hinzufuegen_warteschlange_leer(){
+void test_kfz_hinzufuegen_warteschlange_leer()
+{
     Parkhaus *p_parkhaus = init_parkhaus(1, 40);
     Kfz *p_kfz = init_kfz(p_parkhaus, 1, 60);
 
@@ -14,7 +15,8 @@ void test_kfz_hinzufuegen_warteschlange_leer(){
     free(p_kfz);
 }
 
-void test_kfz_hinzufuegen_warteschlange_normal(){
+void test_kfz_hinzufuegen_warteschlange_normal()
+{
     Parkhaus *p_parkhaus = init_parkhaus(1, 40);
     Kfz *p_kfz = init_kfz(p_parkhaus, 4, 63);
 
@@ -29,7 +31,8 @@ void test_kfz_hinzufuegen_warteschlange_normal(){
     free(p_kfz);
 }
 
-void test_entferne_kfz_warteschlange_normal(){
+void test_entferne_kfz_warteschlange_normal()
+{
     Parkhaus *p_parkhaus = init_parkhaus(1, 40);
     Kfz *p_kfz1 = init_kfz(p_parkhaus, 1, 60);
     Kfz *p_kfz2 = init_kfz(p_parkhaus, 2, 61);
@@ -50,7 +53,8 @@ void test_entferne_kfz_warteschlange_normal(){
     free(p_kfz3);
 }
 
-void test_entferne_kfz_warteschlange_leer(){
+void test_entferne_kfz_warteschlange_leer()
+{
     Parkhaus *p_parkhaus = init_parkhaus(1, 40);
     
     entferne_kfz_warteschlange(p_parkhaus);
