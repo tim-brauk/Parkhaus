@@ -13,6 +13,22 @@ typedef struct Simulationsparameter
 } Simulationsparameter;
 
 /**
+ * @brief Aktualisiert die Parameter der Simulation und des Parkhauses.
+ *
+ * Setzt neue Werte für Parkhauskapazität, maximale Parkdauer und
+ * Simulationsparameter wie Dauer, Zufalls-Seed und Wahrscheinlichkeit
+ * für neu ankommende Fahrzeuge.
+ */
+void aktualisiere_parameter(
+        Parkhaus *p_parkhaus, 
+        Simulationsparameter *p_simulationsparameter, 
+        int anzahl_parkplaetze, 
+        int maximale_parkdauer, 
+        float simulations_dauer, 
+        float wahrscheinlichkeit_neues_kfz, 
+        int seed);
+
+/**
  * @brief Macht einen Simulationsschritt.
  *
  * Erhöht die Parkzeit jedes geparkten Kfz um 1.
