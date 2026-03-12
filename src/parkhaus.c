@@ -32,3 +32,15 @@ Parkhaus* init_parkhaus(int anzahl_parkplaetze, int maximale_parkdauer)
 
     return p_parkhaus;
 }
+
+int platz_garage(Parkhaus *p_parkhaus){
+    if(p_parkhaus->anzahl_parkplaetze == p_parkhaus->belegte_parkplaetze)
+    {
+        return 0;
+    }
+
+    else
+    {
+        return 1;
+    }
+}
