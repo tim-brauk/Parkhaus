@@ -42,5 +42,10 @@ void aktualisiere_parameter(
  * @param[in] p_parkhaus Zeiger auf das Parkhaus
  * @return void
  */
-void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter);
+void simuliere_zeitabschnitt(
+        Parkhaus *p_parkhaus, 
+        Simulationsparameter *p_simulationsparameter, 
+        SimulationsStats *p_statistik,
+        int id,
+        int zeitpunkt);
 #endif /* SIMULATION_H */
