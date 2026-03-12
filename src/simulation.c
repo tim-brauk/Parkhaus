@@ -11,11 +11,9 @@ void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zusaetzli
         return;
 
     int neue_groesse = benoetigte_gesamtgroesse;
-
     float *neu_auslastung = realloc(p_statistik->p_auslastung_pro_zeitschritt, sizeof(float) * neue_groesse);
     int *neu_warteschlange = realloc(p_statistik->p_warteschlange_pro_zeitschritt, sizeof(int) * neue_groesse);
     int *neu_wartezeit = realloc(p_statistik->p_wartezeit_pro_zeitschritt, sizeof(int) * neue_groesse);
-
 
     if (!neu_auslastung || !neu_warteschlange || !neu_wartezeit)
     {
@@ -27,13 +25,10 @@ void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zusaetzli
     p_statistik->p_warteschlange_pro_zeitschritt = neu_warteschlange;
     p_statistik->p_wartezeit_pro_zeitschritt = neu_wartezeit;
 
-
     p_statistik->durchlaufene_zeitschritte = neue_groesse;
 }
 
-void simuliere_zeitabschnitt(Parkhaus *p_parkhaus,
-                             Simulationsparameter *p_simulationsparameter,
-                             SimulationsStats *p_statistik,
+void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter,SimulationsStats *p_statistik, 
                              int *p_id,
                              int *p_zeitpunkt)
 
