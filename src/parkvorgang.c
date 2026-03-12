@@ -38,11 +38,6 @@ void fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz)
             }
         zufaelliger_parkplatz--;
         }
-    
-        if(!p_parkhaus->p_parkplaetze[i].belegt)
-        {
-            freie_parkplaetze = freie_parkplaetze - 1;
-        }
     }
 }
 
