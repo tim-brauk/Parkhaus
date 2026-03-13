@@ -3,31 +3,6 @@
 #include <stdio.h>
 #include "statistiken.h"
 
-void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zusaetzliche_zeitschritte)
-{
-    int benoetigte_gesamtgroesse = p_statistik->durchlaufene_zeitschritte + zusaetzliche_zeitschritte;
-
-    if (benoetigte_gesamtgroesse <= p_statistik->durchlaufene_zeitschritte)
-        return;
-
-    int neue_groesse = benoetigte_gesamtgroesse;
-    float *neu_auslastung = realloc(p_statistik->p_auslastung_pro_zeitschritt, sizeof(float) * neue_groesse);
-    int *neu_warteschlange = realloc(p_statistik->p_warteschlange_pro_zeitschritt, sizeof(int) * neue_groesse);
-    int *neu_wartezeit = realloc(p_statistik->p_wartezeit_pro_zeitschritt, sizeof(int) * neue_groesse);
-
-    if (!neu_auslastung || !neu_warteschlange || !neu_wartezeit)
-    {
-        printf("Fehler beim Anpassen der Statistikarrays\n");
-        return;
-    }
-
-    p_statistik->p_auslastung_pro_zeitschritt = neu_auslastung;
-    p_statistik->p_warteschlange_pro_zeitschritt = neu_warteschlange;
-    p_statistik->p_wartezeit_pro_zeitschritt = neu_wartezeit;
-
-    p_statistik->durchlaufene_zeitschritte = neue_groesse;
-}
-
 void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter,SimulationsStats *p_statistik, 
                              int *p_id,
                              int *p_zeitpunkt)
