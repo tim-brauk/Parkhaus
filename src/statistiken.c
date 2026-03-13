@@ -110,12 +110,13 @@ void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zeitschri
     p_statistik->zeitschritte = neue_groesse;
 }
 
-float berechne_aktuelle_auslastung(Parkhaus *p_parkhaus)
-{ 
+float berechne_aktuelle_auslastung(const Parkhaus *p_parkhaus)
+{
+    
     return ((float) p_parkhaus->belegte_parkplaetze / p_parkhaus->anzahl_parkplaetze) * 100;
 }
 
-int berechne_aktuelle_warteschlangenlaenge(Parkhaus *p_parkhaus)
+int berechne_aktuelle_warteschlangenlaenge(const Parkhaus *p_parkhaus)
 {
     int summe = 0;
     if(p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL)
@@ -152,7 +153,7 @@ void aktualisiere_maximale_warteschlangenlaenge(SimulationsStats *p_statistik, P
     }
 }
 
-float berechne_durchschnitt_auslastung(SimulationsStats *p_statistik)
+float berechne_durchschnitt_auslastung(const SimulationsStats *p_statistik)
 {
     float durchschnittliche_auslastung = 0.0f;
     for(int i = 0; i < p_statistik->durchlaufene_zeitschritte; i++)
@@ -164,7 +165,7 @@ float berechne_durchschnitt_auslastung(SimulationsStats *p_statistik)
     return durchschnittliche_auslastung;
 }
 
-float berechne_durchschnitt_warteschlangenlaenge(SimulationsStats *p_statistik)
+float berechne_durchschnitt_warteschlangenlaenge(const SimulationsStats *p_statistik)
 {
     float durchschnittliche_warteschlangenlaenge = 0.0f;
     for(int i = 0; i < p_statistik->durchlaufene_zeitschritte; i++)
@@ -176,7 +177,7 @@ float berechne_durchschnitt_warteschlangenlaenge(SimulationsStats *p_statistik)
     return durchschnittliche_warteschlangenlaenge;
 }
 
-float berechne_durchschnittliche_wartezeit(SimulationsStats *p_statistik)
+float berechne_durchschnittliche_wartezeit(const SimulationsStats *p_statistik)
 {
     float durchschnittliche_wartezeit = 0.0f;
     for(int i = 0; i < p_statistik->durchlaufene_zeitschritte; i++)
@@ -193,6 +194,6 @@ void ausgabe_statistiken(SimulationsStats *p_statistik)
     printf("\nDurchschnittliche Auslastung liegt bei: %.2f", berechne_durchschnitt_auslastung( p_statistik));
     printf("\nDurchschnittliche länge der Warteschlange liegt bei: %.2f", berechne_durchschnitt_warteschlangenlaenge( p_statistik));
     printf("\nDurchschnittliche Wartezeit liegt bei: %.2f", berechne_durchschnittliche_wartezeit( p_statistik));
-    printf("\nMaximale Auslastung: %d", p_statistik->maximale_auslastung);
+    printf("\nMaximale Auslastung: %.2f%%", p_statistik->maximale_auslastung);
     printf("\nMaximale Länge der Warteschlange: %d", p_statistik->maximale_warteschlangenlaenge);
 }
