@@ -18,6 +18,13 @@ typedef struct Simulationsparameter
  * Setzt neue Werte für Parkhauskapazität, maximale Parkdauer und
  * Simulationsparameter wie Dauer, Zufalls-Seed und Wahrscheinlichkeit
  * für neu ankommende Fahrzeuge.
+ * @param[in] p_parkhaus Zeiger auf das Parkhaus
+ * @param[in] p_simulationsparamter Zeiger auf Simulationsparameter
+ * @param[in] anzahl_parkplaetze Anzahl Parkplaetze im Parkhaus
+ * @param[in] simulations_dauer Dauer der Simulation
+ * @param[in] wahrscheinlichkeit_neues_kfz Wahrscheinlichkeit fuer ein ankommendes Kfz
+ * @param[in] seed Zufallsgenrator
+ * @return void
  */
 void aktualisiere_parameter(
         Parkhaus *p_parkhaus, 
@@ -33,7 +40,7 @@ void aktualisiere_parameter(
  *
  * Erhöht die Parkzeit jedes geparkten Kfz um 1.
  * entfernt alle Kfz die die maximale Parkdauer überschritten haben.
- * initiiert neue Kfz (init_car) und fügt sie der Warteschlange hinzu(add_car_queue).
+ * initiiert neue Kfz (init_kfz) und fügt sie der Warteschlange hinzu(add_car_queue).
  * Zählt die Anzahl der Autos im Parkhaus.
  * Fügt Autos aus der Warteschlange in das Parkhaus, wenn es freie Parkplätze gibt (check_garage_for_space)
  * und entfernt sie aus der Warteschlange (remove_car_queue).
@@ -46,6 +53,6 @@ void simuliere_zeitabschnitt(
         Parkhaus *p_parkhaus, 
         Simulationsparameter *p_simulationsparameter, 
         SimulationsStats *p_statistik,
-        int id,
-        int zeitpunkt);
+        int *id,
+        int *zeitpunkt);
 #endif /* SIMULATION_H */
