@@ -110,7 +110,8 @@ void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zeitschri
     p_statistik->zeitschritte = neue_groesse;
 }
 
-float berechne_aktuelle_auslastung(const Parkhaus *p_parkhaus){
+float berechne_aktuelle_auslastung(const Parkhaus *p_parkhaus)
+{
     
     return ((float) p_parkhaus->belegte_parkplaetze / p_parkhaus->anzahl_parkplaetze) * 100;
 }
@@ -142,7 +143,8 @@ void aktualisiere_maximale_auslastung(SimulationsStats *p_statistik, Parkhaus *p
     }
 }
 
-void aktualisiere_maximale_warteschlangenlaenge(SimulationsStats *p_statistik, Parkhaus *p_parkhaus){
+void aktualisiere_maximale_warteschlangenlaenge(SimulationsStats *p_statistik, Parkhaus *p_parkhaus)
+{
 
     int aktuelle_laenge = berechne_aktuelle_warteschlangenlaenge( p_parkhaus);
     if(aktuelle_laenge > p_statistik->maximale_warteschlangenlaenge)

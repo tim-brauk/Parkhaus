@@ -3,7 +3,8 @@
 #include "parkhaus.h"
 
 //Testet die Initialisierung der Warteschlange im Parkhaus
-void test_init_parkhaus_warteschlange(){
+void test_init_parkhaus_warteschlange()
+{
     Parkhaus *p_parkhaus = init_parkhaus(1, 40); //Erstellen eines Parkhauses mit einem Parkplatz, aber einer maximalen Parkdauer von 40 Sekunden
     
     assert(p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL); //Überprüfen, ob die Warteschlange korrekt initialisiert wird
@@ -12,7 +13,8 @@ void test_init_parkhaus_warteschlange(){
 }
 
 //Testet die Initialisierung der Parkplätze im Parkhaus
-void test_init_parkhaus_parkplaetze(){
+void test_init_parkhaus_parkplaetze()
+{
     Parkhaus *p_parkhaus = init_parkhaus(5, 40); //Erstellen eines Parkhauses mit 5 Parkplätzen und einer maximalen Parkdauer von 40
 
     assert(p_parkhaus->anzahl_parkplaetze == 5); //Überprüfen, ob die Anzahl der Parkplätze korrekt gesetzt wird
