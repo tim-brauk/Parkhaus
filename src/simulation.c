@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "statistiken.h"
+#include "warteschlange.h"
+#include "parkvorgang.h"
 
 void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter,SimulationsStats *p_statistik, 
                              int *p_id,
