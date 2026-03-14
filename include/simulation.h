@@ -1,15 +1,24 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 #include "parkhaus.h"
+#include "statistiken.h"
+
+/**
+ * @brief Struktur mit allen Simulationsparametern.
+ *
+ * Diese Struktur enthält Parameter, die für die
+ * Durchführung der Simulation notwendig sind.
+ * Bsp: Anzahl der Parkplätze, maximale Parkdauer,
+ * Simulationsdauer, Zufalls-Seed sowie 
+ * */
 
 typedef struct Simulationsparameter
 {
-    int anzahl_parkplaetze;
+    int anzahl_parkplaetze; //anzahl der verfügbaren Parkplätze
     int maximale_parkdauer; //parkdauer 
     float  simulations_dauer; //simulations_dauer
-    int seed;
-    float wahrscheinlichkeit_neues_kfz;
-    float wahrscheinlichkeit_kfz_rausfahren;
+    int seed; //seed für den Zufallszahlgenerator
+    float wahrscheinlichkeit_neues_kfz; //wahrscheinlichkeit, dass in einem Zeitschritt ein neues kfz ankommt
 } Simulationsparameter;
 
 Simulationsparameter* init_simulationsparameter(
