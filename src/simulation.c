@@ -5,6 +5,25 @@
 #include "warteschlange.h"
 #include "parkvorgang.h"
 
+Simulationsparameter* init_simulationsparameter(
+    int anzahl_parkplaetze,
+    int maximale_parkdauer,
+    float simulations_dauer,
+    int seed,
+    float wahrscheinlichkeit_neues_kfz)
+{
+    Simulationsparameter* p = malloc(sizeof(Simulationsparameter));
+    if (p == NULL)
+        return NULL;
+    p->anzahl_parkplaetze = anzahl_parkplaetze;
+    p->maximale_parkdauer = maximale_parkdauer;
+    p->simulations_dauer = simulations_dauer;
+    p->seed = seed;
+    p->wahrscheinlichkeit_neues_kfz = wahrscheinlichkeit_neues_kfz;
+    p->wahrscheinlichkeit_kfz_rausfahren = 0.3f; 
+    return p;
+}
+
 void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter,SimulationsStats *p_statistik, 
                              int *p_id,
                              int *p_zeitpunkt)
