@@ -110,7 +110,8 @@ void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zeitschri
     p_statistik->zeitschritte = neue_groesse;
 }
 
-float berechne_aktuelle_auslastung(const Parkhaus *p_parkhaus){
+float berechne_aktuelle_auslastung(const Parkhaus *p_parkhaus)
+{
     
     return ((float) p_parkhaus->belegte_parkplaetze / p_parkhaus->anzahl_parkplaetze) * 100;
 }
@@ -193,6 +194,6 @@ void ausgabe_statistiken(SimulationsStats *p_statistik)
     printf("\nDurchschnittliche Auslastung liegt bei: %.2f", berechne_durchschnitt_auslastung( p_statistik));
     printf("\nDurchschnittliche länge der Warteschlange liegt bei: %.2f", berechne_durchschnitt_warteschlangenlaenge( p_statistik));
     printf("\nDurchschnittliche Wartezeit liegt bei: %.2f", berechne_durchschnittliche_wartezeit( p_statistik));
-    printf("\nMaximale Auslastung: %d", p_statistik->maximale_auslastung);
+    printf("\nMaximale Auslastung: %.2f%%", p_statistik->maximale_auslastung);
     printf("\nMaximale Länge der Warteschlange: %d", p_statistik->maximale_warteschlangenlaenge);
 }
