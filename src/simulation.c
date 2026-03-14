@@ -12,16 +12,15 @@ Simulationsparameter* init_simulationsparameter(
     int seed,
     float wahrscheinlichkeit_neues_kfz)
 {
-    Simulationsparameter* p = malloc(sizeof(Simulationsparameter));
-    if (p == NULL)
+   Simulationsparameter* p_parameter = malloc(sizeof(Simulationsparameter));
+    if (p_parameter == NULL)
         return NULL;
-    p->anzahl_parkplaetze = anzahl_parkplaetze;
-    p->maximale_parkdauer = maximale_parkdauer;
-    p->simulations_dauer = simulations_dauer;
-    p->seed = seed;
-    p->wahrscheinlichkeit_neues_kfz = wahrscheinlichkeit_neues_kfz;
-    p->wahrscheinlichkeit_kfz_rausfahren = 0.3f; 
-    return p;
+    p_parameter->anzahl_parkplaetze = anzahl_parkplaetze;
+    p_parameter->maximale_parkdauer = maximale_parkdauer;
+    p_parameter->simulations_dauer = simulations_dauer;
+    p_parameter->seed = seed;
+    p_parameter->wahrscheinlichkeit_neues_kfz = wahrscheinlichkeit_neues_kfz;
+    return p_parameter;
 }
 
 void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simulationsparameter,SimulationsStats *p_statistik, 
