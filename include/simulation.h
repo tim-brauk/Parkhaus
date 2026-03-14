@@ -21,6 +21,16 @@ typedef struct Simulationsparameter
     float wahrscheinlichkeit_neues_kfz; //wahrscheinlichkeit, dass in einem Zeitschritt ein neues kfz ankommt
 } Simulationsparameter;
 
+/**
+ * @brief Initialisiert die Simulationsparameter.
+ * Reserviert Speicher und setzt die übergebenen Werte in der Parameterstruktur.
+ * @param[in] anzahl_parkplaetze Anzahl der Parkplätze
+ * @param[in] maximale_parkdauer Maximale Parkdauer (Stunden)
+ * @param[in] simulations_dauer Gesamtdauer der Simulation (Stunden)
+ * @param[in] seed Zufalls-Seed
+ * @param[in] wahrscheinlichkeit_neues_kfz Wahrscheinlichkeit für neu ankommende Fahrzeuge
+ */
+
 Simulationsparameter* init_simulationsparameter(
     int anzahl_parkplaetze,
     int maximale_parkdauer,
