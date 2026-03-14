@@ -40,10 +40,10 @@ void aktualisiere_parameter(
  *
  * Erhöht die Parkzeit jedes geparkten Kfz um 1.
  * entfernt alle Kfz die die maximale Parkdauer überschritten haben.
- * initiiert neue Kfz (init_kfz) und fügt sie der Warteschlange hinzu(add_car_queue).
+ * initiiert neue Kfz (init_kfz) und fügt sie der Warteschlange hinzu (kfz_hinzfuegen_warteschlange).
  * Zählt die Anzahl der Autos im Parkhaus.
- * Fügt Autos aus der Warteschlange in das Parkhaus, wenn es freie Parkplätze gibt (check_garage_for_space)
- * und entfernt sie aus der Warteschlange (remove_car_queue).
+ * Fügt Autos aus der Warteschlange in das Parkhaus, wenn es freie Parkplätze gibt (platz_garage)
+ * und entfernt sie aus der Warteschlange (entferne_kfz_warteschlange).
  * 
  *
  * @param[in] p_parkhaus Zeiger auf das Parkhaus
