@@ -12,6 +12,14 @@ typedef struct Simulationsparameter
     float wahrscheinlichkeit_kfz_rausfahren;
 } Simulationsparameter;
 
+Simulationsparameter* init_simulationsparameter(
+    int anzahl_parkplaetze,
+    int maximale_parkdauer,
+    float simulations_dauer,
+    int seed,
+    float wahrscheinlichkeit_neues_kfz
+);
+
 /**
  * @brief Macht einen Simulationsschritt.
  *
