@@ -127,8 +127,7 @@ int main()
     Parkhaus *p_parkhaus =
         init_parkhaus(
             p_simulationsparameter->anzahl_parkplaetze,
-            p_simulationsparameter->maximale_parkdauer,
-            p_simulationsparameter->simulations_dauer);
+            p_simulationsparameter->maximale_parkdauer);
 
     if(p_parkhaus == NULL)
     {
