@@ -134,6 +134,24 @@ int berechne_aktuelle_warteschlangenlaenge(const Parkhaus *p_parkhaus)
     return summe + 1;
 }
 
+float berechne_aktuelle_wartezeit(const Parkhaus *p_parkhaus, int p_zeitpunkt)
+{
+    if(p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL)
+    {
+        return 0;
+    }
+
+    int summe = 0;
+    Kfz *p_kfz_zwischenspeicher = p_parkhaus->p_erstes_kfz_in_der_warteschlange;
+
+    while(p_kfz_zwischenspeicher != NULL)
+    {
+       summe = summe + (p_zeitpunkt - p_kfz_zwischenspeicher->einfahrtszeitpunkt); 
+       p_kfz_zwischenspeicher = p_kfz_zwischenspeicher->p_naechstes_kfz;
+    }
+    return summe / berechne_aktuelle_warteschlangenlaenge(p_parkhaus);
+}
+
 void aktualisiere_maximale_auslastung(SimulationsStats *p_statistik, Parkhaus *p_parkhaus)
 {
     float aktuelle_auslastung = berechne_aktuelle_auslastung( p_parkhaus);
