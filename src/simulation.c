@@ -82,3 +82,20 @@ void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simul
     p_statistik->durchlaufene_zeitschritte++;
     (*p_zeitpunkt)++;
 }   
+void aktualisiere_parameter(
+    Parkhaus *p_parkhaus,
+    Simulationsparameter *p_simulationsparameter,
+    int anzahl_parkplaetze,
+    int maximale_parkdauer,
+    float simulations_dauer,
+    float wahrscheinlichkeit_neues_kfz,
+    int seed)
+{
+    p_simulationsparameter->anzahl_parkplaetze           = anzahl_parkplaetze;
+    p_simulationsparameter->maximale_parkdauer           = maximale_parkdauer;
+    p_simulationsparameter->simulations_dauer            = simulations_dauer;
+    p_simulationsparameter->wahrscheinlichkeit_neues_kfz = wahrscheinlichkeit_neues_kfz;
+    p_simulationsparameter->seed                         = seed;
+    p_parkhaus->maximale_parkdauer                       = maximale_parkdauer;
+    srand(seed);
+}
