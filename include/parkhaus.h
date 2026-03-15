@@ -22,7 +22,7 @@ typedef struct Parkhaus
 * @param[in]  maximale_parkdauer maximale Parkdauer 
 * @return p_parkhaus Zeiger auf das Parkhaus
 */
-Parkhaus *init_parkhaus(int anzahl_parkplaetze, int maximale_parkdauer, float simulations_dauer);
+Parkhaus *init_parkhaus(int anzahl_parkplaetze, int maximale_parkdauer);
 
 /**
  * Prüft ob freie Parkplätze vorhanden sind.
