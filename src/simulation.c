@@ -42,7 +42,6 @@ void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simul
     {
     Kfz *p_neues_kfz = init_kfz(p_parkhaus, *p_id, *p_zeitpunkt);
 
-        *p_id = aktuelle_id(*p_id);
         kfz_hinzufuegen_warteschlange(p_parkhaus, p_neues_kfz);
     }
 
