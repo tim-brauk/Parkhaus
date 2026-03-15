@@ -82,3 +82,62 @@ void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simul
     p_statistik->durchlaufene_zeitschritte++;
     (*p_zeitpunkt)++;
 }   
+void aktualisiere_parameter(
+    Parkhaus *p_parkhaus,
+    Simulationsparameter *p_simulationsparameter,
+    int anzahl_parkplaetze,
+    int maximale_parkdauer,
+    float simulations_dauer,
+    float wahrscheinlichkeit_neues_kfz,
+    int seed)
+{
+    int alte_anzahl_parkplaetze = p_parkhaus->anzahl_parkplaetze;
+
+    if(anzahl_parkplaetze > alte_anzahl_parkplaetze)
+    {
+        Parkplatz *p_sicherheitsabfrage = realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * anzahl_parkplaetze);
+        if(p_sicherheitsabfrage == NULL)
+        {
+            printf("Speicherproblem beim Hinzufuegen von Parkplaetzen\n");
+            return;
+        }
+        p_parkhaus->p_parkplaetze = p_sicherheitsabfrage;
+
+        for(int i = alte_anzahl_parkplaetze; i < anzahl_parkplaetze; i++)
+        {
+            p_parkhaus->p_parkplaetze[i].belegt = 0;
+            p_parkhaus->p_parkplaetze[i].p_kfz = NULL;
+        }
+    }
+
+    if(anzahl_parkplaetze < alte_anzahl_parkplaetze)
+    {
+        for(int i = anzahl_parkplaetze; i < alte_anzahl_parkplaetze; i++)
+        {
+            if(p_parkhaus->p_parkplaetze[i].belegt)
+            {
+                Kfz *p_kfz_zwischenspeicher = p_parkhaus->p_parkplaetze[i].p_kfz;
+                p_parkhaus->p_parkplaetze[i].belegt = 0;
+                p_parkhaus->p_parkplaetze[i].p_kfz = NULL;
+                p_parkhaus->belegte_parkplaetze--;
+                kfz_hinzufuegen_warteschlange(p_parkhaus, p_kfz_zwischenspeicher);
+            }
+        }
+        Parkplatz *p_sicherheitsabfrage = realloc(p_parkhaus->p_parkplaetze, sizeof(Parkplatz) * anzahl_parkplaetze);
+        if(p_sicherheitsabfrage == NULL)
+        {
+            printf("Speicherproblem beim Verringern von Parkplaetzen\n");
+            return;
+        }
+        p_parkhaus->p_parkplaetze = p_sicherheitsabfrage;
+    }
+
+    p_parkhaus->anzahl_parkplaetze                       = anzahl_parkplaetze;
+    p_simulationsparameter->anzahl_parkplaetze           = anzahl_parkplaetze;
+    p_parkhaus->maximale_parkdauer                       = maximale_parkdauer;
+    p_simulationsparameter->maximale_parkdauer           = maximale_parkdauer;
+    p_simulationsparameter->simulations_dauer            = simulations_dauer;
+    p_simulationsparameter->wahrscheinlichkeit_neues_kfz = wahrscheinlichkeit_neues_kfz;
+    p_simulationsparameter->seed                         = seed;
+    srand(seed);
+}
