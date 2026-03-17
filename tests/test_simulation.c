@@ -68,14 +68,14 @@ void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
     p_parkhaus->belegte_parkplaetze = 3;
     //Parkhaus mit 3 belegten Parkplätzen
 
-    p_parkhaus->p_parkplaetze[0].p_kfz->p_kfz->verbleibende_parkdauer = 0; //Setzt die verbleibende Parkzeit des Kfz auf 0, damit es entfernt wird
+    p_parkhaus->p_parkplaetze[0].p_kfz->verbleibende_parkdauer = 0; //Setzt die verbleibende Parkzeit des Kfz auf 0, damit es entfernt wird
     int id = 4;
     int zeitpunkt = 40;
     simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, NULL, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
 
     assert(p_parkhaus->p_parkplaetze[0].p_kfz == NULL); //Überprüft, ob das Kfz mit der überschrittenen Parkzeit entfernt wurde
-    assert(p_parkhaus->p_parkplaetze[1].p_kfz->p_kfz->verbleibende_parkdauer == 14);
-    assert(p_parkhaus->p_parkplaetze[2].p_kfz->p_kfz->verbleibende_parkdauer == 24); //Überprüft, ob die verbleibende Parkzeit der anderen Kfz um 1 reduziert wurde
+    assert(p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer == 14);
+    assert(p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkdauer == 24); //Überprüft, ob die verbleibende Parkzeit der anderen Kfz um 1 reduziert wurde
     assert(p_parkhaus->belegte_parkplaetze == 2); //Überprüft, ob die Anzahl der belegten Parkplätze um 1 reduziert wurde
     assert(zeitpunkt == 41); //Überprüft, ob der Zeitpunkt um 1 erhöht wurde
 
