@@ -162,6 +162,7 @@ int main()
 
         if(aendern == 1)
         {
+            printf("Anzahl Parkplaetze eingeben: ");
             if(scanf("%d", &anzahl_parkplaetze)!=1)
             {
                 printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
@@ -178,6 +179,7 @@ int main()
                 }
             }
 
+            printf("Maximale Parkdauer eingeben (in Stunden): ");
             if(scanf("%d", &maximale_parkdauer)!=1)
             {
                 printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
@@ -194,6 +196,7 @@ int main()
                 }
             }
 
+            printf("Simulationsdauer eingeben (in Stunden): ");
             if(scanf("%f", &simulations_dauer)!=1)
             {
                 printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
@@ -210,12 +213,14 @@ int main()
                 }
             }
 
+            printf("Seed eingeben: ");
             if(scanf("%d", &seed)!=1)
             {
                 printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
                 break;
             }
 
+            printf("Ankunftswahrscheinlichkeit neues Kfz eingeben (0.0 - 1.0): ");
             if(scanf("%f", &wahrscheinlichkeit_neues_kfz)!=1)
             {
                 printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
