@@ -7,7 +7,7 @@
 #include "../include/kfz.h"
 #include "../include/parkhaus.h"
 
-Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id, int zeitpunkt)
+Kfz* init_kfz(struct Parkhaus *p_parkhaus, int *p_id, int zeitpunkt)
 {   
     if(p_parkhaus == NULL)
     {
@@ -20,7 +20,7 @@ Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id, int zeitpunkt)
         printf("Malloc Fehler in init_kfz\n");
         return NULL;
     }
-    p_kfz->id = *p_id;
+    p_kfz->p_id = *p_id;
     (*p_id)++;
     p_kfz->einfahrtszeitpunkt = zeitpunkt;
     int min = 1;
