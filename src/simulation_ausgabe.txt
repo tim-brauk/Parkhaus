@@ -1,0 +1,6 @@
+Zeitschritt: 1
+Durchschnittliche Auslastung: 10.00%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 10.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
