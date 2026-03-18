@@ -175,7 +175,7 @@ float berechne_durchschnitt_auslastung(const SimulationsStats *p_statistik)
 {
     if(p_statistik->durchlaufene_zeitschritte == 0)
     {
-        return 0.0f; // noch nicht fertig
+        return p_statisitk->p_auslastung_pro_zeitschritt[durchlaufene_zeitschritte]; //beim ersten durchlauf wird der Return genutzt somit wird spätere Division durch 0 vermieden
     }
 
     float durchschnittliche_auslastung = 0.0f;
