@@ -209,7 +209,7 @@ float berechne_durchschnittliche_wartezeit(const SimulationsStats *p_statistik)
 {
     if(p_statistik->durchlaufene_zeitschritte == 0)
     {
-        return p_statistik->p_warteschlange_pro_zeitschritt[p_statistik->durchlaufene_zeitschritte]; //beim ersten durchlauf wird der Return genutzt somit wird spätere Division durch 0 vermieden
+        return p_statistik->p_wartezeit_pro_zeitschritt[p_statistik->durchlaufene_zeitschritte]; //beim ersten durchlauf wird der Return genutzt somit wird spätere Division durch 0 vermieden
     }
 
     float durchschnittliche_wartezeit = 0.0f;
