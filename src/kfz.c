@@ -20,8 +20,8 @@ Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id, int zeitpunkt)
         printf("Malloc Fehler in init_kfz\n");
         return NULL;
     }
-    p_kfz->id = id;
-    (id)++;
+    p_kfz->id = *p_id;
+    (*p_id)++;
     p_kfz->einfahrtszeitpunkt = zeitpunkt;
     int min = 1;
     int max = p_parkhaus->maximale_parkdauer;
