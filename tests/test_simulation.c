@@ -43,7 +43,12 @@ void test_simuliere_simuliere_zeitabschnitt()
     assert(zeitpunkt == 41); //Überprüft, ob der Zeitpunkt um 1 erhöht wurde
 
     free(p_simulationsparameter);
+    free(p_parkhaus->p_parkplaetze[0].p_kfz);
+    free(p_parkhaus->p_parkplaetze[1].p_kfz);
+    free(p_parkhaus->p_parkplaetze[2].p_kfz);
+    free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
+    free(p_statistik);
 }
 
 void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
@@ -90,6 +95,7 @@ void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
     free(p_parkhaus->p_parkplaetze[2].p_kfz);
     free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
+    free(p_statistik);
 }
 
 int main()
