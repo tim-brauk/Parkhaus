@@ -1,3 +1,13 @@
+/*
+   @file parkhaus.c
+   @brief Implementierung der Parkhaus-Funktionen.
+
+   Diese Datei enthält die Funktionen zur Initialisierung und Verwaltung
+   eines Parkhauses. Sie stellt Funktionen bereit um ein Parkhaus mit
+   einer definierten Anzahl an Parkplätzen und einer maximalen Parkdauer
+   zu erstellen sowie zu prüfen ob noch freie Parkplätze verfügbar sind.
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "parkhaus.h"

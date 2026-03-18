@@ -1,3 +1,15 @@
+/*
+   @file simulation.c
+   @brief Implementierung der Simulationsfunktionen.
+
+   Diese Datei enthält die Funktionen zur Initialisierung und Durchführung
+   der Parkhaus-Simulation. Sie stellt Funktionen bereit um die
+   Simulationsparameter zu initialisieren, einzelne Zeitabschnitte zu
+   simulieren sowie die Parameter während der Simulation anzupassen.
+   Dabei werden Parkplatzbelegungen, Warteschlangen und Statistiken
+   verwaltet und aktualisiert.
+*/
+
 #include "simulation.h"
 #include <stdlib.h>
 #include <stdio.h>
