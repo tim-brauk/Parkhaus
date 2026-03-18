@@ -7,6 +7,7 @@
 void test_simuliere_simuliere_zeitabschnitt()
 {
     Parkhaus *p_parkhaus = init_parkhaus(3, 40); //Erstellen eines Parkhauses mit 3 Parkplätzen und einer maximalen Parkdauer von 40
+    SimulationsStats *p_statistik = init_statistik();
     Simulationsparameter *p_simulationsparameter = malloc(sizeof(Simulationsparameter)); //Erstellen eines Simulationsparameters
     if(p_simulationsparameter == NULL) {
         free(p_parkhaus);
@@ -33,7 +34,7 @@ void test_simuliere_simuliere_zeitabschnitt()
 
     int id = 4;
     int zeitpunkt = 40;
-    simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, NULL, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
+    simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, p_statistik, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
 
     assert(p_parkhaus->p_parkplaetze[0].p_kfz->verbleibende_parkdauer == 4);
     assert(p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer == 14);
@@ -48,6 +49,7 @@ void test_simuliere_simuliere_zeitabschnitt()
 void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
 {
     Parkhaus *p_parkhaus = init_parkhaus(3, 40); //Erstellen eines Parkhauses mit 3 Parkplätzen und einer maximalen Parkdauer von 40
+    SimulationsStats *p_statisitk = init_statistik();
     Simulationsparameter *p_simulationsparameter = malloc(sizeof(Simulationsparameter)); //Erstellen eines Simulationsparameters
     if(p_simulationsparameter == NULL) {
         free(p_parkhaus);
@@ -69,9 +71,13 @@ void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
     //Parkhaus mit 3 belegten Parkplätzen
 
     p_parkhaus->p_parkplaetze[0].p_kfz->verbleibende_parkdauer = 0; //Setzt die verbleibende Parkzeit des Kfz auf 0, damit es entfernt wird
+    p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer = 15;
+    p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkdauer = 25;
+
     int id = 4;
     int zeitpunkt = 40;
-    simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, NULL, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
+
+    simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, p_statisitk, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
 
     assert(p_parkhaus->p_parkplaetze[0].p_kfz == NULL); //Überprüft, ob das Kfz mit der überschrittenen Parkzeit entfernt wurde
     assert(p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer == 14);
@@ -80,6 +86,9 @@ void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
     assert(zeitpunkt == 41); //Überprüft, ob der Zeitpunkt um 1 erhöht wurde
 
     free(p_simulationsparameter);
+    free(p_parkhaus->p_parkplaetze[1].p_kfz);
+    free(p_parkhaus->p_parkplaetze[2].p_kfz);
+    free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
 }
 
