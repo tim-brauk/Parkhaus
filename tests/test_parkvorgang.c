@@ -7,7 +7,8 @@
 void test_fuege_kfz_hinzu_leer()
 {
     Parkhaus *p_parkhaus = init_parkhaus(5, 40); //Erstellen eines Parkhauses mit 5 Parkplätzen und einer maximalen Parkdauer von 40 
-    Kfz *p_kfz = init_kfz(p_parkhaus, 1, 60); //Test Kfz erhält die ID 1 und die einfahrtzeitpunkt von 60
+    int id = 1;
+    Kfz *p_kfz = init_kfz(p_parkhaus, &id, 60); //Test Kfz erhält die ID 1 und die einfahrtzeitpunkt von 60
     
     fuege_kfz_hinzu(p_parkhaus, p_kfz); //Fügt das Kfz zum Parkhaus hinzu
     
@@ -29,11 +30,14 @@ void test_fuege_kfz_hinzu_leer()
 void test_fuege_kfz_hinzu_belegt()
 {
     Parkhaus *p_parkhaus = init_parkhaus(5, 40); //Erstellen eines Parkhauses mit 5 Parkplätzen und einer maximalen Parkdauer von 40
-    Kfz *p_kfz1 = init_kfz(p_parkhaus, 3, 60); //Test Kfz erhält die ID 3 und die einfahrtzeitpunkt von 60
+    int id = 3;
+    Kfz *p_kfz1 = init_kfz(p_parkhaus, &id, 60); //Test Kfz erhält die ID 3 und die einfahrtzeitpunkt von 60
     
-    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 1, 60);
+    ind id = 1;
+    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, &id, 60);
     p_parkhaus->p_parkplaetze[0].belegt = 1; //Belegt den ersten Parkplatz
-    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, 2, 60);
+    int id = 2;
+    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, &id, 60);
     p_parkhaus->p_parkplaetze[1].belegt = 1; //Belegt den zweiten Parkplatz
     
     fuege_kfz_hinzu(p_parkhaus, p_kfz1); //Fügt das Kfz zum Parkhaus hinzu
@@ -65,11 +69,12 @@ void test_fuege_kfz_hinzu_belegt()
 void test_entferne_kfz_normalfall()
 {
     Parkhaus *p_parkhaus = init_parkhaus(5, 40); //Erstellen eines Parkhauses mit 5 Parkplätzen und einer maximalen Parkdauer von 40 
-    Kfz *p_kfz = init_kfz(p_parkhaus, 1, 60); //Test Kfz erhält die ID 1 und die einfahrtzeitpunkt von 60
+    int id = 1;
+    Kfz *p_kfz = init_kfz(p_parkhaus, &id, 60); //Test Kfz erhält die ID 1 und die einfahrtzeitpunkt von 60
 
-    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 2, 60);
+    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, &id, 60);
     p_parkhaus->p_parkplaetze[0].belegt = 1;
-    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, 3, 60);
+    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, &id, 60);
     p_parkhaus->p_parkplaetze[1].belegt = 1;
     p_parkhaus->p_parkplaetze[2].p_kfz = p_kfz;
     p_parkhaus->p_parkplaetze[2].belegt = 1;
@@ -90,11 +95,12 @@ void test_entferne_kfz_normalfall()
 void test_entferne_kfz_nicht_vorhanden()
 {
     Parkhaus *p_parkhaus = init_parkhaus(5, 40); //Erstellen eines Parkhauses mit 5 Parkplätzen und einer maximalen Parkdauer von 40 
-    Kfz *p_kfz = init_kfz(p_parkhaus, 1, 60); //Test Kfz erhält die ID 1 und die einfahrtzeitpunkt von 60
+    int id = 1;
+    Kfz *p_kfz = init_kfz(p_parkhaus, &id, 60); //Test Kfz erhält die ID 1 und die einfahrtzeitpunkt von 60
 
-    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 2, 60);
+    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, &id, 60);
     p_parkhaus->p_parkplaetze[0].belegt = 1;
-    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, 3, 60);
+    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, &id, 60);
     p_parkhaus->p_parkplaetze[1].belegt = 1;
     p_parkhaus->belegte_parkplaetze = 2;
     //Parkhaus mit 2 belegten Parkplätzen aber das Test Kfz ist nicht im Parkhaus
@@ -115,11 +121,12 @@ void test_entferne_kfz_nicht_vorhanden()
 void test_entferne_kfzs_maximale_parkdauer()
 {
     Parkhaus *p_parkhaus = init_parkhaus(3, 40); //Erstellen eines Parkhauses mit 3 Parkplätzen und einer maximalen Parkdauer von 40
-    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 1, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
+    int id = 1;
+    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, &id, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
     p_parkhaus->p_parkplaetze[0].belegt = 1;
-    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, 2, 10); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
+    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, &id, 10); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
     p_parkhaus->p_parkplaetze[1].belegt = 1;
-    p_parkhaus->p_parkplaetze[2].p_kfz = init_kfz(p_parkhaus, 3, 10); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
+    p_parkhaus->p_parkplaetze[2].p_kfz = init_kfz(p_parkhaus, &id, 10); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
     p_parkhaus->p_parkplaetze[2].belegt = 1;
     p_parkhaus->belegte_parkplaetze = 3;
     //Parkhaus mit 3 belegten Parkplätzen
@@ -140,12 +147,12 @@ void test_entferne_kfzs_maximale_parkdauer()
 void test_entferne_kfzs_maximale_parkdauer_keine_ueberschreitung()
 {
     Parkhaus *p_parkhaus = init_parkhaus(3, 40); //Erstellen eines Parkhauses mit 3 Parkplätzen und einer maximalen Parkdauer von 40
-    
-    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 1, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
+    int id = 1;
+    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, &id, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
     p_parkhaus->p_parkplaetze[0].belegt = 1;
-    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, 2, 10); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
+    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, &id, 10); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
     p_parkhaus->p_parkplaetze[1].belegt = 1;
-    p_parkhaus->p_parkplaetze[2].p_kfz = init_kfz(p_parkhaus, 3, 10); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
+    p_parkhaus->p_parkplaetze[2].p_kfz = init_kfz(p_parkhaus, &id, 10); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
     p_parkhaus->p_parkplaetze[2].belegt = 1;
     p_parkhaus->belegte_parkplaetze = 3;
     //Parkhaus mit 3 belegten Parkplätzen

@@ -3,7 +3,7 @@
 struct Parkhaus ; // Vorwärtsdeklaration der Struktur Parkhaus, da sie in der Funktion init_auto verwendet wird
 typedef struct Kfz 
 {
-    int id; //ID für jedes Auto int da eine zahl ausreicht
+    int *id; //Zeiger auf die Variable ID
     int einfahrtszeitpunkt; //einfahrtszeit
     int verbleibende_parkdauer;
     struct Kfz *p_naechstes_kfz;
@@ -17,6 +17,6 @@ typedef struct Kfz
 * @param[in] zeitpunkt der Einfahrt des Kfz
 * @return p_kfz Zeiger auf das neu erstellte Kfz
 */
-Kfz* init_kfz(struct Parkhaus *p_parkhaus, int id, int zeitpunkt);
+Kfz* init_kfz(struct Parkhaus *p_parkhaus, int *id, int zeitpunkt);
 
 #endif  /*KFZ_H*/
