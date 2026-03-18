@@ -318,11 +318,12 @@ int main()
     fprintf(p_datei, "Durchschnittliche Warteschlangenlaenge: %.2f\n", berechne_durchschnitt_warteschlangenlaenge(p_statistik));
     fclose(p_datei);
 
-for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
-{
-    if(p_parkhaus->p_parkplaetze[i].p_kfz != NULL)
+    for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
     {
-        free(p_parkhaus->p_parkplaetze[i].p_kfz);
+        if(p_parkhaus->p_parkplaetze[i].p_kfz != NULL)
+        {
+            free(p_parkhaus->p_parkplaetze[i].p_kfz);
+        }
     }
 }
 
