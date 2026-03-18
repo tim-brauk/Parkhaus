@@ -10,7 +10,7 @@ void test_init_kfz_id()
     int id = 1;
     Kfz *p_kfz = init_kfz(p_parkhaus, &id, 60); //Test Kfz erhält die ID 1 und die einfahrtzeitpunkt von 60
     assert(p_kfz->id == 1); //Überprüfen, ob die ID korrekt gesetzt wird
-    
+    free(p_parkhaus->p_parkplaetze);
     free(p_kfz);
     free(p_parkhaus);
 }
@@ -23,7 +23,7 @@ void test_init_kfz_parkdauer()
     Kfz *p_kfz = init_kfz(p_parkhaus, &id, 60); //Test Kfz erhält die ID 1 und die einfahrtzeitpunkt von 60
     
     assert(p_kfz->verbleibende_parkdauer >= 1 &&p_kfz->verbleibende_parkdauer <= 40); //Überprüfen, ob die verbleibende Parkdauer innerhalb des erwarteten Bereichs liegt
-    
+    free(p_parkhaus->p_parkplaetze);
     free(p_kfz);
     free(p_parkhaus);
 }
