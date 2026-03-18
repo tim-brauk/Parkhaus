@@ -7,7 +7,7 @@
 #include "../include/kfz.h"
 #include "../include/parkhaus.h"
 
-Kfz* init_kfz(struct Parkhaus *p_parkhaus, int *p_id, int zeitpunkt)
+Kfz *init_kfz(struct Parkhaus *p_parkhaus, int *p_id, int zeitpunkt)
 {   
     if(p_parkhaus == NULL)
     {

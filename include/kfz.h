@@ -17,6 +17,6 @@ typedef struct Kfz
 * @param[in] zeitpunkt der Einfahrt des Kfz
 * @return p_kfz Zeiger auf das neu erstellte Kfz
 */
-Kfz* init_kfz(struct Parkhaus *p_parkhaus, int *p_id, int zeitpunkt);
+Kfz *init_kfz(struct Parkhaus *p_parkhaus, int *p_id, int zeitpunkt);
 
 #endif  /*KFZ_H*/

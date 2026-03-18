@@ -31,7 +31,7 @@ typedef struct Simulationsparameter
  * @param[in] wahrscheinlichkeit_neues_kfz Wahrscheinlichkeit für neu ankommende Fahrzeuge
  * @return Zeiger auf die initialisierte Struktur oder NULL bei Fehler
  */
-Simulationsparameter* init_simulationsparameter(
+Simulationsparameter *init_simulationsparameter(
     int anzahl_parkplaetze,
     int maximale_parkdauer,
     float simulations_dauer,
