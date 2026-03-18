@@ -1,6 +1,6 @@
 #ifndef KFZ_H
 #define KFZ_H
-struct Parkhaus ; // Vorwärtsdeklaration der Struktur Parkhaus, da sie in der Funktion init_auto verwendet wird
+struct Parkhaus ; // Vorwärtsdeklaration der Struktur Parkhaus, da sie in der Funktion init_kfz verwendet wird
 typedef struct Kfz 
 {
     int id; //Eine eindeutige id

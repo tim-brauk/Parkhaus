@@ -250,7 +250,7 @@ int main()
                     {
                         printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
                         while(getchar() != '\n');
-                        printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+                        
                         
                     }
                 }
