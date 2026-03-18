@@ -22,7 +22,7 @@ void test_kfz_hinzufuegen_warteschlange_normal()
     int id = 4;
     Kfz *p_kfz = init_kfz(p_parkhaus, &id, 63);
 
-    int id = 1;
+    id = 1;
     p_parkhaus->p_erstes_kfz_in_der_warteschlange = init_kfz(p_parkhaus, &id, 60);
     p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz = init_kfz(p_parkhaus, &id, 61);
     p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz->p_naechstes_kfz = init_kfz(p_parkhaus, &id, 62);
