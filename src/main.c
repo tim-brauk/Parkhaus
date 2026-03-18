@@ -45,9 +45,10 @@ int main()
 
     printf("Anzahl Parkplaetze eingeben: ");
     if(scanf("%d", &anzahl_parkplaetze) != 1)
-    {
-        printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
-    }
+{
+    printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+    while(getchar() != '\n');
+}
 
     while(anzahl_parkplaetze <= 0)
     {
@@ -55,6 +56,7 @@ int main()
         if(scanf("%d", &anzahl_parkplaetze) != 1)
         {
             printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+            while(getchar() != '\n');
         }
     }
 
@@ -62,6 +64,7 @@ int main()
     if(scanf("%d", &maximale_parkdauer) != 1)
     {
         printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+        while(getchar() != '\n');
     }
 
     while(maximale_parkdauer <= 0)
@@ -70,6 +73,7 @@ int main()
         if(scanf("%d", &maximale_parkdauer) != 1)
         {
             printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+            while(getchar() != '\n');
         }
     }
 
@@ -77,6 +81,8 @@ int main()
     if(scanf("%f", &simulations_dauer) != 1)
     {
         printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+        while(getchar() != '\n');
+        printf("Die Zahl muss eine Kommazahl sein.\n");
     }
 
     while(simulations_dauer <= 0.0f)
@@ -85,6 +91,7 @@ int main()
         if(scanf("%f", &simulations_dauer) != 1)
         {
             printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+            while(getchar() != '\n');
         }
     }
 
@@ -92,12 +99,14 @@ int main()
     if(scanf("%d", &seed) != 1)
     {
         printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+        while(getchar() != '\n');
     }
 
     printf("Ankunftswahrscheinlichkeit neues Kfz eingeben (0.0 - 1.0): ");
     if(scanf("%f", &wahrscheinlichkeit_neues_kfz) != 1)
     {
         printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+        while(getchar() != '\n');
     }
 
     while(wahrscheinlichkeit_neues_kfz < 0.0f || wahrscheinlichkeit_neues_kfz > 1.0f)
@@ -106,6 +115,7 @@ int main()
         if(scanf("%f", &wahrscheinlichkeit_neues_kfz) != 1)
         {
             printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+            while(getchar() != '\n');
         }
     }
 
@@ -113,6 +123,7 @@ int main()
     if(scanf("%d", &abfrage_intervall) != 1)
     {
         printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+        while(getchar() != '\n');
     }
 
     while(abfrage_intervall <= 0)
@@ -121,6 +132,7 @@ int main()
         if(scanf("%d", &abfrage_intervall) != 1)
         {
             printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+            while(getchar() != '\n');
         }
     }
 
@@ -175,83 +187,100 @@ int main()
             if(scanf("%d", &aendern) != 1)
             {
                 printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+                while(getchar() != '\n');
                 break;
             }
 
             if(aendern == 1)
             {
                 printf("Anzahl Parkplaetze eingeben: ");
-                if(scanf("%d", &anzahl_parkplaetze) != 1)
+                while(scanf("%d", &anzahl_parkplaetze) != 1)
                 {
                     printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
-                    break;
+                    while(getchar() != '\n');
+                    printf("Anzahl Parkplaetze eingeben: ");
+                
                 }
 
                 while(anzahl_parkplaetze <= 0)
                 {
                     printf("Ungueltige Eingabe. Anzahl Parkplaetze muss groesser als 0 sein: ");
-                    if(scanf("%d", &anzahl_parkplaetze) != 1)
+                    while(scanf("%d", &anzahl_parkplaetze) != 1)
                     {
                         printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
-                        break;
+                        while(getchar() != '\n');
+                        printf("Anzahl Parkplaetze muss groesser als 0 sein: ");
+                       
                     }
                 }
 
                 printf("Maximale Parkdauer eingeben (in Stunden): ");
-                if(scanf("%d", &maximale_parkdauer) != 1)
+                while(scanf("%d", &maximale_parkdauer) != 1)
                 {
                     printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
-                    break;
+                    while(getchar() != '\n');
+                    printf("Maximale Parkdauer eingeben (in Stunden): ");
+                    
                 }
 
                 while(maximale_parkdauer <= 0)
                 {
                     printf("Ungueltige Eingabe. Maximale Parkdauer muss groesser als 0 sein: ");
-                    if(scanf("%d", &maximale_parkdauer) != 1)
+                    while(scanf("%d", &maximale_parkdauer) != 1)
                     {
                         printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
-                        break;
+                        while(getchar() != '\n');
+                        printf("Maximale Parkdauer muss groesser als 0 sein: ");
+                        
                     }
                 }
 
                 printf("Simulationsdauer eingeben (in Stunden): ");
-                if(scanf("%f", &simulations_dauer) != 1)
+                while(scanf("%f", &simulations_dauer) != 1)
                 {
                     printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
-                    break;
+                    while(getchar() != '\n');
+                    printf("Die Zahl muss eine Kommazahl sein.\n");
                 }
 
                 while(simulations_dauer <= zeitpunkt)
                 {
                     printf("Ungueltige Eingabe. Simulationsdauer muss groesser als aktueller Zeitpunkt sein: ");
-                    if(scanf("%f", &simulations_dauer) != 1)
+                    while(scanf("%f", &simulations_dauer) != 1)
                     {
                         printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
-                        break;
+                        while(getchar() != '\n');
+                        printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
+                        
                     }
                 }
 
                 printf("Seed eingeben: ");
-                if(scanf("%d", &seed) != 1)
+                while(scanf("%d", &seed) != 1)
                 {
                     printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
-                    break;
+                    while(getchar() != '\n');
+                    
+                   
                 }
 
                 printf("Ankunftswahrscheinlichkeit neues Kfz eingeben (0.0 - 1.0): ");
-                if(scanf("%f", &wahrscheinlichkeit_neues_kfz) != 1)
+                while(scanf("%f", &wahrscheinlichkeit_neues_kfz) != 1)
                 {
                     printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
-                    break;
+                    while(getchar() != '\n');
+                    
+                    
                 }
 
                 while(wahrscheinlichkeit_neues_kfz < 0.0f || wahrscheinlichkeit_neues_kfz > 1.0f)
                 {
                     printf("Ungueltige Eingabe. Wahrscheinlichkeit muss zwischen 0.0 und 1.0 liegen: ");
-                    if(scanf("%f", &wahrscheinlichkeit_neues_kfz) != 1)
+                    while(scanf("%f", &wahrscheinlichkeit_neues_kfz) != 1)
                     {
                         printf("Falsche Eingabe. Die Zahl muss eine Kommazahl sein.\n");
-                        break;
+                        while(getchar() != '\n');
+                        
                     }
                 }
 
