@@ -19,11 +19,12 @@ void test_simuliere_simuliere_zeitabschnitt()
     p_simulationsparameter->seed = 42;
     p_simulationsparameter->wahrscheinlichkeit_neues_kfz = 0.5;
     
-    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 1, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
+    int id = 1;
+    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, &id, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
     p_parkhaus->p_parkplaetze[0].belegt = 1;
-    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, 2, 20); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
+    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, &id2, 20); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
     p_parkhaus->p_parkplaetze[1].belegt = 1;
-    p_parkhaus->p_parkplaetze[2].p_kfz = init_kfz(p_parkhaus, 3, 30); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
+    p_parkhaus->p_parkplaetze[2].p_kfz = init_kfz(p_parkhaus, &id, 30); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
     p_parkhaus->p_parkplaetze[2].belegt = 1;
     p_parkhaus->belegte_parkplaetze = 3;
     //Parkhaus mit 3 belegten Parkplätzen
@@ -69,11 +70,12 @@ void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
     p_simulationsparameter->seed = 42;
     p_simulationsparameter->wahrscheinlichkeit_neues_kfz = 0.5;
     
-    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 1, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
+    int id = 1;
+    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, &id, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
     p_parkhaus->p_parkplaetze[0].belegt = 1;
-    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, 2, 20); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
+    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, &id, 20); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
     p_parkhaus->p_parkplaetze[1].belegt = 1;
-    p_parkhaus->p_parkplaetze[2].p_kfz = init_kfz(p_parkhaus, 3, 30); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
+    p_parkhaus->p_parkplaetze[2].p_kfz = init_kfz(p_parkhaus, &id, 30); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
     p_parkhaus->p_parkplaetze[2].belegt = 1;
     p_parkhaus->belegte_parkplaetze = 3;
     //Parkhaus mit 3 belegten Parkplätzen

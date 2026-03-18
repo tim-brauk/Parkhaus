@@ -42,7 +42,7 @@ void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simul
     float zufall = (float)rand() / (float)RAND_MAX;
     if(zufall <= p_simulationsparameter->wahrscheinlichkeit_neues_kfz)
     {
-    Kfz *p_neues_kfz = init_kfz(p_parkhaus, *p_id, *p_zeitpunkt);
+    Kfz *p_neues_kfz = init_kfz(p_parkhaus, p_id, *p_zeitpunkt);
 
         kfz_hinzufuegen_warteschlange(p_parkhaus, p_neues_kfz);
     }
