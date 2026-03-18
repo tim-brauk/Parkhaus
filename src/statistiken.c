@@ -175,7 +175,7 @@ float berechne_durchschnitt_auslastung(const SimulationsStats *p_statistik)
 {
     if(p_statistik->durchlaufene_zeitschritte == 0)
     {
-        return 0.0f; // noch nicht fertig
+        return p_statisitk->p_auslastung_pro_zeitschritt[durchlaufene_zeitschritte]; //beim ersten durchlauf wird der Return genutzt somit wird spätere Division durch 0 vermieden
     }
 
     float durchschnittliche_auslastung = 0.0f;
@@ -192,7 +192,7 @@ float berechne_durchschnitt_warteschlangenlaenge(const SimulationsStats *p_stati
 {
     if(p_statistik->durchlaufene_zeitschritte == 0)
     {
-        return p_statistik->p_warteschlange_pro_zeitschritt[0]; // noch nicht fertig
+        return p_statistik->p_warteschlange_pro_zeitschritt[durchlaufene_zeitschritte]; //beim ersten durchlauf wird der Return genutzt somit wird spätere Division durch 0 vermieden
     }
 
     float durchschnittliche_warteschlangenlaenge = 0.0f;
@@ -209,7 +209,7 @@ float berechne_durchschnittliche_wartezeit(const SimulationsStats *p_statistik)
 {
     if(p_statistik->durchlaufene_zeitschritte == 0)
     {
-        return p_statistik->p_warteschlange_pro_zeitschritt[0]; // noch nicht fertig
+        return p_statistik->p_warteschlange_pro_zeitschritt[durchlaufene_zeitschritte]; //beim ersten durchlauf wird der Return genutzt somit wird spätere Division durch 0 vermieden
     }
 
     float durchschnittliche_wartezeit = 0.0f;
