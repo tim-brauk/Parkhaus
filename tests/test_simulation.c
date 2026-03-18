@@ -33,7 +33,6 @@ void test_simuliere_simuliere_zeitabschnitt()
     p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer = 15; //Setzt die verbleibende Parkzeit des Kfz auf 15
     p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkdauer = 25; //Setzt die verbleibende Parkzeit des Kfz auf 25
 
-    int id = 4;
     int zeitpunkt = 0;
     simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, p_statistik, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
 
@@ -84,7 +83,6 @@ void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
     p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer = 15;
     p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkdauer = 25;
 
-    int id = 4;
     int zeitpunkt = 0;
 
     simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, p_statistik, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
