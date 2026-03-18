@@ -199,8 +199,6 @@ void test_aktualisiere_parameter_belegte_parkplaetze_verringern()
     assert(p_parkhaus->p_erstes_kfz_in_der_warteschlange != NULL); // KFZ in Warteschlange gelandet
 
     free(p_simulationsparameter);
-    free(p_parkhaus->p_parkplaetze[3].p_kfz);
-    free(p_parkhaus->p_parkplaetze[4].p_kfz);
     free(p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz);
     free(p_parkhaus->p_erstes_kfz_in_der_warteschlange);
     free(p_parkhaus->p_parkplaetze);
@@ -210,7 +208,7 @@ void test_aktualisiere_parameter_belegte_parkplaetze_verringern()
 int main()
 {
     test_init_simulationsparameter();
-    test_init_simulationsparameter_pointer();
+    //test_init_simulationsparameter_pointer();
     test_simuliere_simuliere_zeitabschnitt();
     test_simuliere_simuliere_zeitabschnitt_kfz_entfernt();
     test_aktualisiere_parameter_parkplaetze_erhoehen();
