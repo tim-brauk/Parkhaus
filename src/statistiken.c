@@ -149,7 +149,7 @@ float berechne_aktuelle_wartezeit(const Parkhaus *p_parkhaus, int p_zeitpunkt)
        summe = summe + (p_zeitpunkt - p_kfz_zwischenspeicher->einfahrtszeitpunkt); 
        p_kfz_zwischenspeicher = p_kfz_zwischenspeicher->p_naechstes_kfz;
     }
-    return summe / berechne_aktuelle_warteschlangenlaenge(p_parkhaus);
+    return (float)summe / berechne_aktuelle_warteschlangenlaenge(p_parkhaus);
 }
 
 void aktualisiere_maximale_auslastung(SimulationsStats *p_statistik, Parkhaus *p_parkhaus)
