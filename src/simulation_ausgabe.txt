@@ -1,0 +1,13 @@
+Zeitschritt: 1
+Durchschnittliche Auslastung: 100.00%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 100.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+
+--- Finale Statistiken ---
+Durchschnittliche Auslastung: 100.00%
+Maximale Auslastung: 100.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Durchschnittliche Warteschlangenlaenge: 0.00
