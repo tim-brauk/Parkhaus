@@ -33,10 +33,9 @@ void test_fuege_kfz_hinzu_belegt()
     int id = 3;
     Kfz *p_kfz1 = init_kfz(p_parkhaus, &id, 60); //Test Kfz erhält die ID 3 und die einfahrtzeitpunkt von 60
     
-    int id = 1;
+    id = 1;
     p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, &id, 60);
     p_parkhaus->p_parkplaetze[0].belegt = 1; //Belegt den ersten Parkplatz
-    int id = 2;
     p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, &id, 60);
     p_parkhaus->p_parkplaetze[1].belegt = 1; //Belegt den zweiten Parkplatz
     

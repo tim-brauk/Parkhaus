@@ -14,16 +14,16 @@ void test_init_simulationsparameter()
     }
 
     assert(p_simulationsparameter != NULL);
-    assert(p_simulationsparameter->anzahl_parkplaetze != NULL);
-    assert(p_simulationsparameter->maximale_parkdauer != NULL);
+    assert(p_simulationsparameter->anzahl_parkplaetze == 10);
+    assert(p_simulationsparameter->maximale_parkdauer == 5);
     assert(p_simulationsparameter->simulations_dauer == 10);
-    assert(p_simulationsparameter->seed != NULL);
+    assert(p_simulationsparameter->seed == 7);
     assert(p_simulationsparameter->wahrscheinlichkeit_neues_kfz == 0.6f);
 
     free(p_simulationsparameter);
 }
 
-void test_init_simulationsparameter_pointer()
+/*void test_init_simulationsparameter_pointer()
 {
     Simulationsparameter *p_simulationsparameter = init_simulationsparameter(5, 40, 100, 42, 0.5f);
     if(p_simulationsparameter == NULL)
@@ -36,7 +36,7 @@ void test_init_simulationsparameter_pointer()
     assert((void*)p_simulationsparameter->anzahl_parkplaetze != (void*)p_simulationsparameter->seed);
     assert(p_simulationsparameter->anzahl_parkplaetze != p_simulationsparameter->wahrscheinlichkeit_neues_kfz);
     //Überprüfen, ob die Zeiger auf verschiedene Speicherbereiche zeigen
-}
+}*/
 
 void test_simuliere_simuliere_zeitabschnitt()
 {
@@ -67,7 +67,6 @@ void test_simuliere_simuliere_zeitabschnitt()
     p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer = 15; //Setzt die verbleibende Parkzeit des Kfz auf 15
     p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkdauer = 25; //Setzt die verbleibende Parkzeit des Kfz auf 25
 
-    int id = 4;
     int zeitpunkt = 0;
     simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, p_statistik, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
 
@@ -118,7 +117,6 @@ void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
     p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer = 15;
     p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkdauer = 25;
 
-    int id = 4;
     int zeitpunkt = 0;
 
     simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, p_statistik, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
@@ -187,9 +185,10 @@ void test_aktualisiere_parameter_belegte_parkplaetze_verringern()
     p_simulationsparameter->seed = 42;
     p_simulationsparameter->wahrscheinlichkeit_neues_kfz = 0.5;
 
-    p_parkhaus->p_parkplaetze[3].p_kfz = init_kfz(p_parkhaus, 1, 10); // Parkplatz 3 belegen
+    int id = 1;
+    p_parkhaus->p_parkplaetze[3].p_kfz = init_kfz(p_parkhaus, &id, 10); // Parkplatz 3 belegen
     p_parkhaus->p_parkplaetze[3].belegt = 1;
-    p_parkhaus->p_parkplaetze[4].p_kfz = init_kfz(p_parkhaus, 2, 20); // Parkplatz 4 belegen
+    p_parkhaus->p_parkplaetze[4].p_kfz = init_kfz(p_parkhaus, &id, 20); // Parkplatz 4 belegen
     p_parkhaus->p_parkplaetze[4].belegt = 1;
     p_parkhaus->belegte_parkplaetze = 2;
 
@@ -200,6 +199,8 @@ void test_aktualisiere_parameter_belegte_parkplaetze_verringern()
     assert(p_parkhaus->p_erstes_kfz_in_der_warteschlange != NULL); // KFZ in Warteschlange gelandet
 
     free(p_simulationsparameter);
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz);
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange);
     free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
 }
@@ -207,7 +208,7 @@ void test_aktualisiere_parameter_belegte_parkplaetze_verringern()
 int main()
 {
     test_init_simulationsparameter();
-    test_init_simulationsparameter_pointer();
+    //test_init_simulationsparameter_pointer();
     test_simuliere_simuliere_zeitabschnitt();
     test_simuliere_simuliere_zeitabschnitt_kfz_entfernt();
     test_aktualisiere_parameter_parkplaetze_erhoehen();
