@@ -212,7 +212,7 @@ void test_aktualisiere_parameter_belegte_parkplaetze_verringern()
 int main()
 {
     test_init_simulationsparameter();
-    //test_init_simulationsparameter_pointer();
+    test_init_simulationsparameter_randwerte()
     test_simuliere_simuliere_zeitabschnitt();
     test_simuliere_simuliere_zeitabschnitt_kfz_entfernt();
     test_aktualisiere_parameter_parkplaetze_erhoehen();
