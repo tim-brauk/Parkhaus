@@ -36,7 +36,7 @@ void fuege_kfz_hinzu(Parkhaus *p_parkhaus, Kfz *p_kfz)
                 p_parkhaus->belegte_parkplaetze++;
                 return;
             }
-        zufaelliger_parkplatz--;
+            zufaelliger_parkplatz--;
         }
     }
 }
