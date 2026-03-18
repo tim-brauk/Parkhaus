@@ -3,12 +3,11 @@ parkhaus-simulation/
 │
 ├── README.md
 ├── LICENSE
-├── (Makefile)
 │
 ├── docs/
 │   ├── pseudocode/
-│   │   ├── Functions.txt
-│   │   ├── statistiken_funktionen.txt
+│   │   ├── Funktionen_Statistiken.txt
+│   │   ├── Funktionen.txt
 │   │   └── StructsDatentypen.txt
 │   ├── diagrams/
 │       ├── Flussdiagramm_entferne_kfzs_maximale_parkdauer

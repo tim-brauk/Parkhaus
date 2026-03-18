@@ -32,7 +32,7 @@ SimulationsStats *init_statistik()
         return NULL;
     }
 
-    int *p_wartezeit_pro_zeitschritt = malloc(sizeof(int));
+    float *p_wartezeit_pro_zeitschritt = malloc(sizeof(float));
 
     if(p_wartezeit_pro_zeitschritt == NULL)
     {
@@ -173,6 +173,11 @@ void aktualisiere_maximale_warteschlangenlaenge(SimulationsStats *p_statistik, P
 
 float berechne_durchschnitt_auslastung(const SimulationsStats *p_statistik)
 {
+    if(p_statistik->durchlaufene_zeitschritte == 0)
+    {
+        return 0.0f; // noch nicht fertig
+    }
+
     float durchschnittliche_auslastung = 0.0f;
     for(int i = 0; i < p_statistik->durchlaufene_zeitschritte; i++)
     {
@@ -185,6 +190,11 @@ float berechne_durchschnitt_auslastung(const SimulationsStats *p_statistik)
 
 float berechne_durchschnitt_warteschlangenlaenge(const SimulationsStats *p_statistik)
 {
+    if(p_statistik->durchlaufene_zeitschritte == 0)
+    {
+        return p_statistik->p_warteschlange_pro_zeitschritt[0]; // noch nicht fertig
+    }
+
     float durchschnittliche_warteschlangenlaenge = 0.0f;
     for(int i = 0; i < p_statistik->durchlaufene_zeitschritte; i++)
     {
@@ -197,6 +207,11 @@ float berechne_durchschnitt_warteschlangenlaenge(const SimulationsStats *p_stati
 
 float berechne_durchschnittliche_wartezeit(const SimulationsStats *p_statistik)
 {
+    if(p_statistik->durchlaufene_zeitschritte == 0)
+    {
+        return p_statistik->p_warteschlange_pro_zeitschritt[0]; // noch nicht fertig
+    }
+
     float durchschnittliche_wartezeit = 0.0f;
     for(int i = 0; i < p_statistik->durchlaufene_zeitschritte; i++)
     {

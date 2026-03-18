@@ -37,6 +37,8 @@ void simuliere_zeitabschnitt(Parkhaus *p_parkhaus, Simulationsparameter *p_simul
         }
     }
 
+    entferne_kfzs_maximale_parkdauer(p_parkhaus);
+
     float zufall = (float)rand() / (float)RAND_MAX;
     if(zufall <= p_simulationsparameter->wahrscheinlichkeit_neues_kfz)
     {
