@@ -17,6 +17,10 @@ void test_init_statistik()
     assert(p_stats->zeitschritte == 0);
     assert(p_stats->durchlaufene_zeitschritte == 0);
     //Überprüfen, ob die Werte richtig initialisiert wurden
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
+    free(p_stats);
 }
 
 void test_init_statistik_pointer()
@@ -27,6 +31,10 @@ void test_init_statistik_pointer()
     assert((void*)p_stats->p_auslastung_pro_zeitschritt != (void*)p_stats->p_wartezeit_pro_zeitschritt); //(void*) da die Zeiger nicht vom selben Datentyp sind
     assert(p_stats->p_warteschlange_pro_zeitschritt != p_stats->p_wartezeit_pro_zeitschritt);
     //Überprüfen, ob die Zeiger auf verschiedene Speicherbereiche zeigen
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
+    free(p_stats);
 }
 
 void test_aktualisiere_groesse_statistik_erweiterung()
@@ -39,6 +47,10 @@ void test_aktualisiere_groesse_statistik_erweiterung()
 
     assert(p_stats->zeitschritte == 10); //bei init ist zeitschritte 0, also sollte es nach der Erweiterung 10 sein
     //Überprüfen, ob die Anzahl der Zeitschritte korrekt aktualisiert wurde
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
+    free(p_stats);
 }
 
 void test_aktualisiere_groesse_statistik_merhfacherweiterung()
@@ -52,6 +64,10 @@ void test_aktualisiere_groesse_statistik_merhfacherweiterung()
     }
     assert(p_stats->zeitschritte == 15); //nach 3 Erweiterungen mit jeweils 5 zusätzlichen Zeitschritten sollte die Anzahl der Zeitschritte 15 sein
     //Überprüfen, ob die Anzahl der Zeitschritte korrekt aktualisiert wurde, auch nach mehreren Erweiterungen
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
+    free(p_stats);
 }
 
 void test_berechne_aktuelle_auslastung_normal()
@@ -67,6 +83,7 @@ void test_berechne_aktuelle_auslastung_normal()
     assert(auslastung == 70.0f);
     //Überprüfen, ob die Auslastung korrekt berechnet wird
 
+    free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
 }
 
@@ -82,7 +99,7 @@ void test_berechne_aktuelle_auslastung_randwerte()
     auslastung = berechne_aktuelle_auslastung(p_parkhaus);
     assert(auslastung == 100.0f);
     //Überprüfen, ob die Auslastung korrekt berechnet wird, wenn das Parkhaus leer ist
-
+    free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
 }
 
@@ -98,7 +115,10 @@ void test_berechne_aktuelle_warteschlangenlaenge_normal()
     int warteschlangenlaenge = berechne_aktuelle_warteschlangenlaenge(p_parkhaus);
     assert(warteschlangenlaenge == 3);
     //Überprüfen, ob die Warteschlangenlänge korrekt berechnet wird
-
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz->p_naechstes_kfz);
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz);
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange);
+    free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
 }
 
@@ -109,7 +129,7 @@ void test_berechne_aktuelle_warteschlangenlaenge_leer()
     int warteschlangenlaenge = berechne_aktuelle_warteschlangenlaenge(p_parkhaus);
     assert(warteschlangenlaenge == 0);
     //Überprüfen, ob die Warteschlangenlänge korrekt berechnet wird, wenn keine Fahrzeuge in der Warteschlange sind
-
+    free(p_parkhaus->p_parkplaetze);    
     free(p_parkhaus);
 }
 
@@ -126,7 +146,10 @@ void test_berechne_aktuelle_wartezeit_normal()
     float wartezeit = berechne_aktuelle_wartezeit(p_parkhaus, zeitpunkt);
     assert(wartezeit == 9.0f); //(70-60) + (70-61) + (70-62)) / 3 = 9.0f
     //Überprüfen, ob die Wartezeit korrekt berechnet wird
-
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz->p_naechstes_kfz);
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz);
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange);
+    free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
 }
 
@@ -138,7 +161,7 @@ void test_berechne_aktuelle_wartezeit_leer()
     float wartezeit = berechne_aktuelle_wartezeit(p_parkhaus, zeitpunkt);
     assert(wartezeit == 0.0f);
     //Überprüfen, ob die Wartezeit korrekt berechnet wird, wenn keine Fahrzeuge in der Warteschlange sind
-
+    free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
 }
 
@@ -154,8 +177,12 @@ void test_aktualisiere_maximale_auslastung_normal()
     
     assert(p_stats->maximale_auslastung == 50.0f);
     //Überprüfen, ob die maximale Auslastung korrekt aktualisiert wird
-
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
     free(p_stats);
+    free(p_parkhaus->p_parkplaetze);
+    free(p_parkhaus);   
 }
 
 void test_aktualisiere_maximale_auslastung_unveraendert()
@@ -170,8 +197,11 @@ void test_aktualisiere_maximale_auslastung_unveraendert()
 
     assert(p_stats->maximale_auslastung == 40.0f);
     //Überprüfen, ob die maximale Auslastung nicht verändert wird
-
+    free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
     free(p_stats);
 }
 
@@ -192,7 +222,14 @@ void test_aktualisiere_maximale_warteschlangenlaenge_normal()
     assert(p_stats->maximale_warteschlangenlaenge == 3);
     //Überprüfen, ob die maximale Warteschlangenlänge korrekt aktualisiert wird
 
-    free(p_parkhaus);
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz->p_naechstes_kfz);
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz);
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange);
+    free(p_parkhaus->p_parkplaetze);        
+    free(p_parkhaus);   
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
     free(p_stats);
 }
 
@@ -211,8 +248,12 @@ void test_aktualisiere_maximale_warteschlangenlaenge_unveraendert()
     aktualisiere_maximale_warteschlangenlaenge(p_stats, p_parkhaus);
     assert(p_stats->maximale_warteschlangenlaenge == 4);
     //Überprüfen, ob die maximale Warteschlangenlänge nicht verändert wird
-
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange->p_naechstes_kfz);
+    free(p_parkhaus->p_erstes_kfz_in_der_warteschlange );  
     free(p_parkhaus);
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
     free(p_stats);
 }
 
@@ -229,6 +270,9 @@ void test_berechne_durchschnitt_auslastung()
     assert(durchschnitt == 18.4f); //(13.2f + 17.0f + 25.0f) / 3 = 18.4f
     //Überprüfen, ob der Durchschnitt der Auslastung korrekt berechnet wird
 
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
     free(p_stats);
 }
 
@@ -245,6 +289,9 @@ void test_berechne_durchschnitt_auslastung_keine_werte()
     assert(durchschnitt == 0.0f);
     //Überprüfen, ob der Durchschnitt der Auslastung korrekt berechnet wird, auch wenn alle Werte 0 nicht
 
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
     free(p_stats);
 }
 
@@ -262,6 +309,9 @@ void test_berechne_durchschnitt_warteschlangenlaenge()
     assert(durchschnitt == 2.5f); //(2 + 3 + 1 + 4) / 4 = 2.5f
     //Überprüfen, ob der Durchschnitt der Warteschlangenlänge korrekt berechnet wird
 
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
     free(p_stats);
 }
 
@@ -279,7 +329,10 @@ void test_berechne_durchschnitt_warteschlangenlaenge_keine_werte()
     assert(durchschnitt == 0.0f);
     //Überprüfen, ob der Durchschnitt der Warteschlangenlänge korrekt berechnet wird, auch wenn alle Werte 0 nicht
 
-    free(p_stats);
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
+    free(p_stats);  
 }
 
 void test_berechne_durchschnittliche_wartezeit()
@@ -295,6 +348,9 @@ void test_berechne_durchschnittliche_wartezeit()
     assert(durchschnitt == 10.0f); //(5.0f + 10.0f + 15.0f) / 3 = 10.0f
     //Überprüfen, ob der Durchschnitt der Wartezeit korrekt berechnet wird
 
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
     free(p_stats);
 }
 
@@ -311,6 +367,9 @@ void test_berechne_durchschnittliche_wartezeit_keine_werte()
     assert(durchschnitt == 0.0f);
     //Überprüfen, ob der Durchschnitt der Wartezeit korrekt berechnet wird, auch wenn alle Werte 0 nicht
 
+    free(p_stats->p_auslastung_pro_zeitschritt);
+    free(p_stats->p_warteschlange_pro_zeitschritt);
+    free(p_stats->p_wartezeit_pro_zeitschritt);
     free(p_stats);
 }
 
