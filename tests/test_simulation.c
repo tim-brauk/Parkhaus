@@ -23,20 +23,24 @@ void test_init_simulationsparameter()
     free(p_simulationsparameter);
 }
 
-/*void test_init_simulationsparameter_pointer()
+void test_init_simulationsparameter_randwerte()
 {
-    Simulationsparameter *p_simulationsparameter = init_simulationsparameter(5, 40, 100, 42, 0.5f);
+    Simulationsparameter *p_simulationsparameter = init_simulationsparameter(1, 1, 1.0f, 0, 0.0f);
     if(p_simulationsparameter == NULL)
     {
-        free(p_simulationsparameter);
         return;
     }
 
-    assert((void*)p_simulationsparameter->anzahl_parkplaetze != (void*)p_simulationsparameter->maximale_parkdauer);
-    assert((void*)p_simulationsparameter->anzahl_parkplaetze != (void*)p_simulationsparameter->seed);
-    assert(p_simulationsparameter->anzahl_parkplaetze != p_simulationsparameter->wahrscheinlichkeit_neues_kfz);
-    //Überprüfen, ob die Zeiger auf verschiedene Speicherbereiche zeigen
-}*/
+    assert(p_simulationsparameter->anzahl_parkplaetze == 1);
+    assert(p_simulationsparameter->maximale_parkdauer == 1);
+    assert(p_simulationsparameter->simulations_dauer == 1.0f);
+    assert(p_simulationsparameter->seed == 0);
+    assert(p_simulationsparameter->wahrscheinlichkeit_neues_kfz == 0.0f);
+
+    free(p_simulationsparameter);
+
+    //Überprüfe kleinste mögliche Werte
+}
 
 void test_simuliere_simuliere_zeitabschnitt()
 {
