@@ -289,6 +289,15 @@ int main()
     fprintf(p_datei, "Durchschnittliche Warteschlangenlaenge: %.2f\n", berechne_durchschnitt_warteschlangenlaenge(p_statistik));
     fclose(p_datei);
 
+for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
+{
+    if(p_parkhaus->p_parkplaetze[i].p_kfz != NULL)
+    {
+        free(p_parkhaus->p_parkplaetze[i].p_kfz);
+    }
+}
+
+
 Kfz *p_kfz_aktuell = p_parkhaus->p_erstes_kfz_in_der_warteschlange;
 while(p_kfz_aktuell != NULL)
 {
