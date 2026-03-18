@@ -95,8 +95,8 @@ void aktualisiere_groesse_statistik(SimulationsStats *p_statistik, int zeitschri
         p_statistik->p_warteschlange_pro_zeitschritt = p_zwischenspeicher_warteschlange;
     }
 
-    int *p_zwischenspeicher_wartezeit =
-        realloc(p_statistik->p_wartezeit_pro_zeitschritt, sizeof(int) * neue_groesse);
+    float *p_zwischenspeicher_wartezeit =
+        realloc(p_statistik->p_wartezeit_pro_zeitschritt, sizeof(float) * neue_groesse);
 
     if(p_zwischenspeicher_wartezeit == NULL)
     {
