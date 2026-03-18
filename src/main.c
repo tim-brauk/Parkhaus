@@ -45,10 +45,10 @@ int main()
 
     printf("Anzahl Parkplaetze eingeben: ");
     if(scanf("%d", &anzahl_parkplaetze) != 1)
-{
+    {
     printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
     while(getchar() != '\n');
-}
+    }
 
     while(anzahl_parkplaetze <= 0)
     {
@@ -318,22 +318,22 @@ int main()
     fprintf(p_datei, "Durchschnittliche Warteschlangenlaenge: %.2f\n", berechne_durchschnitt_warteschlangenlaenge(p_statistik));
     fclose(p_datei);
 
-for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
-{
-    if(p_parkhaus->p_parkplaetze[i].p_kfz != NULL)
+    for(int i = 0; i < p_parkhaus->anzahl_parkplaetze; i++)
     {
-        free(p_parkhaus->p_parkplaetze[i].p_kfz);
+        if(p_parkhaus->p_parkplaetze[i].p_kfz != NULL)
+        {
+            free(p_parkhaus->p_parkplaetze[i].p_kfz);
+        }
     }
-}
 
 
-Kfz *p_kfz_aktuell = p_parkhaus->p_erstes_kfz_in_der_warteschlange;
-while(p_kfz_aktuell != NULL)
-{
-    Kfz *p_kfz_naechstes = p_kfz_aktuell->p_naechstes_kfz;
-    free(p_kfz_aktuell);
-    p_kfz_aktuell = p_kfz_naechstes;
-}
+    Kfz *p_kfz_aktuell = p_parkhaus->p_erstes_kfz_in_der_warteschlange;
+    while(p_kfz_aktuell != NULL)
+    {
+        Kfz *p_kfz_naechstes = p_kfz_aktuell->p_naechstes_kfz;
+        free(p_kfz_aktuell);
+        p_kfz_aktuell = p_kfz_naechstes;
+    }
     
     free(p_statistik->p_auslastung_pro_zeitschritt);
     free(p_statistik->p_warteschlange_pro_zeitschritt);
