@@ -75,7 +75,7 @@ void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
     p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkdauer = 25;
 
     int id = 4;
-    int zeitpunkt = 40;
+    int zeitpunkt = 0;
 
     simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, p_statisitk, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
 
@@ -83,7 +83,7 @@ void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
     assert(p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer == 14);
     assert(p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkdauer == 24); //Überprüft, ob die verbleibende Parkzeit der anderen Kfz um 1 reduziert wurde
     assert(p_parkhaus->belegte_parkplaetze == 2); //Überprüft, ob die Anzahl der belegten Parkplätze um 1 reduziert wurde
-    assert(zeitpunkt == 41); //Überprüft, ob der Zeitpunkt um 1 erhöht wurde
+    assert(zeitpunkt == 1); //Überprüft, ob der Zeitpunkt um 1 erhöht wurde
 
     free(p_simulationsparameter);
     free(p_parkhaus->p_parkplaetze[1].p_kfz);
