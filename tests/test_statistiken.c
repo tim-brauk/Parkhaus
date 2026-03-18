@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 #include "statistiken.h"
 #include "parkhaus.h"
@@ -22,8 +23,8 @@ void test_init_statistik_pointer()
 {
     SimulationsStats *p_stats = init_statistik();
 
-    assert(p_stats->p_auslastung_pro_zeitschritt != p_stats->p_warteschlange_pro_zeitschritt);
-    assert(p_stats->p_auslastung_pro_zeitschritt != p_stats->p_wartezeit_pro_zeitschritt);
+    assert((void*)p_stats->p_auslastung_pro_zeitschritt != (void*)p_stats->p_warteschlange_pro_zeitschritt);
+    assert((void*)p_stats->p_auslastung_pro_zeitschritt != (void*)p_stats->p_wartezeit_pro_zeitschritt);
     assert(p_stats->p_warteschlange_pro_zeitschritt != p_stats->p_wartezeit_pro_zeitschritt);
     //Überprüfen, ob die Zeiger auf verschiedene Speicherbereiche zeigen
 }

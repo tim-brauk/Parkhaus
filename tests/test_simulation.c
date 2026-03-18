@@ -27,17 +27,17 @@ void test_simuliere_simuliere_zeitabschnitt()
     p_parkhaus->belegte_parkplaetze = 3;
     //Parkhaus mit 3 belegten Parkplätzen
 
-    p_parkhaus->p_parkplaetze[0].p_kfz->verbleibende_parkzeit = 5; //Setzt die verbleibende Parkzeit des Kfz auf 5
-    p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkzeit = 15; //Setzt die verbleibende Parkzeit des Kfz auf 15
-    p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkzeit = 25; //Setzt die verbleibende Parkzeit des Kfz auf 25
+    p_parkhaus->p_parkplaetze[0].p_kfz->verbleibende_parkdauer = 5; //Setzt die verbleibende Parkzeit des Kfz auf 5
+    p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer = 15; //Setzt die verbleibende Parkzeit des Kfz auf 15
+    p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkdauer = 25; //Setzt die verbleibende Parkzeit des Kfz auf 25
 
     int id = 4;
     int zeitpunkt = 40;
     simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, NULL, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
 
-    assert(p_parkhaus->p_parkplaetze[0].verbleibende_parkzeit == 4);
-    assert(p_parkhaus->p_parkplaetze[1].verbleibende_parkzeit == 14);
-    assert(p_parkhaus->p_parkplaetze[2].verbleibende_parkzeit == 24); //Überprüft, ob die verbleibende Parkzeit jedes Kfz um 1 reduziert wurde
+    assert(p_parkhaus->p_parkplaetze[0].p_kfz->verbleibende_parkdauer == 4);
+    assert(p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer == 14);
+    assert(p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkdauer == 24); //Überprüft, ob die verbleibende Parkzeit jedes Kfz um 1 reduziert wurde
     assert(p_parkhaus->belegte_parkplaetze == 3); //Überprüft, ob die Anzahl der belegten Parkplätze unverändert geblieben ist
     assert(zeitpunkt == 41); //Überprüft, ob der Zeitpunkt um 1 erhöht wurde
 
@@ -59,23 +59,23 @@ void test_simuliere_simuliere_zeitabschnitt_kfz_entfernt()
     p_simulationsparameter->seed = 42;
     p_simulationsparameter->wahrscheinlichkeit_neues_kfz = 0.5;
     
-    p_parkhaus->p_parkplaetze[0] = init_kfz(p_parkhaus, 1, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
+    p_parkhaus->p_parkplaetze[0].p_kfz = init_kfz(p_parkhaus, 1, 10); //Kfz mit ID 1 und Einfahrtzeitpunkt 10
     p_parkhaus->p_parkplaetze[0].belegt = 1;
-    p_parkhaus->p_parkplaetze[1] = init_kfz(p_parkhaus, 2, 20); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
+    p_parkhaus->p_parkplaetze[1].p_kfz = init_kfz(p_parkhaus, 2, 20); //Kfz mit ID 2 und Einfahrtzeitpunkt 20
     p_parkhaus->p_parkplaetze[1].belegt = 1;
-    p_parkhaus->p_parkplaetze[2] = init_kfz(p_parkhaus, 3, 30); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
+    p_parkhaus->p_parkplaetze[2].p_kfz = init_kfz(p_parkhaus, 3, 30); //Kfz mit ID 3 und Einfahrtzeitpunkt 30
     p_parkhaus->p_parkplaetze[2].belegt = 1;
     p_parkhaus->belegte_parkplaetze = 3;
     //Parkhaus mit 3 belegten Parkplätzen
 
-    p_parkhaus->p_parkplaetze[0].p_kfz->verbleibende_parkzeit = 0; //Setzt die verbleibende Parkzeit des Kfz auf 0, damit es entfernt wird
+    p_parkhaus->p_parkplaetze[0].p_kfz->verbleibende_parkdauer = 0; //Setzt die verbleibende Parkzeit des Kfz auf 0, damit es entfernt wird
     int id = 4;
     int zeitpunkt = 40;
     simuliere_zeitabschnitt(p_parkhaus, p_simulationsparameter, NULL, &id, &zeitpunkt); //Simuliert einen Zeitabschnitt
 
     assert(p_parkhaus->p_parkplaetze[0].p_kfz == NULL); //Überprüft, ob das Kfz mit der überschrittenen Parkzeit entfernt wurde
-    assert(p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkzeit == 14);
-    assert(p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkzeit == 24); //Überprüft, ob die verbleibende Parkzeit der anderen Kfz um 1 reduziert wurde
+    assert(p_parkhaus->p_parkplaetze[1].p_kfz->verbleibende_parkdauer == 14);
+    assert(p_parkhaus->p_parkplaetze[2].p_kfz->verbleibende_parkdauer == 24); //Überprüft, ob die verbleibende Parkzeit der anderen Kfz um 1 reduziert wurde
     assert(p_parkhaus->belegte_parkplaetze == 2); //Überprüft, ob die Anzahl der belegten Parkplätze um 1 reduziert wurde
     assert(zeitpunkt == 41); //Überprüft, ob der Zeitpunkt um 1 erhöht wurde
 
