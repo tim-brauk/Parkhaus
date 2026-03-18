@@ -23,9 +23,9 @@ Kfz* init_kfz(struct Parkhaus *p_parkhaus, int *p_id, int zeitpunkt)
     p_kfz->id = *p_id;
     (*p_id)++;
     p_kfz->einfahrtszeitpunkt = zeitpunkt;
-    int min = 1;
+    const int MIN_PARKDAUER = 1;
     int max = p_parkhaus->maximale_parkdauer;
-    p_kfz->verbleibende_parkdauer = min + rand() % (max - min + 1);
+    p_kfz->verbleibende_parkdauer = MIN_PARKDAUER + rand() % (max - MIN_PARKDAUER + 1);
     p_kfz->p_naechstes_kfz = NULL;
     return p_kfz;
     
