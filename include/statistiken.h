@@ -17,7 +17,7 @@ typedef struct
 {
     float *p_auslastung_pro_zeitschritt;
     int   *p_warteschlange_pro_zeitschritt;
-    int   *p_wartezeit_pro_zeitschritt;
+    float *p_wartezeit_pro_zeitschritt;
     float maximale_auslastung;
     int maximale_warteschlangenlaenge;
     int zeitschritte;
