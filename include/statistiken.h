@@ -4,7 +4,7 @@
 #include "parkhaus.h"
 
 /**
- * @file statistik.h
+ * @file statistiken.h
  * @brief Verwaltung und Berechnung aller Simulationsstatistiken.
  */
 
