@@ -15,7 +15,6 @@ void test_kfz_hinzufuegen_warteschlange_leer()
     free(p_parkhaus->p_erstes_kfz_in_der_warteschlange);
     free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
-    free(p_kfz);
 }
 
 void test_kfz_hinzufuegen_warteschlange_normal()
@@ -60,8 +59,6 @@ void test_entferne_kfz_warteschlange_normal()
     free(p_parkhaus->p_parkplaetze);    
     free(p_parkhaus);
     free(p_kfz1);
-    free(p_kfz2);
-    free(p_kfz3);
 }
 
 void test_entferne_kfz_warteschlange_leer()
@@ -72,6 +69,7 @@ void test_entferne_kfz_warteschlange_leer()
     
     assert(p_parkhaus->p_erstes_kfz_in_der_warteschlange == NULL);
     
+    free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
 }
 
