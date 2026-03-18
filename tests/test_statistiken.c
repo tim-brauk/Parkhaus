@@ -43,13 +43,11 @@ void test_aktualisiere_groesse_statistik_erweiterung()
 void test_aktualisiere_groesse_statistik_merhfacherweiterung()
 {
     SimulationsStats *p_stats = init_statistik();
-    int zusätzliche_zeitschritte = 5;
-    int gesamte_zeitschritte = 0;
+    int zusaetzliche_zeitschritte = 5;
     
     for(int i = 0; i < 3; i++)
     {
-        gesamte_zeitschritte = p_stats->zeitschritte + zusätzliche_zeitschritte;
-        aktualisiere_groesse_statistik(p_stats, gesamte_zeitschritte);
+        aktualisiere_groesse_statistik(p_stats, zusaetzliche_zeitschritte);
         assert(p_stats->zeitschritte == 15); //nach 3 Erweiterungen mit jeweils 5 zusätzlichen Zeitschritten sollte die Anzahl der Zeitschritte 15 sein
     }
     //Überprüfen, ob die Anzahl der Zeitschritte korrekt aktualisiert wurde, auch nach mehreren Erweiterungen
