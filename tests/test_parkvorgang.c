@@ -105,6 +105,9 @@ void test_entferne_kfz_nicht_vorhanden()
     assert(p_parkhaus->p_parkplaetze[1].belegt == 1); //Überprüft, ob der zweite Parkplatz weiterhin belegt ist
     assert(p_parkhaus->belegte_parkplaetze == 2); //Überprüft, ob die Anzahl der belegten Parkplätze unverändert geblieben ist
 
+    free(p_parkhaus->p_parkplaetze[0].p_kfz); //Gibt den Speicher des ersten Kfz frei
+    free(p_parkhaus->p_parkplaetze[1].p_kfz); //Gibt den Speicher des zweiten Kfz frei
+    free(p_parkhaus->p_parkplaetze); //Gibt den Speicher der Parkplätze frei
     free(p_kfz);
     free(p_parkhaus);
 }
@@ -128,6 +131,9 @@ void test_entferne_kfzs_maximale_parkdauer()
     assert(p_parkhaus->p_parkplaetze[2].belegt == 0); //Überprüft, ob das Kfz mit der überschrittenen Parkdauer entfernt wurde
     assert(p_parkhaus->belegte_parkplaetze == 2); //Überprüft, ob die Anzahl der belegten Parkplätze um 1 reduziert wurde
 
+    free(p_parkhaus->p_parkplaetze[0].p_kfz);
+    free(p_parkhaus->p_parkplaetze[1].p_kfz);
+    free(p_parkhaus->p_parkplaetze);
     free(p_parkhaus);
 }
 
@@ -155,7 +161,10 @@ void test_entferne_kfzs_maximale_parkdauer_keine_ueberschreitung()
     }
     
     assert(p_parkhaus->belegte_parkplaetze == 3); //Überprüft, ob die Anzahl der belegten Parkplätze unverändert geblieben ist
-
+    free(p_parkhaus->p_parkplaetze[0].p_kfz); //Gibt den Speicher des ersten Kfz frei
+    free(p_parkhaus->p_parkplaetze[1].p_kfz); //Gibt den Speicher des zweiten Kfz frei
+    free(p_parkhaus->p_parkplaetze[2].p_kfz); //Gibt den Speicher des dritten Kfz frei
+    free(p_parkhaus->p_parkplaetze); //Gibt den Speicher der Parkplätze frei
     free(p_parkhaus);
 }
 
