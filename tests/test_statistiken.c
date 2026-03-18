@@ -48,8 +48,8 @@ void test_aktualisiere_groesse_statistik_merhfacherweiterung()
     for(int i = 0; i < 3; i++)
     {
         aktualisiere_groesse_statistik(p_stats, zusaetzliche_zeitschritte);
-        assert(p_stats->zeitschritte == 15); //nach 3 Erweiterungen mit jeweils 5 zusätzlichen Zeitschritten sollte die Anzahl der Zeitschritte 15 sein
     }
+    assert(p_stats->zeitschritte == 15); //nach 3 Erweiterungen mit jeweils 5 zusätzlichen Zeitschritten sollte die Anzahl der Zeitschritte 15 sein
     //Überprüfen, ob die Anzahl der Zeitschritte korrekt aktualisiert wurde, auch nach mehreren Erweiterungen
 }
 
