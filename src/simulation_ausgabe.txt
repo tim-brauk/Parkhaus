@@ -1,0 +1,307 @@
+Zeitschritt: 1
+Durchschnittliche Auslastung: 5.00%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 5.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 2
+Durchschnittliche Auslastung: 5.00%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 5.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 3
+Durchschnittliche Auslastung: 6.67%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 10.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 4
+Durchschnittliche Auslastung: 7.50%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 10.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 5
+Durchschnittliche Auslastung: 9.00%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 15.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 6
+Durchschnittliche Auslastung: 10.83%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 20.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 7
+Durchschnittliche Auslastung: 12.14%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 20.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 8
+Durchschnittliche Auslastung: 13.75%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 9
+Durchschnittliche Auslastung: 13.89%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 10
+Durchschnittliche Auslastung: 13.50%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 11
+Durchschnittliche Auslastung: 13.64%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 12
+Durchschnittliche Auslastung: 13.75%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 13
+Durchschnittliche Auslastung: 13.85%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 14
+Durchschnittliche Auslastung: 14.29%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 15
+Durchschnittliche Auslastung: 14.67%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 16
+Durchschnittliche Auslastung: 14.38%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 17
+Durchschnittliche Auslastung: 14.12%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 18
+Durchschnittliche Auslastung: 14.17%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 19
+Durchschnittliche Auslastung: 14.47%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 20
+Durchschnittliche Auslastung: 14.75%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 21
+Durchschnittliche Auslastung: 15.00%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 22
+Durchschnittliche Auslastung: 15.45%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 23
+Durchschnittliche Auslastung: 15.65%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 24
+Durchschnittliche Auslastung: 15.62%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 25
+Durchschnittliche Auslastung: 15.80%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 26
+Durchschnittliche Auslastung: 15.77%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 27
+Durchschnittliche Auslastung: 15.74%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 28
+Durchschnittliche Auslastung: 15.71%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 29
+Durchschnittliche Auslastung: 15.52%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 30
+Durchschnittliche Auslastung: 15.33%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 31
+Durchschnittliche Auslastung: 15.32%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 32
+Durchschnittliche Auslastung: 15.47%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 33
+Durchschnittliche Auslastung: 15.45%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 34
+Durchschnittliche Auslastung: 15.59%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 35
+Durchschnittliche Auslastung: 15.57%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 36
+Durchschnittliche Auslastung: 15.69%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 37
+Durchschnittliche Auslastung: 15.81%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 38
+Durchschnittliche Auslastung: 16.05%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 39
+Durchschnittliche Auslastung: 16.28%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 40
+Durchschnittliche Auslastung: 16.12%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 41
+Durchschnittliche Auslastung: 16.10%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 42
+Durchschnittliche Auslastung: 16.19%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 43
+Durchschnittliche Auslastung: 16.28%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 44
+Durchschnittliche Auslastung: 16.14%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 45
+Durchschnittliche Auslastung: 16.11%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 46
+Durchschnittliche Auslastung: 16.09%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 47
+Durchschnittliche Auslastung: 16.17%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 48
+Durchschnittliche Auslastung: 16.35%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 49
+Durchschnittliche Auslastung: 16.53%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Zeitschritt: 50
+Durchschnittliche Auslastung: 16.50%
+Durchschnittliche Warteschlangenlaenge: 0.00
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+
+--- Finale Statistiken ---
+Durchschnittliche Auslastung: 16.50%
+Maximale Auslastung: 25.00%
+Maximale Warteschlangenlaenge: 0
+Durchschnittliche Wartezeit: 0.00
+Durchschnittliche Warteschlangenlaenge: 0.00
