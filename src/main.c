@@ -53,7 +53,7 @@ int main()
         printf("Ungueltige Eingabe. Anzahl Parkplaetze muss groesser als 0 sein: ");
         if(scanf("%d", &anzahl_parkplaetze)!=1)
         {
-            printf("Flasche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
+            printf("Falsche Eingabe. Die Zahl muss eine Ganzzahl sein.\n");
         }
     }
 
