@@ -33,7 +33,7 @@ typedef struct
  *
  * @return Zeiger auf initialisierte Statistikstruktur
  */
-SimulationsStats* init_statistik();
+SimulationsStats *init_statistik();
 
 
  /**

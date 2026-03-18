@@ -32,7 +32,7 @@ void kfz_hinzufuegen_warteschlange(Parkhaus *p_parkhaus, Kfz *p_kfz)
 }
 
 
-Kfz* entferne_kfz_warteschlange(Parkhaus *p_parkhaus)
+Kfz *entferne_kfz_warteschlange(Parkhaus *p_parkhaus)
 {   
     if (p_parkhaus == NULL)
     {
